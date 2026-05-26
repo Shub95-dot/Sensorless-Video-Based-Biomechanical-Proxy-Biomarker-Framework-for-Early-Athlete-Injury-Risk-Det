@@ -1,0 +1,85 @@
+File_ID,Subject_ID,Exercise,analysis_tier,side,angle_status,reason
+SQ_1823_059,1823,squats,Unilateral_Tier,right,skipped_low_visibility,low_visibility: right_knee
+SQ_1687_057,1687,squats,Unilateral_Tier,right,skipped_low_visibility,low_visibility: right_knee;right_ankle
+SQ_1849_064,1849,squats,Unilateral_Tier,right,skipped_low_visibility,low_visibility: right_knee;right_ankle
+SQ_1730_058,1730,squats,Rejected_Tier,left,skipped_rejected_tier,skipped_rejected_tier
+SQ_1730_058,1730,squats,Rejected_Tier,right,skipped_rejected_tier,skipped_rejected_tier
+SQ_1848_056,1848,squats,Unilateral_Tier,right,skipped_low_visibility,low_visibility: right_knee;right_ankle
+SQ_1685_028,1685,squats,Rejected_Tier,left,skipped_rejected_tier,skipped_rejected_tier
+SQ_1685_028,1685,squats,Rejected_Tier,right,skipped_rejected_tier,skipped_rejected_tier
+SQ_1799_047,1799,squats,Unilateral_Tier,left,skipped_low_visibility,low_visibility: left_knee
+SQ_1811_053,1811,squats,Rejected_Tier,left,skipped_rejected_tier,skipped_rejected_tier
+SQ_1811_053,1811,squats,Rejected_Tier,right,skipped_rejected_tier,skipped_rejected_tier
+SQ_1667_067,1667,squats,Rejected_Tier,left,skipped_rejected_tier,skipped_rejected_tier
+SQ_1667_067,1667,squats,Rejected_Tier,right,skipped_rejected_tier,skipped_rejected_tier
+SQ_1666_040,1666,squats,Unilateral_Tier,left,skipped_low_visibility,low_visibility: left_knee;left_ankle
+SQ_1682_045,1682,squats,Unilateral_Tier,right,skipped_low_visibility,low_visibility: right_knee;right_ankle
+SQ_1718_053,1718,squats,Unilateral_Tier,left,skipped_low_visibility,low_visibility: left_knee
+SQ_1789_046,1789,squats,Unilateral_Tier,right,skipped_low_visibility,low_visibility: right_knee;right_ankle
+SQ_1887_029,1887,squats,Rejected_Tier,left,skipped_rejected_tier,skipped_rejected_tier
+SQ_1887_029,1887,squats,Rejected_Tier,right,skipped_rejected_tier,skipped_rejected_tier
+SQ_1803_040,1803,squats,Unilateral_Tier,right,skipped_low_visibility,low_visibility: right_ankle
+SQ_1709_043,1709,squats,Unilateral_Tier,left,skipped_low_visibility,low_visibility: left_knee
+SQ_1843_047,1843,squats,Rejected_Tier,left,skipped_rejected_tier,skipped_rejected_tier
+SQ_1843_047,1843,squats,Rejected_Tier,right,skipped_rejected_tier,skipped_rejected_tier
+SQ_1839_058,1839,squats,Rejected_Tier,left,skipped_rejected_tier,skipped_rejected_tier
+SQ_1839_058,1839,squats,Rejected_Tier,right,skipped_rejected_tier,skipped_rejected_tier
+SQ_1767_059,1767,squats,Rejected_Tier,left,skipped_rejected_tier,skipped_rejected_tier
+SQ_1767_059,1767,squats,Rejected_Tier,right,skipped_rejected_tier,skipped_rejected_tier
+SQ_1774_049,1774,squats,Unilateral_Tier,left,skipped_low_visibility,low_visibility: left_knee;left_ankle
+SQ_1810_046,1810,squats,Rejected_Tier,left,skipped_rejected_tier,skipped_rejected_tier
+SQ_1810_046,1810,squats,Rejected_Tier,right,skipped_rejected_tier,skipped_rejected_tier
+SQ_1731_044,1731,squats,Unilateral_Tier,left,skipped_low_visibility,low_visibility: left_knee;left_ankle
+SQ_1699_030,1699,squats,Rejected_Tier,left,skipped_rejected_tier,skipped_rejected_tier
+SQ_1699_030,1699,squats,Rejected_Tier,right,skipped_rejected_tier,skipped_rejected_tier
+SQ_1838_064,1838,squats,Rejected_Tier,left,skipped_rejected_tier,skipped_rejected_tier
+SQ_1838_064,1838,squats,Rejected_Tier,right,skipped_rejected_tier,skipped_rejected_tier
+SQ_1855_027,1855,squats,Rejected_Tier,left,skipped_rejected_tier,skipped_rejected_tier
+SQ_1855_027,1855,squats,Rejected_Tier,right,skipped_rejected_tier,skipped_rejected_tier
+SQ_1870_076,1870,squats,Unilateral_Tier,left,skipped_low_visibility,low_visibility: left_knee
+SQ_1746_064,1746,squats,Rejected_Tier,left,skipped_rejected_tier,skipped_rejected_tier
+SQ_1746_064,1746,squats,Rejected_Tier,right,skipped_rejected_tier,skipped_rejected_tier
+SQ_1757_051,1757,squats,Unilateral_Tier,right,skipped_low_visibility,low_visibility: right_knee
+SQ_1683_044,1683,squats,Unilateral_Tier,right,skipped_low_visibility,low_visibility: right_knee
+SQ_1867_064,1867,squats,Gold_Tier,left,possible_outlier,below_40_deg (31.92°)
+SQ_1670_045,1670,squats,Rejected_Tier,left,skipped_rejected_tier,skipped_rejected_tier
+SQ_1670_045,1670,squats,Rejected_Tier,right,skipped_rejected_tier,skipped_rejected_tier
+SQ_1777_049,1777,squats,Rejected_Tier,left,skipped_rejected_tier,skipped_rejected_tier
+SQ_1777_049,1777,squats,Rejected_Tier,right,skipped_rejected_tier,skipped_rejected_tier
+SQ_1797_029,1797,squats,Unilateral_Tier,left,skipped_low_visibility,low_visibility: left_knee;left_ankle
+SQ_1690_072,1690,squats,Rejected_Tier,left,skipped_rejected_tier,skipped_rejected_tier
+SQ_1690_072,1690,squats,Rejected_Tier,right,skipped_rejected_tier,skipped_rejected_tier
+SQ_1756_038,1756,squats,Rejected_Tier,left,skipped_rejected_tier,skipped_rejected_tier
+SQ_1756_038,1756,squats,Rejected_Tier,right,skipped_rejected_tier,skipped_rejected_tier
+SQ_1801_046,1801,squats,Rejected_Tier,left,skipped_rejected_tier,skipped_rejected_tier
+SQ_1801_046,1801,squats,Rejected_Tier,right,skipped_rejected_tier,skipped_rejected_tier
+SQ_1735_023,1735,squats,Unilateral_Tier,left,skipped_low_visibility,low_visibility: left_knee
+SQ_1820_034,1820,squats,Rejected_Tier,left,skipped_rejected_tier,skipped_rejected_tier
+SQ_1820_034,1820,squats,Rejected_Tier,right,skipped_rejected_tier,skipped_rejected_tier
+SQ_1818_028,1818,squats,Unilateral_Tier,right,skipped_low_visibility,low_visibility: right_knee
+SQ_1708_036,1708,squats,Unilateral_Tier,right,skipped_low_visibility,low_visibility: right_knee;right_ankle
+SQ_1837_032,1837,squats,Rejected_Tier,left,skipped_rejected_tier,skipped_rejected_tier
+SQ_1837_032,1837,squats,Rejected_Tier,right,skipped_rejected_tier,skipped_rejected_tier
+SQ_1869_068,1869,squats,Unilateral_Tier,left,skipped_low_visibility,low_visibility: left_knee
+SQ_1684_031,1684,squats,Rejected_Tier,left,skipped_rejected_tier,skipped_rejected_tier
+SQ_1684_031,1684,squats,Rejected_Tier,right,skipped_rejected_tier,skipped_rejected_tier
+SQ_1863_053,1863,squats,Unilateral_Tier,right,skipped_low_visibility,low_visibility: right_knee;right_ankle
+SQ_1776_044,1776,squats,Rejected_Tier,left,skipped_rejected_tier,skipped_rejected_tier
+SQ_1776_044,1776,squats,Rejected_Tier,right,skipped_rejected_tier,skipped_rejected_tier
+SQ_1754_087,1754,squats,Unilateral_Tier,left,skipped_low_visibility,low_visibility: left_knee
+SQ_1727_051,1727,squats,Unilateral_Tier,left,skipped_low_visibility,low_visibility: left_knee;left_ankle
+SQ_1677_047,1677,squats,Gold_Tier,left,possible_outlier,below_40_deg (12.48°)
+SQ_1702_029,1702,squats,Gold_Tier,right,possible_outlier,below_40_deg (4.10°)
+SQ_1796_029,1796,squats,Unilateral_Tier,left,skipped_low_visibility,low_visibility: left_knee
+SQ_1796_029,1796,squats,Unilateral_Tier,right,possible_outlier,below_40_deg (36.73°)
+SQ_1884_056,1884,squats,Unilateral_Tier,left,skipped_low_visibility,low_visibility: left_knee
+SQ_1813_044,1813,squats,Unilateral_Tier,right,skipped_low_visibility,low_visibility: right_knee
+SQ_1673_039,1673,squats,Rejected_Tier,left,skipped_rejected_tier,skipped_rejected_tier
+SQ_1673_039,1673,squats,Rejected_Tier,right,skipped_rejected_tier,skipped_rejected_tier
+SQ_1873_047,1873,squats,Unilateral_Tier,right,skipped_low_visibility,low_visibility: right_knee;right_ankle
+SQ_1809_054,1809,squats,Rejected_Tier,left,skipped_rejected_tier,skipped_rejected_tier
+SQ_1809_054,1809,squats,Rejected_Tier,right,skipped_rejected_tier,skipped_rejected_tier
+SQ_1675_071,1675,squats,Unilateral_Tier,left,skipped_low_visibility,low_visibility: left_knee;left_ankle
+SQ_1713_048,1713,squats,Unilateral_Tier,left,skipped_low_visibility,low_visibility: left_knee
+SQ_1713_048,1713,squats,Unilateral_Tier,right,possible_outlier,below_40_deg (37.52°)
+SQ_1795_023,1795,squats,Unilateral_Tier,right,skipped_low_visibility,low_visibility: right_knee;right_ankle

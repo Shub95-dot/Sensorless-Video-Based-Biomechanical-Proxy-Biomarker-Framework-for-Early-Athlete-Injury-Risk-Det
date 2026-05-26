@@ -1,0 +1,26 @@
+Phase 4A Knee Angle Extraction Summary
+======================================
+Total frames in quality tier file   : 100
+  Gold_Tier                         : 45
+  Unilateral_Tier                   : 31
+  Rejected_Tier                     : 24
+
+Computed knee angle rows            : 121
+  Left knee angles computed         : 60
+  Right knee angles computed        : 61
+
+Skipped rows breakdown:
+  skipped_low_visibility            : 31
+  skipped_rejected_tier             : 48
+  failed_math                       : 0
+
+Knee Angle Statistics (Computed only):
+  Min angle                         : 4.0983°
+  Max angle                         : 179.1884°
+  Mean angle                        : 99.8516°
+  Median angle                      : 93.4829°
+  Standard Deviation                : 44.3376°
+
+Outliers classification:
+  Plausible range                   : 40° to 185°
+  Possible outlier count            : 5
