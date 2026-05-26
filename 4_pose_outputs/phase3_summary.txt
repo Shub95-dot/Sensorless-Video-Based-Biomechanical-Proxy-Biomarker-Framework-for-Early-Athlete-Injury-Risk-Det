@@ -1,0 +1,87 @@
+============================================================
+  PHASE 3 -- POSE EXTRACTION SUMMARY (SQUATS)
+============================================================
+
+  Total curated frames processed: 100
+  Pose detected                 : 88
+  Lower body complete           : 45
+  No detection                  : 12
+  Failed load                   : 0
+  File not found                : 0
+
+  Detection rate                : 88.0%
+  Lower-body completeness rate  : 45.0%
+
+  MediaPipe Config:
+    Model variant: Heavy (pose_landmarker_heavy.task)
+    min_pose_detection_confidence: 0.5
+    min_pose_presence_confidence : 0.5
+    min_tracking_confidence      : 0.5
+    running_mode                 : IMAGE
+
+  Failed File_IDs (no_detection/failed_load/file_not_found) (12):
+    - SQ_1811_053 (no_detection)
+    - SQ_1667_067 (no_detection)
+    - SQ_1887_029 (no_detection)
+    - SQ_1843_047 (no_detection)
+    - SQ_1839_058 (no_detection)
+    - SQ_1810_046 (no_detection)
+    - SQ_1699_030 (no_detection)
+    - SQ_1838_064 (no_detection)
+    - SQ_1855_027 (no_detection)
+    - SQ_1670_045 (no_detection)
+    - SQ_1820_034 (no_detection)
+    - SQ_1809_054 (no_detection)
+
+  Lower-body incomplete File_IDs (43):
+    - SQ_1823_059
+    - SQ_1687_057
+    - SQ_1849_064
+    - SQ_1730_058
+    - SQ_1848_056
+    - SQ_1685_028
+    - SQ_1799_047
+    - SQ_1666_040
+    - SQ_1682_045
+    - SQ_1718_053
+    - SQ_1789_046
+    - SQ_1803_040
+    - SQ_1709_043
+    - SQ_1767_059
+    - SQ_1774_049
+    - SQ_1731_044
+    - SQ_1870_076
+    - SQ_1746_064
+    - SQ_1757_051
+    - SQ_1683_044
+    - SQ_1777_049
+    - SQ_1797_029
+    - SQ_1690_072
+    - SQ_1756_038
+    - SQ_1801_046
+    - SQ_1735_023
+    - SQ_1818_028
+    - SQ_1708_036
+    - SQ_1837_032
+    - SQ_1869_068
+    - SQ_1684_031
+    - SQ_1863_053
+    - SQ_1776_044
+    - SQ_1754_087
+    - SQ_1727_051
+    - SQ_1796_029
+    - SQ_1884_056
+    - SQ_1813_044
+    - SQ_1673_039
+    - SQ_1873_047
+    - SQ_1675_071
+    - SQ_1713_048
+    - SQ_1795_023
+
+  Most common low-visibility landmarks:
+    - right_knee: 25 times (25.0%)
+    - left_knee: 24 times (24.0%)
+    - right_ankle: 19 times (19.0%)
+    - left_ankle: 16 times (16.0%)
+    - left_hip: 0 times (0.0%)
+    - right_hip: 0 times (0.0%)
