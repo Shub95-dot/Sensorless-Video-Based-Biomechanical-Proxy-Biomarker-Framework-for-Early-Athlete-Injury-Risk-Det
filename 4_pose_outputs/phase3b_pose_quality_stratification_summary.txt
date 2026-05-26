@@ -1,0 +1,30 @@
+Pose Quality Stratification Run Summary
+=======================================
+Total frames analysed: 100
+
+Tiers Breakdown:
+  Gold_Tier       : 45 (45.00%)
+  Unilateral_Tier : 31 (31.00%)
+  Rejected_Tier   : 24 (24.00%)
+
+Pose Detection:
+  Detected: 88 (88.00%)
+  Not Detected: 12 (12.00%)
+
+Low-Visibility Landmarks Count distribution:
+  Missing 0 landmarks: 45
+  Missing 1 landmark : 16
+  Missing 2 landmarks: 16
+  Missing 3 or more landmarks: 23
+
+Unilateral_Tier Diagnostic Metrics:
+  Median low-visibility lower-body landmarks: 1.0
+  Max low-visibility lower-body landmarks: 2
+
+Per-Landmark Low-Visibility Occurrences (out of 100 frames):
+  left_hip    : 12
+  right_hip   : 12
+  left_knee   : 36
+  right_knee  : 37
+  left_ankle  : 28
+  right_ankle : 31
