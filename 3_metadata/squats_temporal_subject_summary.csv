@@ -1,0 +1,16 @@
+Subject_ID,Camera_View,Analysis_Group,num_frames,first_frame_number,last_frame_number,has_temporal_sequence
+1679,sagittal,primary_sagittal_knee_angle,67,1,67,yes
+1682,sagittal,primary_sagittal_knee_angle,89,1,89,yes
+1683,sagittal,primary_sagittal_knee_angle,87,1,87,yes
+1708,sagittal,primary_sagittal_knee_angle,71,1,71,yes
+1709,sagittal,primary_sagittal_knee_angle,85,1,85,yes
+1713,sagittal,primary_sagittal_knee_angle,94,1,94,yes
+1718,sagittal,primary_sagittal_knee_angle,104,1,104,yes
+1774,sagittal,primary_sagittal_knee_angle,96,1,96,yes
+1789,sagittal,primary_sagittal_knee_angle,91,1,91,yes
+1799,sagittal,primary_sagittal_knee_angle,92,1,92,yes
+1818,sagittal,primary_sagittal_knee_angle,55,1,55,yes
+1823,sagittal,primary_sagittal_knee_angle,117,1,117,yes
+1863,sagittal,primary_sagittal_knee_angle,104,1,104,yes
+1869,sagittal,primary_sagittal_knee_angle,134,1,134,yes
+1884,sagittal,primary_sagittal_knee_angle,110,1,110,yes
