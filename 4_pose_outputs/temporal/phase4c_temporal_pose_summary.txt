@@ -1,0 +1,39 @@
+Phase 4C Temporal Pose Extraction Summary
+=========================================
+Total subjects processed           : 15
+Total frames processed             : 1396
+
+Subject-level Trajectory Usability Table:
+Subject_ID | total_frames | pose_detected | visible_side | computed_angles | pct_valid | usability
+---------------------------------------------------------------------------------------------
+1679 | 67 | 67 | left | 64 | 95.52% | ok
+1682 | 89 | 75 | left | 66 | 74.16% | ok
+1683 | 87 | 61 | left | 60 | 68.97% | marginal
+1708 | 71 | 66 | left | 57 | 80.28% | ok
+1709 | 85 | 85 | right | 85 | 100.00% | ok
+1713 | 94 | 94 | right | 94 | 100.00% | ok
+1718 | 104 | 104 | right | 104 | 100.00% | ok
+1774 | 96 | 96 | right | 72 | 75.00% | ok
+1789 | 91 | 78 | left | 56 | 61.54% | marginal
+1799 | 92 | 92 | right | 92 | 100.00% | ok
+1818 | 55 | 55 | left | 49 | 89.09% | ok
+1823 | 117 | 113 | left | 108 | 92.31% | ok
+1863 | 104 | 104 | left | 104 | 100.00% | ok
+1869 | 134 | 80 | right | 76 | 56.72% | marginal
+1884 | 110 | 110 | right | 107 | 97.27% | ok
+
+Aggregate Counts:
+  Total computed angles            : 1194
+  Total failed_math                : 0
+  Total chain_incomplete           : 86
+  Total no_pose_detected           : 116
+
+Undetermined visible side subjects : []
+Insufficient usability subjects    : []
+
+MediaPipe Configuration Used:
+  Model Variant                    : Heavy
+  Running Mode                     : static IMAGE mode
+  min_pose_detection_confidence    : 0.5
+  min_pose_presence_confidence     : 0.5
+  min_tracking_confidence          : 0.5
