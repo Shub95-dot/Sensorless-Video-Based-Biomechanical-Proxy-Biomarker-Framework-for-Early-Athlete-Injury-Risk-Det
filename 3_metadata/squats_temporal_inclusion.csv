@@ -1,0 +1,16 @@
+Subject_ID,total_frames,pct_valid_frames,inclusion_tier,rationale,is_duplicate_excluded,duplicate_of,depth_truncated,partial_depth_real
+1679,67,95.52,gold,"pct_valid 95.5%, clean trajectory",False,,False,False
+1682,89,74.16,bronze,"pct_valid 74.2%, depth-truncated by pipeline (real deep squat, peak depth under-reported); include for tempo/timing biomarkers, exclude from peak-flexion statistics",False,,True,False
+1683,87,68.97,excluded,duplicate of 1682; sustained landmark misplacement due to scene interference,True,1682,False,False
+1708,71,80.28,bronze,"pct_valid 80.3%, fragmented bottom phase; include with caveat",False,,False,False
+1709,85,100.0,excluded,duplicate of 1713; 1713 retained as primary (more frames available),True,1713,False,False
+1713,94,100.0,gold,"pct_valid 100%, clean trajectory; retained as primary of 1709/1713 duplicate pair",False,,False,False
+1718,104,100.0,gold,"pct_valid 100%, clean trajectory",False,,False,False
+1774,96,75.0,bronze,"pct_valid 75.0%, genuine partial-depth squat (real biomechanical finding, not pipeline error); include with `partial_depth_real` flag",False,,False,True
+1789,91,61.54,excluded,"pct_valid 61.5%, below 70% inclusion threshold; trajectory fragmented",False,,False,False
+1799,92,100.0,gold,"pct_valid 100%, clean trajectory",False,,False,False
+1818,55,89.09,gold,"pct_valid 89.1%, clean trajectory with one occlusion gap at bottom",False,,False,False
+1823,117,92.31,gold,"pct_valid 92.3%, clean trajectory",False,,False,False
+1863,104,100.0,gold,"pct_valid 100%, clean trajectory",False,,False,False
+1869,134,56.72,excluded,"pct_valid 56.7%, below 70% inclusion threshold; large mid-sequence gap",False,,False,False
+1884,110,97.27,gold,"pct_valid 97.3%, textbook clean trajectory",False,,False,False
