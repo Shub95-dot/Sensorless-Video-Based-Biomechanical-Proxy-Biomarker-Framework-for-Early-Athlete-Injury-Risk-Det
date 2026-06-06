@@ -1,0 +1,27 @@
+Phase 4F Biomarker Extraction Summary
+======================================
+Subjects processed: 11
+Subjects with phase_identification_status = 'failed': []
+Subjects with peak_flexion_valid = False: [1682] (expected: [1682])
+Subjects with exercise_variant_partial = True: [1774] (expected: [1774])
+
+Cohort Descriptive Summary Statistics:
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Note: cohort statistics computed on n=11 are descriptive only and do not support inferential claims given the small sample.
+
+Biomarker                                |        min |        max |       mean |     median |        std
+-----------------------------------------|------------|------------|------------|------------|-----------
+peak_flexion_deg                         |    38.6862 |   122.9954 |    81.4695 |    86.1360 |    30.4573
+peak_extension_deg                       |   174.4623 |   179.9300 |   178.1170 |   178.0457 |     1.4808
+rom_deg                                  |    55.0503 |   140.7830 |    96.6475 |    91.5247 |    30.7742
+peak_flexion_frame                       |    28.0000 |    54.0000 |    42.6364 |    44.0000 |     8.7438
+mean_smoothed_angle_deg                  |   109.0096 |   150.1413 |   131.4784 |   134.9442 |    13.7463
+descent_frames                           |    28.0000 |    54.0000 |    41.7273 |    44.0000 |     8.6382
+ascent_frames                            |    26.0000 |    69.0000 |    46.8182 |    46.0000 |    14.7297
+tempo_ratio                              |     0.8542 |     2.0294 |     1.1396 |     0.9787 |     0.3822
+total_rep_frames                         |    54.0000 |   116.0000 |    88.5455 |    91.0000 |    19.5876
+peak_descent_velocity_deg_per_frame      |   -12.3771 |    -3.8892 |    -6.6065 |    -5.8443 |     2.5439
+peak_ascent_velocity_deg_per_frame       |     4.5070 |    13.3035 |     7.0235 |     6.4565 |     2.6960
+mean_descent_velocity_deg_per_frame      |    -4.1244 |    -1.1275 |    -2.4783 |    -2.3704 |     0.8563
+mean_ascent_velocity_deg_per_frame       |     1.1249 |     3.0338 |     2.0744 |     2.0322 |     0.6728
+jerk_proxy_std                           |     0.8415 |     3.0826 |     1.4571 |     1.3402 |     0.6233

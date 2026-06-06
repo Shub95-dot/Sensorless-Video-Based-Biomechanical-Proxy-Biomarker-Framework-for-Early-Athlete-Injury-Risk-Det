@@ -12,6 +12,14 @@ Following Phase 4C temporal pose extraction, the 15 sagittal subjects were class
   - Duplicate subjects: visual inspection of source frames identified two duplicate-athlete pairs (1682/1683 and 1709/1713). One subject from each pair was retained as primary; the other was excluded to prevent pseudoreplication of within-athlete biomechanics into between-athlete summary statistics.
   - Pose-pipeline failures: subjects with <70% valid frames or large mid-sequence trajectory gaps were excluded as the temporal signal could not be reliably reconstructed.
 
-**Effective sample size for biomarker analysis: n = 12** (9 gold + 3 bronze), with 3 documented exclusions.
+**Effective sample size for biomarker analysis: n = 11** (8 gold + 3 bronze), with 3 documented exclusions.
 
 **Limitation:** the 70% validity threshold is a methodological choice consistent with published markerless-biomechanics inclusion criteria (typical range 60%–85%), but is not derived from this dataset. It is a fixed a priori cutoff.
+
+## Post-Phase-4F audit update
+
+Following Phase 4F biomarker extraction and visual review of the per-subject biomarker overlay plots, one additional subject was reclassified:
+
+- Subject 1708: reclassified from `bronze` to `excluded`. The smoothed trajectory was heavily fragmented and visual inspection confirmed no coherent single-rep structure within the captured frames. The biomarker values computed in Phase 4F for this subject remain in the output CSV as records of the pipeline's behaviour but are excluded from all downstream analysis via the updated inclusion_tier.
+
+Updated effective sample size: 10 subjects (8 gold + 2 bronze), with 5 documented exclusions (1683, 1708, 1709, 1789, 1869).

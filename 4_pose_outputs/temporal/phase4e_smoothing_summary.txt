@@ -1,0 +1,31 @@
+Phase 4E Trajectory Smoothing Summary
+=====================================
+Subjects processed: 11
+Excluded subjects (not processed): 4 (1683, 1709, 1789, 1869)
+Median filter: window 5
+Savitzky-Golay: window 7, polyorder 2
+
+Scipy version used: 1.17.1
+
+Per-subject spike rate (sorted descending — high spike rate flags the noisiest subjects):
+--------------------------------------------------------------------------------------
+Subject 1863 | spike_rate_pct:   7.69%
+Subject 1679 | spike_rate_pct:   6.25%
+Subject 1682 | spike_rate_pct:   6.06%
+Subject 1799 | spike_rate_pct:   4.35%
+Subject 1708 | spike_rate_pct:   3.51%
+Subject 1774 | spike_rate_pct:   2.78%
+Subject 1823 | spike_rate_pct:   2.78%
+Subject 1884 | spike_rate_pct:   0.93%
+Subject 1713 | spike_rate_pct:   0.00%
+Subject 1718 | spike_rate_pct:   0.00%
+Subject 1818 | spike_rate_pct:   0.00%
+
+Cohort spike rate statistics:
+- Mean spike rate: 3.12%
+- Median spike rate: 2.78%
+
+Subjects with spike rate > 5% (flagged for dissertation's quality discussion):
+- Subject 1863 (7.69%)
+- Subject 1679 (6.25%)
+- Subject 1682 (6.06%)

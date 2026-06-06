@@ -1,0 +1,32 @@
+Phase 4G Rep Segmentation and Within-Subject Repeatability Summary
+=============================================================
+Subjects processed: 10
+Rep classifications:
+- single_rep: 6
+- multi_rep: 4
+- no_clean_rep: 0
+
+Multi-rep subjects:
+- Subject 1682: 2 reps
+- Subject 1774: 3 reps
+- Subject 1823: 2 reps
+- Subject 1884: 2 reps
+
+Total reps detected across cohort: 15
+Mean rep_count per subject: 1.50
+
+Subjects with peak_flexion_cv > 0.10 (flagged for dissertation as exhibiting notable depth variability):
+- Subject 1884 (CV: 0.3751)
+
+## Post-Phase-4G visual audit correction
+
+Following visual review of the rep-segmentation overlay plots, four subjects originally classified as multi_rep were reclassified to single_rep:
+
+- Subject 1682 (originally multi_rep, 2 reps): rep markers placed in pose-extraction gap regions rather than at true local minima
+- Subject 1774 (originally multi_rep, 3 reps): rep markers placed along a noisy single descent, no distinct rep bottoms identifiable
+- Subject 1823 (originally multi_rep, 2 reps): first rep marker placed in a pose-extraction gap, no real second rep visible
+- Subject 1884 (originally multi_rep, 2 reps): first rep marker placed mid-descent, not at a true local minimum
+
+Methodological observation: the rep-detection algorithm (scipy.signal.find_peaks with prominence=20, distance=15) appears unsuited to fragmented in-the-wild YouTube cohort data. The algorithm is retained in the pipeline for future application to controlled multi-rep datasets (e.g., MM-Fit) where rep structure is cleanly defined by recording protocol.
+
+After correction, all 10 included subjects are classified as single_rep. Within-subject repeatability (CV) biomarkers are not computed for the YouTube cohort. These biomarkers will be computed for future controlled-recording cohorts where multi-rep structure is verified.

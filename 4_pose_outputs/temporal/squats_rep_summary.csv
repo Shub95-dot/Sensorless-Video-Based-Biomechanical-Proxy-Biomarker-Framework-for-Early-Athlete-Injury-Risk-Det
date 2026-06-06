@@ -1,0 +1,11 @@
+Subject_ID,inclusion_tier,rep_classification,rep_count,peak_flexion_cv,rom_cv,tempo_ratio_cv,peak_flexion_mean,peak_flexion_std,rom_mean,rom_std,tempo_ratio_mean,tempo_ratio_std
+1679,gold,single_rep,1,,,,86.9222,,91.0457,,0.9688,
+1682,bronze,single_rep,1,,,,121.6259,,57.5538,,0.8864,
+1713,gold,single_rep,1,,,,38.9763,,140.783,,0.9787,
+1718,gold,single_rep,1,,,,67.1065,,107.3558,,0.9074,
+1774,bronze,single_rep,1,,,,122.9954,,55.0503,,0.8542,
+1799,gold,single_rep,1,,,,86.1291,,91.6611,,1.0682,
+1818,gold,single_rep,1,,,,86.136,,91.5247,,0.9286,
+1823,gold,single_rep,1,,,,93.034,,84.391,,1.1887,
+1863,gold,single_rep,1,,,,38.6862,,140.2281,,2.0294,
+1884,gold,single_rep,1,,,,46.8215,,133.1085,,1.725,

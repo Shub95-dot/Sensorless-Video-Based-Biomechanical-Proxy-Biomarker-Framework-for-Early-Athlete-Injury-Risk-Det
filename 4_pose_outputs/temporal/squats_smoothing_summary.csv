@@ -1,0 +1,12 @@
+Subject_ID,inclusion_tier,total_frames,valid_frames,pct_valid,spike_rate_pct,median_window,sg_window,sg_polyorder,depth_truncated,partial_depth_real
+1679,gold,67,64,95.52,6.25,5,7,2,False,False
+1682,bronze,89,66,74.16,6.06,5,7,2,True,False
+1708,bronze,71,57,80.28,3.51,5,7,2,False,False
+1713,gold,94,94,100.0,0.0,5,7,2,False,False
+1718,gold,104,104,100.0,0.0,5,7,2,False,False
+1774,bronze,96,72,75.0,2.78,5,7,2,False,True
+1799,gold,92,92,100.0,4.35,5,7,2,False,False
+1818,gold,55,49,89.09,0.0,5,7,2,False,False
+1823,gold,117,108,92.31,2.78,5,7,2,False,False
+1863,gold,104,104,100.0,7.69,5,7,2,False,False
+1884,gold,110,107,97.27,0.93,5,7,2,False,False
