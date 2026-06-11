@@ -1,0 +1,52 @@
+Phase 5A REHAB24-6 Integration Summary
+======================================
+Total reps in manifest: 98 (expected: 98)
+Reps successfully processed: 98
+Reps with phase_identification_status = 'failed': 0
+
+Failed Reps List (video_id, rep_number):
+---------------------------------------
+- None
+
+Per-Subject Rep Counts (broken down by correctness):
+---------------------------------------------------
+  subject_id | total reps | correct | incorrect
+  1          | 17         | 16      | 1        
+  2          | 10         | 10      | 0        
+  3          | 10         | 5       | 5        
+  4          | 10         | 10      | 0        
+  5          | 10         | 5       | 5        
+  6          | 10         | 5       | 5        
+  7          | 10         | 5       | 5        
+  8          | 10         | 5       | 5        
+  9          | 11         | 11      | 0        
+
+Cohort Biomarker Summary Statistics (across successfully-processed reps):
+-----------------------------------------------------------------------
+Biomarker                 |        min |        max |       mean |     median |        std
+--------------------------|------------|------------|------------|------------|-----------
+peak_flexion_deg          |    31.9093 |    84.7350 |    55.6176 |    53.6238 |    14.3107
+rom_deg                   |    73.8955 |   145.1643 |   117.3217 |   121.5184 |    18.9102
+tempo_ratio               |     0.4894 |     2.9714 |     1.0664 |     1.0000 |     0.3367
+jerk_proxy_std            |     0.4718 |     1.2318 |     0.7754 |     0.7728 |     0.1834
+
+Correct-vs-Incorrect Biomarker Comparison (mean ± std per group):
+--------------------------------------------------------------
+Biomarker                                | Correct (n=72)         | Incorrect (n=26)      
+-----------------------------------------|------------------------|-----------------------
+peak_flexion_deg                         |   60.8458 ± 12.7194    |   41.1394 ± 6.1986    
+peak_extension_deg                       |  172.0322 ± 9.9656     |  175.4514 ± 5.1995    
+rom_deg                                  |  111.1863 ± 18.0622    |  134.3119 ± 7.2331    
+descent_frames                           |   49.5972 ± 13.9805    |   47.5000 ± 9.5131    
+ascent_frames                            |   50.8472 ± 14.0137    |   47.9615 ± 6.5145    
+tempo_ratio                              |    1.0702 ± 0.3537     |    1.0559 ± 0.2908    
+total_rep_frames                         |  100.4444 ± 24.1112    |   95.4615 ± 10.3546   
+peak_descent_velocity_deg_per_frame      |   -5.8469 ± 1.7475     |   -7.2362 ± 1.5186    
+peak_ascent_velocity_deg_per_frame       |    6.8625 ± 2.2232     |    7.9057 ± 1.5355    
+mean_descent_velocity_deg_per_frame      |   -2.2313 ± 0.7418     |   -2.7712 ± 0.5405    
+mean_ascent_velocity_deg_per_frame       |    2.3330 ± 0.8793     |    2.7284 ± 0.4570    
+jerk_proxy_std                           |    0.7501 ± 0.1893     |    0.8455 ± 0.1478    
+
+Subjects flagged with mean spike_rate > 5%:
+------------------------------------------
+- None
