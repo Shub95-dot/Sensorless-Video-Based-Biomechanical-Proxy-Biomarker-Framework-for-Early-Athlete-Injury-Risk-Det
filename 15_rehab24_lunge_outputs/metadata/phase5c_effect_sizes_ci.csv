@@ -1,0 +1,10 @@
+biomarker,n_correct,n_incorrect,mean_correct,sd_correct,mean_incorrect,sd_incorrect,cohens_d,ci_lower,ci_upper,ci_excludes_zero,ci_margin_to_zero,reliability_tier
+peak_flexion_deg,25,36,89.6581,8.3314,68.03,15.1115,1.6904,0.8317,3.4525,True,0.8317,reliable
+rom_deg,25,36,59.0221,20.941,90.2953,27.0028,-1.2653,-2.8682,-0.5852,True,0.5852,reliable
+mean_descent_velocity_deg_per_frame,25,36,-1.0129,0.2752,-1.7547,0.8012,1.1563,0.2863,2.6316,True,0.2863,reliable
+peak_descent_velocity_deg_per_frame,25,36,-2.8736,0.8022,-5.3131,2.6844,1.1453,0.7512,2.0354,True,0.7512,reliable
+jerk_proxy_std,25,36,0.4621,0.1052,1.067,0.775,-1.007,-1.3663,-0.6526,True,0.6526,reliable
+peak_ascent_velocity_deg_per_frame,25,36,3.8476,1.5731,6.9496,3.9331,-0.9721,-1.6403,-0.6554,True,0.6554,reliable
+mean_ascent_velocity_deg_per_frame,25,36,1.2599,0.4687,1.8681,0.9128,-0.7962,-2.0731,-0.0807,True,0.0807,reliable_marginal
+peak_extension_deg,25,36,148.6802,18.0892,158.3253,20.2457,-0.4972,-1.7633,0.1533,False,0.0,not_reliable
+tempo_ratio,25,36,0.8849,0.2804,1.0371,0.4659,-0.3796,-0.724,0.1386,False,0.0,not_reliable

@@ -1,0 +1,89 @@
+Phase 5C REHAB24-6 Lunge Integration Summary
+======================================
+Total reps in manifest: 88 (expected: 88)
+Reps successfully processed: 61
+Reps with phase_identification_status = 'failed': 27
+
+Failed Reps List (video_id, rep_number):
+---------------------------------------
+- PM_021 rep 1
+- PM_028 rep 8
+- PM_037 rep 10
+- PM_042 rep 2
+- PM_042 rep 3
+- PM_042 rep 4
+- PM_042 rep 5
+- PM_042 rep 6
+- PM_042 rep 7
+- PM_042 rep 8
+- PM_042 rep 9
+- PM_042 rep 10
+- PM_042 rep 11
+- PM_042 rep 12
+- PM_042 rep 13
+- PM_112 rep 1
+- PM_112 rep 2
+- PM_112 rep 3
+- PM_112 rep 4
+- PM_112 rep 5
+- PM_112 rep 6
+- PM_112 rep 7
+- PM_112 rep 8
+- PM_112 rep 9
+- PM_112 rep 10
+- PM_112 rep 11
+- PM_112 rep 12
+
+Per-Subject Rep Counts (broken down by correctness):
+---------------------------------------------------
+  subject_id | total reps | correct | incorrect
+  2          | 10         | 5       | 5        
+  3          | 11         | 0       | 11       
+  4          | 10         | 5       | 5        
+  5          | 13         | 7       | 6        
+  6          | 10         | 5       | 5        
+  7          | 10         | 5       | 5        
+  8          | 12         | 6       | 6        
+  9          | 12         | 6       | 6        
+
+Cohort Biomarker Summary Statistics (across successfully-processed reps):
+-----------------------------------------------------------------------
+Biomarker                 |        min |        max |       mean |     median |        std
+--------------------------|------------|------------|------------|------------|-----------
+peak_flexion_deg          |    49.5473 |   113.0024 |    76.8940 |    80.9208 |    16.6133
+rom_deg                   |    27.3106 |   127.6300 |    77.4784 |    75.0464 |    29.0042
+tempo_ratio               |     0.4390 |     2.5250 |     0.9747 |     0.8718 |     0.4047
+jerk_proxy_std            |     0.2320 |     3.2984 |     0.8191 |     0.5335 |     0.6669
+
+Correct-vs-Incorrect Biomarker Comparison (mean ± std per group):
+--------------------------------------------------------------
+Biomarker                                | Correct (n=25)         | Incorrect (n=36)      
+-----------------------------------------|------------------------|-----------------------
+peak_flexion_deg                         |   89.6581 ± 8.3314     |   68.0300 ± 15.1115   
+peak_extension_deg                       |  148.6802 ± 18.0892    |  158.3253 ± 20.2457   
+rom_deg                                  |   59.0221 ± 20.9410    |   90.2953 ± 27.0028   
+descent_frames                           |   51.6000 ± 14.6771    |   49.0000 ± 16.7247   
+ascent_frames                            |   43.1600 ± 11.4771    |   47.8889 ± 20.4922   
+tempo_ratio                              |    0.8849 ± 0.2804     |    1.0371 ± 0.4659    
+total_rep_frames                         |   94.7600 ± 21.6261    |   96.8889 ± 30.9227   
+peak_descent_velocity_deg_per_frame      |   -2.8736 ± 0.8022     |   -5.3131 ± 2.6844    
+peak_ascent_velocity_deg_per_frame       |    3.8476 ± 1.5731     |    6.9496 ± 3.9331    
+mean_descent_velocity_deg_per_frame      |   -1.0129 ± 0.2752     |   -1.7547 ± 0.8012    
+mean_ascent_velocity_deg_per_frame       |    1.2599 ± 0.4687     |    1.8681 ± 0.9128    
+jerk_proxy_std                           |    0.4621 ± 0.1052     |    1.0670 ± 0.7750    
+
+Subjects flagged with mean spike_rate > 5%:
+------------------------------------------
+- Subject 3: mean spike rate = 5.3729%
+
+UCF101 lunge cohort status: 127 clips at 25 fps, 320x240 resolution, located at
+1_raw_datasets/Dataset/Lunges Video/. Approximately 25 unique subjects with 3-5 single-rep
+clips each, identified via UCF101 group-number convention (vLunges_gNN_cNN.avi filenames,
+where gNN denotes source video/subject and cNN denotes clip number within that source). UCF101
+lacks per-rep correctness labels, so it serves only as a descriptive cross-cohort cohort, not
+as a form-discrimination cohort. Integration deferred from current phase to preserve time
+budget for remaining exercise modalities (vertical jump, drop jump, single-leg squat),
+demonstration components (personalised baseline, temporal LSTM, self-supervised, digital twin),
+rule-based screening logic, XAI, and dissertation writing. Documented as available for future
+integration.
+

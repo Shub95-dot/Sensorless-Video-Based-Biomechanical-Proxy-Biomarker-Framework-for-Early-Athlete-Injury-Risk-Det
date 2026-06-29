@@ -1,0 +1,5 @@
+biomarker_num,biomarker_name,bias,loa_lower,loa_upper,correlation,trustworthiness
+1,Contact flexion,-6.6914,-26.7742,13.3913,0.3209,Moderately Trustworthy
+2,Contact time,0.0,0.0,0.0,1.0,Highly Trustworthy
+3,Landing ROM,26.4086,2.3373,50.4798,0.402,Biased (Systematic Overestimation)
+6,Flexion loading rate,13.2973,-115.9179,142.5125,0.6076,Biased (Systematic Overestimation)

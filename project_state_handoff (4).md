@@ -19,7 +19,7 @@
 
 **Two-track framework**:
 - **Track A (dissertation deliverable)**: 14-step vision steps 1–6 (with caveats on temporal biomarkers in step 6), step 10 (rule-based version, not trained DL ensemble), step 11 (XAI), step 13 (screening report framing), step 14 (literature validation)
-- **Track B (future work)**: steps 7 (personalised baseline), 8 (LSTM/Transformer/TCN), 9 (self-supervised), 12 (digital twin) — deferred for structural data reasons (no injury labels, no longitudinal data, insufficient scale for DL)
+- **Track B (future work / architectural demonstration)**: Track A delivers the screening pipeline; the four Track B components—7 (personalised baseline), 8 (temporal LSTM), 9 (self-supervised), and 12 (digital twin)—are DEMONSTRATED AS ARCHITECTURE within this dissertation (not deployed as production systems), each documenting what full-scale deployment would require.
 
 **Dissertation novelty contributions (4 committed, optional 5th)**:
 1. Cross-exercise integration into per-athlete movement profiles
@@ -41,7 +41,7 @@
 
 ---
 
-## Squat pipeline — COMPLETE through Phase 4G (YouTube cohort)
+## Squat pipeline — COMPLETE
 
 ### Cohort
 
@@ -168,6 +168,11 @@ Zero subjects flagged with spike rate >5%. Zero phase_identification failures ac
 
 REHAB24-6 produces dramatically cleaner pose extraction. Both cohorts produce biomechanically sensible biomarker ranges. Pipeline generalises across recording conditions. REHAB24-6 subjects show deeper squat depth and greater ROM than YouTube — consistent with controlled lab eliciting more consistent technique than in-the-wild gym footage.
 
+### Outputs and Verification
+- **Results Draft**: Written to `14_rehab24_outputs/drafts/squat_results_v4.md` (verified d/CI values, matching text with a four-reference clinical citation chain).
+- **Figures**: Plotted to `14_rehab24_outputs/figures_publication/` (4 publication-quality figures: distributions, effect sizes, cross-cohort distributions, and representative trajectories).
+- **Open Item**: Check author/DOI metadata of the four clinical references (User, to perform in reference manager).
+
 ### REHAB24-6 output files
 
 ```
@@ -200,6 +205,26 @@ License: CC-BY-NC-4.0 (academic non-commercial use only).
 
 ---
 
+## Lunge pipeline — COMPLETE
+
+### Cohort and Filtering
+- **Assembled Cohort**: 88 sagittal lunge repetitions across 8 subjects from `REHAB24-6` (`exercise_id == 5`, `cam17_orientation == 'front'`, `mocap_erroneous == 0`).
+- **Usable Analytical Cohort**: 61 repetitions (7 subjects, 25 correct / 36 incorrect) after excluding Subjects 5 and 8 due to far-side occlusion-induced pose-pipeline failures (30.68% failure rate).
+
+### Headline Findings
+- **Kinematic Signature**: Parallels the squat cohort with a very large shift toward greater depth in incorrect reps (peak flexion $d = +1.69$).
+- **Cross-Exercise Divergence**: Unlike squats (where ascent velocities did not discriminate), lunge ascent velocities discriminate reliably between correct and incorrect form, showing a faster peak ascent velocity ($d = -0.97$, reliable) and mean ascent velocity ($d = -0.80$, reliable-marginal). Incorrect lunges involve an uncontrolled, rapid spring-back propulsion strategy.
+
+### Outputs and Verification
+- **Results Draft**: Saved as `15_rehab24_lunge_outputs/drafts/lunge_results_v1.md` (verified statistics, wording-locked, utilizing descriptive kinematic screening language).
+- **Figures**: Plotted to `15_rehab24_lunge_outputs/figures_publication/` (4 publication-quality PNG/SVG sibling figures: fig_L1 correct vs. incorrect, fig_L2 effect sizes, fig_L3 cross-exercise comparative forest plot, and fig_L4 Subject 7 trajectories, all validated with a figure data provenance CSV).
+
+### Methods and Plotting Notes
+- **Note for Methods Chapter**: Lunge statistics reuse the squat subject-clustered bootstrapping procedure verbatim (replicated with seed 42 and 5,000 resamples for consistency, not imported). The methods chapter should describe this as an identical procedure or refactor it into a shared utility script.
+- **Cosmetic Logging Item**: The effect-size guide labels (small/medium/large) currently overprint/overlap across the forest plots in all figures. This needs to be resolved in the shared plotting code during the Week-16 figure-consistency sweep.
+
+---
+
 ## Combined squat cohort (current state)
 
 After REHAB24-6 integration:
@@ -227,10 +252,20 @@ Total: 19 subjects, 108 squat samples. The two cohorts are analysed separately i
 
 **Exercises** (in order of priority):
 1. Squat — **COMPLETE** (YouTube + REHAB24-6 cohorts)
-2. Lunges — not started
-3. Vertical jump — not started
-4. Drop jump — not started
-5. Single-leg squat — not started
+2. Lunges — **COMPLETE** (REHAB24-6 cohort)
+3. Vertical jump — **ACTIVE**
+4. Drop jump — **ACTIVE**
+5. Single-leg squat — **if time permits (see Scope decisions)**
+
+### Scope decisions (locked 2026-06-22)
+
+* **Timeline & Buffer**: There are approximately 10 weeks remaining until the September 1 submission. Since both primary exercise chapters (squats and lunges) and the pipeline learning curve are already complete, the remaining plan fits comfortably with buffer.
+* **Single-leg squat** $\rightarrow$ Demoted to "if time permits."
+  * *Rationale*: Lowest sagittal yield and highest pose-failure cost, with key faults being frontal-plane (which our sagittal-only pipeline cannot observe); the methodological failure-mode contributions are already successfully banked from the squat and lunge phases. (This is a signal decision, not a time decision.)
+* **MM-Fit** $\rightarrow$ Scheduled AFTER the jump block, gated on a video-availability check.
+  * *Rationale*: MM-Fit is multimodal; we must confirm it ships usable RGB video before committing (if it is pose/IMU only, it becomes a biomarker-reference cohort rather than a video-pipeline cohort). It enhances completed chapters and feeds the personalised-baseline demonstration, but does not block new chapters.
+* **Demonstration components** $\rightarrow$ Committed to ALL FOUR in order: Personalised baseline $\rightarrow$ Temporal LSTM $\rightarrow$ Digital twin $\rightarrow$ Self-supervised.
+  * *Rationale*: Self-supervised pretraining is strictly time-boxed to ~1 week with a null result pre-framed as acceptable ("method demonstrated; no fine-tuning gain expected at this data scale"); if pretraining is still being resolved on day 4, execution stops, the null result is documented, and the project moves on.
 
 Basketball **deprioritised** — weak labelled-dataset coverage, methodological complexity. Moved to future work.
 
@@ -243,12 +278,14 @@ Push-ups, jumping jacks, skipping — added via MM-Fit if time permits; not prim
 ### Tier 1 — primary datasets
 1. **REHAB24-6**: **DOWNLOADED AND INTEGRATED** (9 subjects, 98 squat reps). Source: https://zenodo.org/records/13305826
 2. **MM-Fit**: not yet downloaded. Source: https://mmfit.github.io/. Multi-exercise: squats, lunges, push-ups, jumping jacks, 10 reps × 3 sets per subject
-3. **Calisti et al. ACL** (figshare DOI `10.6084/m9.figshare.28890545.v1`): not yet downloaded. 43 subjects (21 ACL-injured + 22 healthy) jump-landing tasks, mocap-only
+3. **Calisti et al. ACL** (figshare DOI `10.6084/m9.figshare.28890545.v1`): Mocap-only labelled reference cohort for the DROP-JUMP step (no RGB video; not a MediaPipe input). Not yet downloaded.
+7. UCF101 lunges: 127 clips at 25 fps, 320x240 resolution, located at 1_raw_datasets/Dataset/Lunges Video/. Approximately 25 subjects with 3-5 single-rep clips per subject per UCF101 group convention. Integration deferred to future work; documented in phase5b_integration_summary.txt.
+
 
 ### Tier 2 — register/request when needed
 4. **OpenCap**: https://simtk.org/projects/opencap — SimTK registration. RGB + marker GT
 5. **Fitness-AQA**: request form at https://forms.gle/PbPTX1eVxGpa3QG88 — form-gated, submit early
-6. **UI-PRMD**: https://webpages.uidaho.edu/ui-prmd/ — Vicon-tracked deep squat, inline lunge, side lunge
+6. **UI-PRMD**: https://webpages.uidaho.edu/ui-prmd/ — Vicon-tracked mocap/skeletal-only REFERENCE cohort for LUNGES (no RGB video; not a MediaPipe input). Used for kinematic range comparison.
 
 **Licensing**: All non-commercial academic use. Each requires citation in methods chapter.
 
@@ -282,47 +319,21 @@ Recording protocol and consent form template drafted. Consent form requires supe
 
 ---
 
-## Next immediate step — PATH A (Statistical analysis + first dissertation results writing)
+## Remaining-Steps Plan (locked 2026-06-22)
 
-Three paths considered after REHAB24-6 integration completion:
+### Active Block: Jumps
+1. **Vertical Jump**: Develop pose-extraction and knee flexion kinematic analysis pipeline.
+2. **Drop Jump**: Develop pose-extraction and landing kinematic analysis pipeline (utilizing Calisti ACL as a mocap-only reference cohort).
 
-- **Path A (recommended)**: Statistical analysis of REHAB24-6 findings + draft squat results dissertation section. 3–5 days. Converts existing findings into written content before scope drifts further.
-- **Path B**: Continue dataset integration with MM-Fit. 5–7 days. Expands squat dataset and unlocks lunges/push-ups/jumping jacks.
-- **Path C**: Move to lunges using YouTube data + UI-PRMD. 1–2 weeks. Begins second exercise modality.
+### Demonstration Components (Committed Sequence)
+1. **Personalised Baseline**: Demonstration of session-to-session progression tracking.
+2. **Temporal LSTM / Sequence Model**: Classifying temporal sequences for biomarker validation.
+3. **Digital Twin**: Continuous-update architecture design.
+4. **Self-Supervised Pretraining**: Time-boxed to ~1 week. A null result is pre-framed as acceptable ("method demonstrated; no fine-tuning gain expected at this data scale"). If pretraining is still being resolved on day 4, execution stops, the null result is documented, and the project moves on.
 
-**Recommended sequence: A → C → B.**
-
-### Path A immediate work breakdown (3–5 days)
-
-**Day 1 — Statistical analysis of REHAB24-6 findings**:
-- Compute Cohen's d effect sizes for correct vs incorrect biomarker comparisons (peak_flexion, ROM, descent velocity, jerk_proxy)
-- Bootstrap 95% confidence intervals for the headline group differences
-- Compute per-subject correctness biomarker shifts to identify which subjects' "incorrect" reps drove the cohort-level findings
-- Document any subject-specific patterns (did all 5 incorrect-rep subjects show the same depth-shift pattern, or is it driven by certain subjects?)
-
-**Days 2–3 — Draft squat results subsection of dissertation**:
-- Methods: cohort assembly (YouTube + REHAB24-6), pipeline phases, biomarker definitions
-- Results: descriptive cohort statistics for both cohorts side-by-side
-- Results: cross-cohort consistency analysis (pipeline-validation finding)
-- Results: REHAB24-6 correct vs incorrect form comparison (the headline finding)
-- Discussion: interpretation of the depth/velocity/jerk pattern in incorrect-form reps; clinical context from literature
-- Discussion: limitations (small incorrect-rep sample, sagittal-only analysis, heterogeneous error types)
-
-**Day 4 — Publication-quality figures**:
-- Cohort biomarker distributions (box plots or violin plots) for both cohorts
-- Correct vs incorrect biomarker comparison (grouped bar charts with confidence intervals)
-- Cross-cohort comparison figure
-- Representative trajectory plots (PM_008 rep 2 correct vs PM_008 rep 17 incorrect)
-
-**Day 5 — Buffer + supervisor check-in**:
-- Send supervisor the draft squat results subsection and key figures
-- Get explicit feedback on scope and framing before proceeding to lunges
-
-### Why Path A first
-
-The biggest current risk to the project is that pipeline capability keeps building without dissertation writing happening. Path A produces concrete written content from existing findings before adding more analytical breadth. It also creates a natural supervisor check-in moment.
-
-After Path A, Path C (lunges) is the natural next exercise modality. Path B (MM-Fit) can be queued after lunges if time permits, or deferred to future work.
+### If time permits / deferred
+* **Single-leg squat**: Demoted from active block (see Scope Decisions).
+* **MM-Fit integration**: Evaluated after the Jumps block, gated on verifying usable RGB video availability.
 
 ---
 

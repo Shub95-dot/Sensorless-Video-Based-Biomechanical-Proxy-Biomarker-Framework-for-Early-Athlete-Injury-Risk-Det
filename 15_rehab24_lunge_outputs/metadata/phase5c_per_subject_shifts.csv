@@ -1,0 +1,6 @@
+subject_id,n_correct,n_incorrect,shift_peak_flexion_deg,shift_rom_deg,shift_peak_descent_velocity_deg_per_frame,shift_mean_descent_velocity_deg_per_frame,shift_jerk_proxy_std
+2,4,5,-29.3451,33.9064,-3.7542,-1.6361,0.8893
+9,6,6,-29.2684,52.8665,-4.275,-1.8722,0.8765
+6,5,5,-26.6389,42.4011,-1.2403,-0.7239,-0.0593
+4,5,4,-25.477,24.4397,-1.3882,-0.5931,0.1463
+7,5,5,-24.1445,37.5878,-0.6698,-0.1863,0.2718
