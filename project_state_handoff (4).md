@@ -225,6 +225,35 @@ License: CC-BY-NC-4.0 (academic non-commercial use only).
 
 ---
 
+## Drop jump pipeline — ANALYSIS COMPLETE / WRITEUP DEFERRED
+
+### Cohort and Filtering
+- **Cohort**: 48 trials across 8 subjects from the OpenCap drop-jump dataset (symmetric and asymmetric conditions).
+
+### Headline Findings
+- **Findings**: Markerless validated vs mocap ground truth on 48 drop-jump trials. Finding: monocular sagittal video tracks landing knee flexion strongly (r=0.82 at peak) with a systematic CONSTANT deep-flexion overestimation (+10.5 deg timing-clean; +19.7 deg peak-to-peak), accurate at contact (-6.7 deg), robust across sym/asym conditions, NOT timing-caused. Establishes error bounds for all knee-flexion biomarkers in the thesis.
+
+### Outputs and Verification
+- **Core Agreement Artifact**: `16_opencap_dropjump_outputs/metadata/phase6_agreement_final.csv`
+- **Final Validation Report**: `16_opencap_dropjump_outputs/phase6_final_report.md`
+- **Figures**: Plotted to `16_opencap_dropjump_outputs/figures/` (combined Bland-Altman and cautionary binned depth curve).
+
+### Documented Limitations
+- **Limitations**: TTS dropped (recording crops), asymmetry IK-only (occlusion), pooled depth-curve cautionary (timing-contaminated).
+
+---
+
+## Uncertainty-Weighted Screening Framework (Track B demo) — ANALYSIS DONE / WRITEUP DEFERRED
+
+- **Purpose** — architectural demonstration of uncertainty-weighted screening: biomarkers combined by ground-truth-validated measurement uncertainty (inverse-variance), NOT a risk score / rep classifier. Source: `17_uncertainty_framework_outputs/framework_design.md`.
+- **Method** — variances from OpenCap-validated LoA (`phase6_agreement_final.csv`); inverse-variance weights; uncertainty decomposed into transferable PROJECTION vs non-transferable MOTION error. Source: `framework_design.md` §1-3.
+- **Decomposition provenance** — peak flexion MEASURED (static-peak), ROM PROPAGATED (endpoints), contact flexion + loading rate ASSUMED splits shown IMMATERIAL via sensitivity sweep (weights stable <8.6%, ranking holds across 9 combinations). Source: `framework_design.md` §2,4.
+- **Cross-exercise transfer** — only projection component transfers to squat/lunge; motion-error unvalidated for slow exercises (future work). Transfer weights: peak 57%, contact 23%, ROM 15%, velocity 5%. Source: `framework_design.md` §4.
+- **Worked example** — projection-weighted characterisation on squat (`PM_008`) + lunge (`PM_021`) reps; illustrates high-confidence peak flexion dominating, down-weighted velocity. NOTE: bounds are pipeline measurement-uncertainty (constant across reps), not per-rep variability. Source: `17_uncertainty_framework_outputs/worked_example.csv` + `worked_example_weights.png`.
+- **Does NOT claim** — no risk score, no rep classification, no drop-jump motion-uncertainty transfer to squat/lunge, not a deployed system. Source: `framework_design.md` §5.
+
+---
+
 ## Combined squat cohort (current state)
 
 After REHAB24-6 integration:
@@ -253,8 +282,8 @@ Total: 19 subjects, 108 squat samples. The two cohorts are analysed separately i
 **Exercises** (in order of priority):
 1. Squat — **COMPLETE** (YouTube + REHAB24-6 cohorts)
 2. Lunges — **COMPLETE** (REHAB24-6 cohort)
-3. Vertical jump — **ACTIVE**
-4. Drop jump — **ACTIVE**
+3. Drop jump — **ANALYSIS COMPLETE / WRITEUP DEFERRED** (OpenCap cohort)
+4. Vertical jump — **ACTIVE**
 5. Single-leg squat — **if time permits (see Scope decisions)**
 
 ### Scope decisions (locked 2026-06-22)
@@ -323,13 +352,14 @@ Recording protocol and consent form template drafted. Consent form requires supe
 
 ### Active Block: Jumps
 1. **Vertical Jump**: Develop pose-extraction and knee flexion kinematic analysis pipeline.
-2. **Drop Jump**: Develop pose-extraction and landing kinematic analysis pipeline (utilizing Calisti ACL as a mocap-only reference cohort).
+2. **Drop Jump**: **ANALYSIS COMPLETE / WRITEUP DEFERRED** (validated vs mocap ground truth on 48 trials).
 
 ### Demonstration Components (Committed Sequence)
-1. **Personalised Baseline**: Demonstration of session-to-session progression tracking.
-2. **Temporal LSTM / Sequence Model**: Classifying temporal sequences for biomarker validation.
-3. **Digital Twin**: Continuous-update architecture design.
-4. **Self-Supervised Pretraining**: Time-boxed to ~1 week. A null result is pre-framed as acceptable ("method demonstrated; no fine-tuning gain expected at this data scale"). If pretraining is still being resolved on day 4, execution stops, the null result is documented, and the project moves on.
+1. **Uncertainty-Weighted Screening Framework**: **ANALYSIS DONE / WRITEUP DEFERRED** (architectural demonstration of inverse-variance weighting).
+2. **Personalised Baseline**: Demonstration of session-to-session progression tracking.
+3. **Temporal LSTM / Sequence Model**: Classifying temporal sequences for biomarker validation.
+4. **Digital Twin**: Continuous-update architecture design.
+5. **Self-Supervised Pretraining**: Time-boxed to ~1 week. A null result is pre-framed as acceptable ("method demonstrated; no fine-tuning gain expected at this data scale"). If pretraining is still being resolved on day 4, execution stops, the null result is documented, and the project moves on.
 
 ### If time permits / deferred
 * **Single-leg squat**: Demoted from active block (see Scope Decisions).

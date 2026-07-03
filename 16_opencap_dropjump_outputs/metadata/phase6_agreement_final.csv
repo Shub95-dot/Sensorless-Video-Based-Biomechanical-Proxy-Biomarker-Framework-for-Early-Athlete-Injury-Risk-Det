@@ -1,0 +1,6 @@
+biomarker,n,video_mean,ik_mean,bias(video-ik),loa_lower,loa_upper,pearson_r,trustworthiness
+#1 contact_flexion,48,13.5058,20.1972,-6.6914,-26.7742,13.3913,0.3209,"accurate (low bias, moderate variance)"
+#2 peak_landing_flexion,48,120.2286,100.5115,19.7171,7.7285,31.7057,0.8238,"biased-systematic (constant overestimation, low variance)"
+#3 landing_rom,48,106.7228,80.3143,26.4086,2.3373,50.4798,0.402,"biased-systematic (constant overestimation, high variance)"
+#6 loading_rate,48,286.1365,272.8392,13.2973,-115.9179,142.5125,0.6076,"high-variance (moderate bias, extremely high variance)"
+#5 asymmetry,48,,2.0705,,,,,"IK-only, not video-validated (far-leg occlusion); mean=2.07 (SD=2.06)"
