@@ -254,6 +254,30 @@ License: CC-BY-NC-4.0 (academic non-commercial use only).
 
 ---
 
+## Personalised Baseline (Track B demo) — ANALYSIS DONE / WRITEUP DEFERRED
+
+- **Purpose** — architectural demonstration of personalised progression tracking: per-subject baseline + deviation detection gated by validated measurement-noise floor. Pseudo-timepoints (within-session rep order); NOT real longitudinal tracking. Source: `18_personalised_baseline_outputs/baseline_design.md`.
+- **Method** — baseline from correct reps 1-2 (mean; SD descriptive only); test reps gated per-biomarker vs phase-7 projection-transferred noise floor (peak ±11.99°, velocity ±40.86°/s). Deviation flagged if |test − baseline mean| > that biomarker's floor. Source: `baseline_design.md` + `phase8_personalised_baseline.py`.
+- **Result** — both sides demonstrated cleanly. Squat PM_113 + Lunge PM_104: quiet correct reps stay within floor (incl. an upward lunge wobble correctly read within-noise); incorrect reps fire on peak flexion (Δ 21-36°). Source: `worked_example_baseline.csv` + `baseline_tracking.png`.
+- **Cross-component finding** — detection is DRIVEN BY PEAK FLEXION (tight floor, high phase-7 weight); descent velocity (wide floor, low weight, high measurement uncertainty) does not independently flag the deviations except one large genuine velocity spike (squat rep 6, 110°/s). Visibly confirms the phase-7 uncertainty-weighting: high-confidence biomarker drives screening, low-confidence one contributes little. Source: `baseline_design.md` §7 + figure.
+- **Personalised-not-group** — unit of analysis is the individual's own baseline + own noise-gated deviation, NOT cohort correct-vs-incorrect. Firing = "real kinematic deviation beyond measurement uncertainty," never "bad rep." Source: `baseline_design.md`.
+- **LIMITATION** — only deviations exceeding the wide monocular measurement floor are detectable; subtle sub-floor progression is not distinguishable from measurement noise (direct consequence of the OpenCap-validated camera uncertainty). Source: `baseline_design.md`.
+- **Does NOT claim** — no real longitudinal progression, no injury prediction, no rep good/bad classification, no group re-analysis, not deployed. Source: `baseline_design.md`.
+
+---
+
+## Digital Twin (Track B demo) — ANALYSIS DONE / WRITEUP DEFERRED
+
+- **Purpose** — architectural demonstration of continuous-update personalisation: extends the Phase 8 baseline so the per-subject reference UPDATES as pseudo-sessions arrive. Non-predictive; NOT a learned model; NOT real longitudinal. Source: `19_digital_twin_outputs/twin_design.md`.
+- **Mechanism** — twin state = running reference mean + Phase-7 noise floor. Within-noise reps update the reference (running mean); deviation reps are excluded (aberration rejection) but counted, flagged, and explained. Simple arithmetic update, no learned parameters. Source: `twin_design.md` + `phase9_digital_twin.py`.
+- **Result** — reference evolves on clean reps (squat PM_113: 72.98→69.21° across reps 3-5), locks when incorrect reps deviate past floor. Noise band tracks the evolving reference. Source: `worked_example_twin.csv` + `twin_tracking.png`.
+- **Exclusion explanation (design feature)** — on exclusion, twin outputs a MEASUREMENT-BASED reason: deviation exceeds validated uncertainty, and from a single observation it cannot distinguish transient fluctuation from sustained change. Epistemic humility, not a quality verdict. Source: `twin_design.md`.
+- **Transient-vs-sustained (future work)** — the exclusion logic rejects transient aberration; a deployed twin would ABSORB deviations sustained across real sessions and reject isolated ones. Named as future work; the exclusion explanation motivates it organically. Source: `twin_design.md`.
+- **Does NOT claim** — no forecast/prediction, no correct/incorrect rep verdicts (flags DEVIATIONS only; dataset labels used as validation aside), no learned model, no real longitudinal tracking, no risk/injury claim, not deployed. Source: `twin_design.md`.
+
+---
+
+
 ## Combined squat cohort (current state)
 
 After REHAB24-6 integration:
@@ -356,9 +380,9 @@ Recording protocol and consent form template drafted. Consent form requires supe
 
 ### Demonstration Components (Committed Sequence)
 1. **Uncertainty-Weighted Screening Framework**: **ANALYSIS DONE / WRITEUP DEFERRED** (architectural demonstration of inverse-variance weighting).
-2. **Personalised Baseline**: Demonstration of session-to-session progression tracking.
-3. **Temporal LSTM / Sequence Model**: Classifying temporal sequences for biomarker validation.
-4. **Digital Twin**: Continuous-update architecture design.
+2. **Personalised Baseline**: **ANALYSIS DONE / WRITEUP DEFERRED** (architectural demonstration of session-to-session progression tracking).
+3. **Digital Twin**: **ANALYSIS DONE / WRITEUP DEFERRED** (continuous-update architecture design).
+4. **Temporal LSTM / Sequence Model**: Classifying temporal sequences for biomarker validation.
 5. **Self-Supervised Pretraining**: Time-boxed to ~1 week. A null result is pre-framed as acceptable ("method demonstrated; no fine-tuning gain expected at this data scale"). If pretraining is still being resolved on day 4, execution stops, the null result is documented, and the project moves on.
 
 ### If time permits / deferred
