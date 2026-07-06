@@ -31,8 +31,16 @@ This is the running one-line-per-section writeup map for the Sensorless Biomecha
    - **Section 8.3: Cross-Exercise Weight Transfer**: **ANALYSIS DONE / WRITEUP DEFERRED**. Projection component transfers to squat/lunge (peak 57%, contact 23%, ROM 15%, velocity 5%), motion-component validation deferred.
    - **Section 8.4: Worked Repetition Illustration**: **ANALYSIS DONE / WRITEUP DEFERRED**. Projection-weighted characterisation run on REHAB24-6 squats (PM_008) and lunges (PM_021), illustrating peak flexion dominance.
 
-6. **Chapter 9: Personalised Session-to-Session Baselines**
-   - **Section 9.1: Progression Tracking Architecture**: Planned.
+6. **Chapter 9: Personalised Session-to-Session Baselines (Track B Demo)**
+
+## Component — Personalised Baseline (Track B demo) · ANALYSIS DONE / WRITEUP DEFERRED
+- Purpose — architectural demonstration of personalised progression tracking: per-subject baseline + deviation detection gated by validated measurement-noise floor. Pseudo-timepoints (within-session rep order); NOT real longitudinal tracking. Source: `18_personalised_baseline_outputs/baseline_design.md`.
+- Method — baseline from correct reps 1-2 (mean; SD descriptive only); test reps gated per-biomarker vs phase-7 projection-transferred noise floor (peak ±11.99°, velocity ±40.86°/s). Deviation flagged if |test − baseline mean| > that biomarker's floor. Source: `baseline_design.md` + `phase8_personalised_baseline.py`.
+- Result — both sides demonstrated cleanly. Squat PM_113 + Lunge PM_104: quiet correct reps stay within floor (incl. an upward lunge wobble correctly read within-noise); incorrect reps fire on peak flexion (Δ 21-36°). Source: `worked_example_baseline.csv` + `baseline_tracking.png`.
+- Cross-component finding — detection is DRIVEN BY PEAK FLEXION (tight floor, high phase-7 weight); descent velocity (wide floor, low weight, high measurement uncertainty) does not independently flag the deviations except one large genuine velocity spike (squat rep 6, 110°/s). Visibly confirms the phase-7 uncertainty-weighting: high-confidence biomarker drives screening, low-confidence one contributes little. Source: `baseline_design.md` §7 + figure.
+- Personalised-not-group — unit of analysis is the individual's own baseline + own noise-gated deviation, NOT cohort correct-vs-incorrect. Firing = "real kinematic deviation beyond measurement uncertainty," never "bad rep." Source: `baseline_design.md`.
+- LIMITATION — only deviations exceeding the wide monocular measurement floor are detectable; subtle sub-floor progression is not distinguishable from measurement noise (direct consequence of the OpenCap-validated camera uncertainty). Source: `baseline_design.md`.
+- Does NOT claim — no real longitudinal progression, no injury prediction, no rep good/bad classification, no group re-analysis, not deployed. Source: `baseline_design.md`.
 
 7. **Chapter 10: Temporal Sequence Models (LSTM)**
    - **Section 9.1: Sequence Classification & Biomarker Validation**: Planned.
