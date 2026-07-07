@@ -50,3 +50,34 @@ This is the running one-line-per-section writeup map for the Sensorless Biomecha
 
 9. **Chapter 12: Self-Supervised Pretraining**
    - **Section 11.1: Pretraining Framework and Sample Constraints**: Planned.
+
+## Dissertation Chapter Drafts
+
+10. **Methods Chapter** · **DRAFTED** (`22_dissertation_writing/methods_v2.md`)
+    - Covers: pipeline architecture, cohort assembly (REHAB24-6 + OpenCap + YouTube), OpenCap validation, uncertainty decomposition & transfer, personalised baseline & digital twin, rule-based screening (Step 10), counterfactual XAI (Step 11), statistical methods. ~2,950 words. Every number carries an inline `[source:]` tag. Results deferred.
+    - Status: First chapter section drafted. Distinct from deferred results/discussion sections.
+
+## Component — Digital Twin (Track B demo) · ANALYSIS DONE / WRITEUP DEFERRED
+- Purpose — architectural demonstration of continuous-update personalisation: extends the Phase 8 baseline so the per-subject reference UPDATES as pseudo-sessions arrive. Non-predictive; NOT a learned model; NOT real longitudinal. Source: `19_digital_twin_outputs/twin_design.md`.
+- Mechanism — twin state = running reference mean + Phase-7 noise floor. Within-noise reps update the reference (running mean); deviation reps are excluded (aberration rejection) but counted, flagged, and explained. Simple arithmetic update, no learned parameters. Source: `twin_design.md` + `phase9_digital_twin.py`.
+- Result — reference evolves on clean reps (squat PM_113: 72.98→69.21° across reps 3-5), locks when incorrect reps deviate past floor. Noise band tracks the evolving reference. Source: `worked_example_twin.csv` + `twin_tracking.png`.
+- Exclusion explanation (design feature) — on exclusion, twin outputs a MEASUREMENT-BASED reason: deviation exceeded validated measurement uncertainty; from a single observation, transient fluctuation vs genuine sustained change cannot be distinguished. Epistemic humility, not quality judgment. Source: `twin_design.md`.
+
+## Component — Rule-Based Screening Layer (Step 10, Track A core) · ANALYSIS DONE / WRITEUP DEFERRED
+- Purpose — named-rule screening layer turning validated biomarkers into screening flags with clinical meaning. Personalised-deviation rules grounded in Phase 7 noise floors. Source: `20_screening_outputs/screening_rules_design.md`.
+- Rules — EXCESS_DEPTH (peak < baseline − 11.99°), EXCESS_ROM (ROM > baseline + 23.17°), EXCESS_VELOCITY (velocity > baseline + 40.86°/s). Source: `screening_rules_design.md` + `phase10_rule_screening.py`.
+- Result — correct reps 3-5 gated NOT_FLAGGED; incorrect reps 6-10 fire SCREENING_POSITIVE. Source: `worked_example_screening.csv`.
+
+## Component — Counterfactual XAI (Step 11, Track A novelty #4) · ANALYSIS DONE / WRITEUP DEFERRED
+- Purpose — counterfactual explanation of rule-based screening flags: faithful by construction (exact margin calculations, not post-hoc approximations). Source: `21_xai_outputs/xai_design.md`.
+- Templates — descriptive (not prescriptive) counterfactual statements per rule. MKI as a descriptive set of conditions. Confidence grading via 0.5×NF buffer. Source: `xai_design.md` + `phase11_counterfactual_xai.py`.
+- Result — explanations rendered for PM_113 (squat) and PM_104 (lunge). Source: `worked_example_explanations.json`.
+
+---
+
+## Pending Reference Compilation (Week-16 Reference Sweep)
+
+The following `[CITE:]` markers in the methods draft require formal bibliographic entries:
+- `[CITE: OpenCap_Validation]` — Uhlrich et al., OpenCap markerless motion capture validation paper.
+- `[CITE: Clustering_Bootstrap]` — Cluster/subject-level bootstrap methods reference (e.g., Cameron, Gelbach & Miller, or Field & Welsh).
+- Squat/lunge clinical threshold references — pending from earlier squat chapter review.
