@@ -10,7 +10,9 @@ This chapter describes the research design, data pipelines, validation methodolo
 To capture joint kinematics in uncontrolled environments, we implement a multi-stage software pipeline that transforms 2D video sequences into smoothed, segmented joint angle trajectories.
 
 ### 1.1 Pose Estimation and Camera Model
-The pipeline ingest videos at 30 frames per second [source: 11_scripts/phase8_personalised_baseline.py]. 2D markerless pose estimation is executed using the MediaPipe Pose tracking engine (Heavy variant), which computes the spatial coordinates of 33 keypoints [source: 11_scripts/phase3_pose_extraction.py].
+The pipeline ingests video sequences recorded at cohort-specific frame rates: 30 fps for the REHAB24-6 squat and lunge cohorts [source: 11_scripts/phase5a_rehab24_integration.py, filename convention `*-30fps-transposed.mp4`] and 60 fps for the OpenCap drop-jump validation cohort [source: 16_opencap_dropjump_outputs/metadata/phase6_stage0_report.md]. YouTube wild-type videos have variable frame rates depending on the source upload. 2D markerless pose estimation is executed using the MediaPipe Pose tracking engine (Heavy variant), which computes the spatial coordinates of 33 keypoints [source: 11_scripts/phase3_pose_extraction.py].
+
+> **Convention Note:** The squat/lunge chapters and the drop-jump validation chapter use different knee flexion angle conventions. Squats and lunges use the **included angle** convention ($\approx 180^\circ$ = standing extension, smaller angle = deeper flexion). The OpenCap drop-jump validation uses the **clinical flexion** convention ($0^\circ$ = full extension, larger angle = deeper flexion). Raw joint angle values are not directly comparable across these chapters; the uncertainty framework transfers validated *error magnitudes* (LoA widths), not raw angle values.
 
 For sagittal-plane exercises (squats and lunges), joint angles are computed using a 2D trigonometric model. The knee flexion-extension joint angle ($\theta$) is calculated as the included angle formed by the hip (proximal), knee (vertex), and ankle (distal) joint centers:
 $$\theta = \arccos \left( \frac{\mathbf{u} \cdot \mathbf{v}}{\|\mathbf{u}\| \|\mathbf{v}\|} \right)$$
@@ -19,7 +21,7 @@ where $\mathbf{u}$ is the thigh segment vector (knee to hip) and $\mathbf{v}$ is
 ### 1.2 Trajectory Smoothing and Outlier Filtering
 Raw coordinates from monocular video are affected by high-frequency landmark jitter and occasional tracking spikes. The pipeline filters these anomalies in two sequential steps:
 1.  **Outlier Gating:** Plausible joint angle boundaries are defined a priori between $40.0^\circ$ and $185.0^\circ$ [source: 11_scripts/phase4a_knee_angle_extraction.py]. Values outside this range represent landmark tracking failures and are flagged for quality auditing [source: 11_scripts/phase4a_knee_angle_extraction.py].
-2.  **Smoothing Cascades:** Joint angle trajectories are smoothed using a 5-frame local median filter to eliminate impulsive landmark spikes, followed by a zero-lag, second-order low-pass Butterworth filter with a cutoff frequency of 6.0 Hz to isolate true voluntary motion [source: 11_scripts/phase4e_trajectory_smoothing.py].
+2.  **Smoothing Cascades:** Joint angle trajectories are smoothed in two stages: first, a 5-frame centred median filter to eliminate impulsive landmark spikes; second, a Savitzky-Golay polynomial filter (window length 7, polynomial order 2) to isolate the underlying voluntary motion trajectory while preserving peak morphology [source: 11_scripts/phase4e_trajectory_smoothing.py, lines 53–55 and 74–84].
 3.  **Pose Quality Stratification:** Subjects with tracking spike rates exceeding 5.0% of total frames are flagged for manual quality review in the dissertation's discussion [source: 11_scripts/phase4e_trajectory_smoothing.py].
 
 ### 1.3 Repetition Segmentation & Phase Detection
@@ -35,15 +37,15 @@ To extract discrete biomarkers, continuous joint trajectories are segmented into
 The experimental validation and demonstration of this pipeline utilize three independent cohorts representing different levels of environmental control and label availability.
 
 ### 2.1 The OpenCap Drop-Jump Validation Cohort
-To establish the physical ground-truth accuracy of the monocular camera pipeline, we utilize the OpenCap Drop-Jump landing dataset [source: 16_opencap_dropjump_outputs/phase6_final_report.md]. This cohort comprises 8 subjects performing a total of 48 drop-jump trials [source: 16_opencap_dropjump_outputs/phase6_final_report.md].
+To establish the physical ground-truth accuracy of the monocular camera pipeline, we utilize the OpenCap Drop-Jump landing dataset [source: 16_opencap_dropjump_outputs/phase6_final_report.md]. This cohort comprises 8 subjects performing a total of 48 drop-jump trials, recorded at 60 fps [source: 16_opencap_dropjump_outputs/metadata/phase6_stage0_report.md].
 *   **Marker-Based Reference:** Ground truth kinematics were captured simultaneously using a synchronized 3D optoelectronic motion capture system (10 cameras) and two force plates [CITE: OpenCap_Validation].
 *   **Markerless Reference:** 2D videos were recorded from a sagittal camera and processed through the MediaPipe Heavy pipeline [source: 16_opencap_dropjump_outputs/phase6_final_report.md].
 *   **Biomechanical Purpose:** Because drop-jumps involve high-speed, dynamic impact landings, they represent a worst-case testing condition for markerless tracking, allowing us to establish upper-bound measurement uncertainty limits.
 
 ### 2.2 The REHAB24-6 Cohort
 The primary cohort for baseline tracking, rule-based screening, and XAI validation is the `REHAB24-6` dataset [source: 18_personalised_baseline_outputs/baseline_design.md].
-*   **Squat Dataset:** Contains 9 subjects and a total of 98 processed repetitions [source: 14_rehab24_outputs/metadata/phase5a_integration_summary.txt]. The dataset is partitioned into 72 correct repetitions (normal form) and 26 incorrect repetitions (characterized by restricted flexion depth or rapid descent) [source: 14_rehab24_outputs/metadata/phase5a_integration_summary.txt].
-*   **Lunge Dataset:** Contains 8 subjects and a total of 88 repetitions in the manifest, of which 61 repetitions were successfully processed after quality filtering [source: 15_rehab24_lunge_outputs/metadata/phase5b_integration_summary.txt]. It comprises 39 correct repetitions and 49 incorrect repetitions [source: 15_rehab24_lunge_outputs/biomarkers_per_rep/rehab24_lunge_per_rep_biomarkers.csv].
+*   **Squat Dataset:** Contains 9 subjects and a total of 98 processed repetitions, all recorded at 30 fps [source: 14_rehab24_outputs/metadata/phase5a_integration_summary.txt]. The dataset is partitioned into 72 correct repetitions (normal form) and 26 incorrect repetitions (characterized by excess flexion depth or rapid descent) [source: 14_rehab24_outputs/metadata/phase5a_integration_summary.txt].
+*   **Lunge Dataset:** Contains 8 assembled subjects and a total of 88 repetitions in the manifest, all recorded at 30 fps. After phase-identification quality filtering, 61 repetitions from 7 usable subjects were successfully processed (25 correct, 36 incorrect) [source: 15_rehab24_lunge_outputs/metadata/phase5b_integration_summary.txt]. Two subjects were excluded from the analytical cohort: Subject 5 (PM_042, 12 of 13 reps failed phase identification) and Subject 8 (PM_112, all 12 reps failed due to occlusion/tracking failure) [source: 15_rehab24_lunge_outputs/metadata/phase5b_integration_summary.txt].
 *   **Wording & Definition:** Correctness is used strictly as a validation marker to test if our personalised gating rules successfully fire on deviated form.
 
 ### 2.3 The YouTube Wild-Type Exploratory Cohort
@@ -156,7 +158,7 @@ The "Digital Twin" represents a continuous-update extension of the baseline. As 
 
 ## 6. Rule-Based Kinematic Screening Layer
 
-To turn joint coordinate measurements into actionable alerts, we develop a transparent, rule-based screening layer that evaluates test repetitions against personalised thresholds.
+To turn joint coordinate measurements into screening flags, we develop a transparent, rule-based screening layer that evaluates test repetitions against personalised thresholds.
 
 ### 6.1 Screening Modality Choice: Personalised-Deviation Screening (Option B)
 The screening layer implements **Option B (Personalised-Deviation Screening)**:
@@ -186,7 +188,7 @@ If any rule fires, the repetition is flagged as `SCREENING_POSITIVE`, and the na
 
 ## 7. Counterfactual Explainable AI (XAI)
 
-To provide actionable explanations for the screening flags, we develop a counterfactual XAI layer that computes the exact changes required to clear the screening flags.
+To provide explanations for the screening flags, we develop a counterfactual XAI layer that describes the exact conditions under which the screening flags would not have fired.
 
 ### 7.1 Faithfulness by Construction
 Unlike SHAP or LIME, which approximate a black-box model's decision boundary, our explanations are **faithful by construction** [source: 21_xai_outputs/xai_design.md]. The rules are the decision boundaries. The counterfactual margin ($M_i$) is calculated directly:
@@ -202,7 +204,7 @@ The counterfactual templates are framed as descriptive statements rather than ph
 ### 7.3 Multi-Rule Coupling & Minimal Kinematic Intervention (MKI)
 If both `EXCESS_DEPTH` and `EXCESS_ROM` fire, we resolve their physical coupling. Under the explicit assumption that range of motion scales directly with peak flexion depth (assuming a constant standing extension start point), the MKI computes the exact maximum of the required depth changes:
 $$\Delta \theta_{\text{MKI}} = \max(M_{\text{depth}}, M_{\text{rom}})$$
-This determines the single flexion adjustment that will simultaneously restrict range of motion and clear both flags [source: 21_xai_outputs/xai_design.md].
+The MKI is stated descriptively as a set of conditions: the coupled depth/ROM flags would not have fired if peak flexion angle had been at least $\Delta \theta_{\text{MKI}}^\circ$ shallower. If `EXCESS_VELOCITY` also fires, its velocity reduction margin is listed as a separate independent condition (the flags would also have required descent velocity to be at least $M_{\text{velocity}}^\circ/\text{s}$ slower). The MKI thus represents a set of kinematic conditions, not a single adjustment [source: 21_xai_outputs/xai_design.md].
 
 ### 7.4 Uncertainty-Aware Confidence buffers
 Explanations evaluate the deviation margin ($M_i$) against a confidence boundary ($0.5 \cdot NF_i$). Deviations that fall within this buffer are flagged as `LOW CONFIDENCE (Near Noise Floor)` [source: 21_xai_outputs/xai_design.md].
@@ -220,7 +222,7 @@ Because the `REHAB24-6` dataset contains multiple repetitions per subject, stand
 We compute standard Cohen's d effect sizes to quantify the magnitude of differences between correct and incorrect repetitions:
 $$d = \frac{\bar{X}_1 - \bar{X}_2}{SD_{\text{pooled}}}$$
 $$SD_{\text{pooled}} = \sqrt{\frac{(n_1 - 1)s_1^2 + (n_2 - 1)s_2^2}{n_1 + n_2 - 2}}$$
-For peak knee flexion in squats, the cohort shift yields $d = 1.7306$ ($n=72$ correct vs $n=26$ incorrect) [source: task-341]. For lunges, peak flexion yields $d = 1.4944$ ($n=39$ correct vs $n=49$ incorrect) [source: task-341].
+For peak knee flexion in squats, the cohort shift yields $d = 1.7306$ ($n=72$ correct vs $n=26$ incorrect) [source: 14_rehab24_outputs/metadata/phase5b_effect_sizes_ci.csv]. For lunges, peak flexion yields $d = 1.6904$ ($n=25$ correct vs $n=36$ incorrect) [source: 15_rehab24_lunge_outputs/metadata/phase5c_effect_sizes_ci.csv].
 
 ### 8.3 "Screening-Not-Prediction" Framing
 In compliance with the project's clinical boundaries, all statistical results are framed as movement characterisations. We report associations, deviations, and measurement margins. No diagnostic models, injury likelihoods, or clinical predictions are evaluated or implied.
