@@ -40,44 +40,48 @@ To prevent memorization on our small dataset ($N=98$ squats, $N=61$ lunges), Mod
     3.  **Dense Layer:** 4 hidden units, ReLU activation, L2 regularization ($\lambda = 0.01$).
     4.  **Dropout Layer:** Dropout rate = 0.5.
     5.  **Output Layer:** 1 unit, Sigmoid activation.
-*   **Optimization:** Adam optimizer (learning rate = $1 \times 10^{-3}$), Binary Cross-Entropy loss.
-*   **Training Safeguards:** Trained for a maximum of 100 epochs, utilizing Early Stopping on validation fold loss with a patience of 15 epochs to prevent over-tuning.
+*   **Optimization & Training:** Adam optimizer (learning rate = $1 \times 10^{-3}$), Binary Cross-Entropy loss. Trained for a maximum of 100 epochs, utilizing Early Stopping on validation fold loss with a patience of 15 epochs to prevent over-tuning.
+*   **Imbalance Handling:** Training utilizes class weight balancing (`class_weight` proportional to inverse class frequencies) to prevent the gradient updates from favoring the majority class.
 
 ---
 
-## 4. Model B: Interpretable Shape-Feature Baseline
+## 4. Model B: Interpretable Shape-Feature Baseline (Amplitude-Invariant)
 
-Model B extracts 6 explicit, geometrically interpretable features from the resampled 100-point trajectory and feeds them to a regularized L2 Logistic Regression classifier:
+To ensure a fair comparison, **all of Model B's shape features are computed directly on the normalized 100-point trajectory $\theta_{\text{norm}}(t)$ (Scheme A or B)**, ensuring it is denied absolute raw amplitude information whenever Model A is:
 
-1.  **Descent-to-Ascent Duration Ratio ($T_{\text{descent}} / T_{\text{ascent}}$):** Measures velocity asymmetry between down and up phases.
-2.  **Trajectory Asymmetry Index:** The mean absolute difference between the descent trajectory and the time-reversed ascent trajectory.
-3.  **Normalized Time-to-Peak Flexion:** The timestep index $t \in [0, 100]$ where maximum flexion occurs, capturing whether peak depth is held or reached early/late.
-4.  **Descent Velocity Skewness:** Measures deceleration/acceleration patterns during descent.
-5.  **Ascent Velocity Skewness:** Measures acceleration patterns during ascent.
-6.  **Descent Concavity (Area Ratio):** The trapezoidal area under the normalized descent curve compared to a linear transition, characterizing the smoothness/profile of the bend.
+1.  **Descent-to-Ascent Duration Ratio ($T_{\text{descent}} / T_{\text{ascent}}$):** Measures temporal asymmetry (inherently scale-invariant).
+2.  **Trajectory Asymmetry Index:** The mean absolute difference between $\theta_{\text{norm}}(t_{\text{descent}})$ and time-reversed $\theta_{\text{norm}}(t_{\text{ascent}})$ (strictly amplitude-invariant).
+3.  **Normalized Time-to-Peak Flexion:** The index $t \in [0, 100]$ where maximum flexion occurs (scale-invariant).
+4.  **Descent Velocity Skewness:** Skewness of the numerical derivative of $\theta_{\text{norm}}(t)$ during descent (inherently scale-invariant).
+5.  **Ascent Velocity Skewness:** Skewness of the numerical derivative of $\theta_{\text{norm}}(t)$ during ascent (inherently scale-invariant).
+6.  **Descent Curve Concavity:** The trapezoidal area under the normalized descent curve $\theta_{\text{norm}}(t_{\text{descent}})$. Since the curve is bounded between 0.0 and 1.0, the resulting area represents shape geometry independent of absolute amplitude.
+
+These 6 features are fed into a Logistic Regression classifier with L2 regularization and balanced class weights.
 
 ---
 
 ## 5. Naive & Endpoint Baselines (The Threshold Bars)
 
-To determine if trajectory shape adds any value beyond baseline statistics and standard endpoints, we evaluate two comparison baselines:
+We compare the temporal models against two baseline bars, which must be clearly surpassed to prove value:
 
-1.  **Naive Baseline (Zero Rule):** Always predicts the majority class in the training fold (Squats = Correct Form, Lunges = Incorrect Form).
-2.  **Endpoint Biomarker Baseline (Peak Flexion alone):** A simple classifier (Logistic Regression) fit only on the single endpoint biomarker `peak_flexion_deg` using identical cross-validation folds.
+1.  **Naive Baseline (Zero-Rule Guess-Majority):**
+    *   *Squat Floor:* **73.47%** (predicts all reps "Correct", 72/98)
+    *   *Lunge Floor:* **59.02%** (predicts all reps "Incorrect", 36/61)
+2.  **Endpoint Biomarker Baseline (Peak Flexion alone):** A Logistic Regression classifier fit only on the single endpoint biomarker `peak_flexion_deg` using identical cross-validation folds.
 
 ---
 
-## 6. Evaluation Protocol (LOSO Folds)
+## 6. Evaluation & Reporting Protocol (LOSO Folds)
 
-*   **Validation Scheme:** Leave-One-Subject-Out (LOSO) cross-validation.
-    *   **Squat:** 9 folds (train on 8 subjects, test on the 1 held-out subject).
-    *   **Lunge:** 7 folds (train on 6 usable subjects, test on the 1 held-out subject).
-*   **Seed Control:** All splits and initializations use a locked random seed (`42`) to guarantee reproducibility.
-*   **Primary Metrics:**
-    *   Classification Accuracy
-    *   Balanced Accuracy (primary metric to account for class imbalance)
-    *   F1-Score
-*   **Reporting:** We report both the fold-by-fold scores (demonstrating inter-subject variability) and the summary Mean $\pm$ Standard Deviation across all folds.
+*   **Validation Scheme:** Leave-One-Subject-Out (LOSO) cross-validation (9 folds for Squats, 7 folds for Lunges).
+*   **Folds Alignment:** All models are evaluated on the exact same folds with random seed `42`.
+*   **Class Imbalance Handling:**
+    *   All model training uses balanced class weighting.
+    *   **Primary Metric:** **Balanced Accuracy** (unweighted mean of sensitivity and specificity), which is robust to class imbalance.
+*   **Per-Fold Reporting & Single-Class Folds:**
+    *   We report classification accuracy for every single fold (subject) to capture variance across subjects.
+    *   *Single-Class Folds:* For subjects with only one true class present (e.g. Squat S2, S4, S9 have 0 incorrect reps; Lunge S3 has 0 correct reps), fold-level Balanced Accuracy, F1-score, and AUC are undefined. For these folds, we report fold-level classification accuracy, and mark the fold-level balanced metrics as `N/A`.
+    *   *Pooled Global Metrics:* To obtain robust global Balanced Accuracy, F1, and AUC metrics, we pool the predicted probability outputs from all folds across the entire cohort and compute a single global score. This avoids averaging undefined fold-level division metrics.
 
 ---
 
