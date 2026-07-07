@@ -134,7 +134,7 @@ def generate_explanations(df):
                 "text": text
             })
             
-        # Compute Minimal Kinematic Intervention (MKI)
+        # Compute Minimal Kinematic Intervention (MKI) as a descriptive set of changes
         mki_text = ""
         depth_margin = float(row["peak_flexion_margin"])
         rom_margin = float(row["rom_margin"])
@@ -143,26 +143,32 @@ def generate_explanations(df):
         if "EXCESS_DEPTH" in fired_rules and "EXCESS_ROM" in fired_rules:
             mki_val = max(depth_margin, rom_margin)
             mki_text = (
-                f"To clear all screening flags for this repetition, under the explicit assumption that range of motion "
-                f"scales directly with peak flexion depth (assuming a constant standing extension start point), the subject "
-                f"would need to reduce knee flexion depth (increase peak angle) by at least {mki_val:.2f}°, which would "
-                f"simultaneously reduce active range of motion and clear both the EXCESS_DEPTH and EXCESS_ROM flags."
+                f"The screening flags would not have fired if peak knee flexion joint angle had been at least {mki_val:.2f}° "
+                f"shallower (which, assuming range of motion scales directly with peak flexion depth under a constant "
+                f"standing extension start point, would simultaneously restrict joint range of motion sufficiently to clear "
+                f"both the EXCESS_DEPTH and EXCESS_ROM flags)"
             )
             if "EXCESS_VELOCITY" in fired_rules:
-                mki_text += f" Additionally, descent speed must be reduced by at least {vel_margin:.2f}°/s."
+                mki_text += f" AND descent joint velocity had been at least {vel_margin:.2f}°/s slower."
+            else:
+                mki_text += "."
                 
         elif "EXCESS_DEPTH" in fired_rules:
-            mki_text = f"To clear the screening flag for this repetition, the subject would need to reduce knee flexion depth (increase peak angle) by at least {depth_margin:.2f}°."
+            mki_text = f"The screening flag would not have fired if peak knee flexion joint angle had been at least {depth_margin:.2f}° shallower"
             if "EXCESS_VELOCITY" in fired_rules:
-                mki_text += f" Additionally, descent speed must be reduced by at least {vel_margin:.2f}°/s."
+                mki_text += f" AND descent joint velocity had been at least {vel_margin:.2f}°/s slower."
+            else:
+                mki_text += "."
                 
         elif "EXCESS_ROM" in fired_rules:
-            mki_text = f"To clear the screening flag for this repetition, the subject would need to restrict knee range of motion by at least {rom_margin:.2f}°."
+            mki_text = f"The screening flag would not have fired if active knee range of motion had been at least {rom_margin:.2f}° smaller"
             if "EXCESS_VELOCITY" in fired_rules:
-                mki_text += f" Additionally, descent speed must be reduced by at least {vel_margin:.2f}°/s."
+                mki_text += f" AND descent joint velocity had been at least {vel_margin:.2f}°/s slower."
+            else:
+                mki_text += "."
                 
         elif "EXCESS_VELOCITY" in fired_rules:
-            mki_text = f"To clear the screening flag for this repetition, the subject would need to reduce descent joint velocity by at least {vel_margin:.2f}°/s."
+            mki_text = f"The screening flag would not have fired if descent joint velocity had been at least {vel_margin:.2f}°/s slower."
             
         results.append({
             "subject_id": sub_id,

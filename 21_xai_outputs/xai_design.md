@@ -74,9 +74,9 @@ Under the explicit assumption that range of motion scales directly with peak fle
 *   To clear `EXCESS_ROM`, the peak flexion angle must also increase (become shallower) by at least $M_{\text{rom}}^\circ$ to restrict joint range of motion.
 *   Therefore, the MKI does **not** assume $M_{\text{depth}}$ is always sufficient. Instead, it computes the exact maximum of the required changes:
     $$\Delta \theta_{\text{MKI}} = \max(M_{\text{depth}}, M_{\text{rom}})$$
-*   **MKI Output Statement:**
-    `"To clear all screening flags for this repetition, the subject would need to reduce knee flexion depth (increase peak angle) by at least Delta_theta_MKI°, which would simultaneously reduce active range of motion and clear both the EXCESS_DEPTH and EXCESS_ROM flags."`
-    *(Note: If velocity also fires, its speed reduction margin is reported as a separate independent velocity target: "Additionally, descent speed must be reduced by at least M_velocity°/s.")*
+*   **MKI Output Statement (Descriptive Set of Changes):**
+    `"The screening flags would not have fired if peak knee flexion joint angle had been at least Delta_theta_MKI° shallower (which, assuming range of motion scales directly with peak flexion depth under a constant standing extension start point, would simultaneously restrict joint range of motion sufficiently to clear both the EXCESS_DEPTH and EXCESS_ROM flags)."`
+    *(Note: If velocity also fires, it is appended to the set of conditions: "AND descent joint velocity had been at least M_velocity°/s slower.")*
 *   *Biomechanical Assumption Note:* This MKI calculation explicitly assumes ROM scales directly with peak flexion depth (constant start point). This is a reasonable illustrative computation for demonstrating coupled kinematic adjustments, rather than a universal biomechanical law.
 
 ---
@@ -115,7 +115,7 @@ For each analyzed repetition, the XAI layer will write a structured explanation 
       "text": "Flagged EXCESS_ROM because knee range of motion (136.50°) was 7.83° above the active baseline threshold (128.67°). Had the range of motion been no more than 128.67° (representing a restricted excursion of 7.83° less joint travel), the EXCESS_ROM flag would not have fired. Note: The deviation margin (7.83°) is close to the monocular camera's validated measurement uncertainty boundaries. This flag should be interpreted with caution as minor tracking fluctuations could have triggered it."
     }
   ],
-  "minimal_kinematic_intervention": "To clear all screening flags for this repetition, the subject would need to reduce knee flexion depth (increase peak angle) by at least 15.34°, which would simultaneously reduce active range of motion and clear both the EXCESS_DEPTH and EXCESS_ROM flags."
+  "minimal_kinematic_intervention": "The screening flags would not have fired if peak knee flexion joint angle had been at least 15.34° shallower (which, assuming range of motion scales directly with peak flexion depth under a constant standing extension start point, would simultaneously restrict joint range of motion sufficiently to clear both the EXCESS_DEPTH and EXCESS_ROM flags)."
 }
 ```
 

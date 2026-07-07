@@ -30,7 +30,7 @@
         "text": "Flagged EXCESS_ROM because knee range of motion (136.50\u00b0) was 7.83\u00b0 above the active baseline threshold (128.67\u00b0). Had the range of motion been no more than 128.67\u00b0 (representing a restricted excursion of 7.83\u00b0 less joint travel), the EXCESS_ROM flag would not have fired. Note: The deviation margin (7.83\u00b0) is close to the monocular camera's validated measurement uncertainty boundaries. This flag should be interpreted with caution as minor tracking fluctuations could have triggered it."
       }
     ],
-    "minimal_kinematic_intervention": "To clear all screening flags for this repetition, under the explicit assumption that range of motion scales directly with peak flexion depth (assuming a constant standing extension start point), the subject would need to reduce knee flexion depth (increase peak angle) by at least 17.77\u00b0, which would simultaneously reduce active range of motion and clear both the EXCESS_DEPTH and EXCESS_ROM flags. Additionally, descent speed must be reduced by at least 19.82\u00b0/s."
+    "minimal_kinematic_intervention": "The screening flags would not have fired if peak knee flexion joint angle had been at least 17.77\u00b0 shallower (which, assuming range of motion scales directly with peak flexion depth under a constant standing extension start point, would simultaneously restrict joint range of motion sufficiently to clear both the EXCESS_DEPTH and EXCESS_ROM flags) AND descent joint velocity had been at least 19.82\u00b0/s slower."
   },
   {
     "subject_id": 8,
@@ -56,7 +56,7 @@
         "text": "Flagged EXCESS_ROM because knee range of motion (129.84\u00b0) was 1.18\u00b0 above the active baseline threshold (128.67\u00b0). Had the range of motion been no more than 128.67\u00b0 (representing a restricted excursion of 1.18\u00b0 less joint travel), the EXCESS_ROM flag would not have fired. Note: The deviation margin (1.18\u00b0) is close to the monocular camera's validated measurement uncertainty boundaries. This flag should be interpreted with caution as minor tracking fluctuations could have triggered it."
       }
     ],
-    "minimal_kinematic_intervention": "To clear all screening flags for this repetition, under the explicit assumption that range of motion scales directly with peak flexion depth (assuming a constant standing extension start point), the subject would need to reduce knee flexion depth (increase peak angle) by at least 11.24\u00b0, which would simultaneously reduce active range of motion and clear both the EXCESS_DEPTH and EXCESS_ROM flags."
+    "minimal_kinematic_intervention": "The screening flags would not have fired if peak knee flexion joint angle had been at least 11.24\u00b0 shallower (which, assuming range of motion scales directly with peak flexion depth under a constant standing extension start point, would simultaneously restrict joint range of motion sufficiently to clear both the EXCESS_DEPTH and EXCESS_ROM flags)."
   },
   {
     "subject_id": 8,
@@ -82,7 +82,7 @@
         "text": "Flagged EXCESS_ROM because knee range of motion (132.53\u00b0) was 3.86\u00b0 above the active baseline threshold (128.67\u00b0). Had the range of motion been no more than 128.67\u00b0 (representing a restricted excursion of 3.86\u00b0 less joint travel), the EXCESS_ROM flag would not have fired. Note: The deviation margin (3.86\u00b0) is close to the monocular camera's validated measurement uncertainty boundaries. This flag should be interpreted with caution as minor tracking fluctuations could have triggered it."
       }
     ],
-    "minimal_kinematic_intervention": "To clear all screening flags for this repetition, under the explicit assumption that range of motion scales directly with peak flexion depth (assuming a constant standing extension start point), the subject would need to reduce knee flexion depth (increase peak angle) by at least 19.89\u00b0, which would simultaneously reduce active range of motion and clear both the EXCESS_DEPTH and EXCESS_ROM flags."
+    "minimal_kinematic_intervention": "The screening flags would not have fired if peak knee flexion joint angle had been at least 19.89\u00b0 shallower (which, assuming range of motion scales directly with peak flexion depth under a constant standing extension start point, would simultaneously restrict joint range of motion sufficiently to clear both the EXCESS_DEPTH and EXCESS_ROM flags)."
   },
   {
     "subject_id": 8,
@@ -108,7 +108,7 @@
         "text": "Flagged EXCESS_ROM because knee range of motion (140.93\u00b0) was 12.26\u00b0 above the active baseline threshold (128.67\u00b0). Had the range of motion been no more than 128.67\u00b0 (representing a restricted excursion of 12.26\u00b0 less joint travel), the EXCESS_ROM flag would not have fired."
       }
     ],
-    "minimal_kinematic_intervention": "To clear all screening flags for this repetition, under the explicit assumption that range of motion scales directly with peak flexion depth (assuming a constant standing extension start point), the subject would need to reduce knee flexion depth (increase peak angle) by at least 22.07\u00b0, which would simultaneously reduce active range of motion and clear both the EXCESS_DEPTH and EXCESS_ROM flags."
+    "minimal_kinematic_intervention": "The screening flags would not have fired if peak knee flexion joint angle had been at least 22.07\u00b0 shallower (which, assuming range of motion scales directly with peak flexion depth under a constant standing extension start point, would simultaneously restrict joint range of motion sufficiently to clear both the EXCESS_DEPTH and EXCESS_ROM flags)."
   },
   {
     "subject_id": 8,
@@ -134,7 +134,7 @@
         "text": "Flagged EXCESS_ROM because knee range of motion (142.20\u00b0) was 13.54\u00b0 above the active baseline threshold (128.67\u00b0). Had the range of motion been no more than 128.67\u00b0 (representing a restricted excursion of 13.54\u00b0 less joint travel), the EXCESS_ROM flag would not have fired."
       }
     ],
-    "minimal_kinematic_intervention": "To clear all screening flags for this repetition, under the explicit assumption that range of motion scales directly with peak flexion depth (assuming a constant standing extension start point), the subject would need to reduce knee flexion depth (increase peak angle) by at least 23.67\u00b0, which would simultaneously reduce active range of motion and clear both the EXCESS_DEPTH and EXCESS_ROM flags."
+    "minimal_kinematic_intervention": "The screening flags would not have fired if peak knee flexion joint angle had been at least 23.67\u00b0 shallower (which, assuming range of motion scales directly with peak flexion depth under a constant standing extension start point, would simultaneously restrict joint range of motion sufficiently to clear both the EXCESS_DEPTH and EXCESS_ROM flags)."
   },
   {
     "subject_id": 6,
@@ -160,7 +160,7 @@
         "text": "Flagged EXCESS_ROM because knee range of motion (117.28\u00b0) was 17.33\u00b0 above the active baseline threshold (99.95\u00b0). Had the range of motion been no more than 99.95\u00b0 (representing a restricted excursion of 17.33\u00b0 less joint travel), the EXCESS_ROM flag would not have fired."
       }
     ],
-    "minimal_kinematic_intervention": "To clear all screening flags for this repetition, under the explicit assumption that range of motion scales directly with peak flexion depth (assuming a constant standing extension start point), the subject would need to reduce knee flexion depth (increase peak angle) by at least 17.33\u00b0, which would simultaneously reduce active range of motion and clear both the EXCESS_DEPTH and EXCESS_ROM flags."
+    "minimal_kinematic_intervention": "The screening flags would not have fired if peak knee flexion joint angle had been at least 17.33\u00b0 shallower (which, assuming range of motion scales directly with peak flexion depth under a constant standing extension start point, would simultaneously restrict joint range of motion sufficiently to clear both the EXCESS_DEPTH and EXCESS_ROM flags)."
   },
   {
     "subject_id": 6,
@@ -186,7 +186,7 @@
         "text": "Flagged EXCESS_ROM because knee range of motion (117.52\u00b0) was 17.58\u00b0 above the active baseline threshold (99.95\u00b0). Had the range of motion been no more than 99.95\u00b0 (representing a restricted excursion of 17.58\u00b0 less joint travel), the EXCESS_ROM flag would not have fired."
       }
     ],
-    "minimal_kinematic_intervention": "To clear all screening flags for this repetition, under the explicit assumption that range of motion scales directly with peak flexion depth (assuming a constant standing extension start point), the subject would need to reduce knee flexion depth (increase peak angle) by at least 17.58\u00b0, which would simultaneously reduce active range of motion and clear both the EXCESS_DEPTH and EXCESS_ROM flags."
+    "minimal_kinematic_intervention": "The screening flags would not have fired if peak knee flexion joint angle had been at least 17.58\u00b0 shallower (which, assuming range of motion scales directly with peak flexion depth under a constant standing extension start point, would simultaneously restrict joint range of motion sufficiently to clear both the EXCESS_DEPTH and EXCESS_ROM flags)."
   },
   {
     "subject_id": 6,
@@ -212,7 +212,7 @@
         "text": "Flagged EXCESS_ROM because knee range of motion (107.59\u00b0) was 7.65\u00b0 above the active baseline threshold (99.95\u00b0). Had the range of motion been no more than 99.95\u00b0 (representing a restricted excursion of 7.65\u00b0 less joint travel), the EXCESS_ROM flag would not have fired. Note: The deviation margin (7.65\u00b0) is close to the monocular camera's validated measurement uncertainty boundaries. This flag should be interpreted with caution as minor tracking fluctuations could have triggered it."
       }
     ],
-    "minimal_kinematic_intervention": "To clear all screening flags for this repetition, under the explicit assumption that range of motion scales directly with peak flexion depth (assuming a constant standing extension start point), the subject would need to reduce knee flexion depth (increase peak angle) by at least 8.92\u00b0, which would simultaneously reduce active range of motion and clear both the EXCESS_DEPTH and EXCESS_ROM flags."
+    "minimal_kinematic_intervention": "The screening flags would not have fired if peak knee flexion joint angle had been at least 8.92\u00b0 shallower (which, assuming range of motion scales directly with peak flexion depth under a constant standing extension start point, would simultaneously restrict joint range of motion sufficiently to clear both the EXCESS_DEPTH and EXCESS_ROM flags)."
   },
   {
     "subject_id": 6,
@@ -238,7 +238,7 @@
         "text": "Flagged EXCESS_ROM because knee range of motion (119.66\u00b0) was 19.72\u00b0 above the active baseline threshold (99.95\u00b0). Had the range of motion been no more than 99.95\u00b0 (representing a restricted excursion of 19.72\u00b0 less joint travel), the EXCESS_ROM flag would not have fired."
       }
     ],
-    "minimal_kinematic_intervention": "To clear all screening flags for this repetition, under the explicit assumption that range of motion scales directly with peak flexion depth (assuming a constant standing extension start point), the subject would need to reduce knee flexion depth (increase peak angle) by at least 19.72\u00b0, which would simultaneously reduce active range of motion and clear both the EXCESS_DEPTH and EXCESS_ROM flags."
+    "minimal_kinematic_intervention": "The screening flags would not have fired if peak knee flexion joint angle had been at least 19.72\u00b0 shallower (which, assuming range of motion scales directly with peak flexion depth under a constant standing extension start point, would simultaneously restrict joint range of motion sufficiently to clear both the EXCESS_DEPTH and EXCESS_ROM flags)."
   },
   {
     "subject_id": 6,
@@ -264,6 +264,6 @@
         "text": "Flagged EXCESS_ROM because knee range of motion (121.79\u00b0) was 21.85\u00b0 above the active baseline threshold (99.95\u00b0). Had the range of motion been no more than 99.95\u00b0 (representing a restricted excursion of 21.85\u00b0 less joint travel), the EXCESS_ROM flag would not have fired."
       }
     ],
-    "minimal_kinematic_intervention": "To clear all screening flags for this repetition, under the explicit assumption that range of motion scales directly with peak flexion depth (assuming a constant standing extension start point), the subject would need to reduce knee flexion depth (increase peak angle) by at least 21.85\u00b0, which would simultaneously reduce active range of motion and clear both the EXCESS_DEPTH and EXCESS_ROM flags."
+    "minimal_kinematic_intervention": "The screening flags would not have fired if peak knee flexion joint angle had been at least 21.85\u00b0 shallower (which, assuming range of motion scales directly with peak flexion depth under a constant standing extension start point, would simultaneously restrict joint range of motion sufficiently to clear both the EXCESS_DEPTH and EXCESS_ROM flags)."
   }
 ]
