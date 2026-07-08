@@ -1,0 +1,17 @@
+Modality,Scheme,Model,Global_Accuracy,Global_Balanced_Accuracy,Global_F1,Global_AUC
+squat,Scheme_A,naive,0.7347,0.5,0.8471,0.5
+squat,Scheme_A,peak,0.8163,0.8136,0.8676,0.9038
+squat,Scheme_A,shape,0.3878,0.3376,0.5161,0.3531
+squat,Scheme_A,lstm,0.5918,0.5379,0.7015,0.4931
+squat,Scheme_B,naive,0.7347,0.5,0.8471,0.5
+squat,Scheme_B,peak,0.8163,0.8136,0.8676,0.9038
+squat,Scheme_B,shape,0.3878,0.3376,0.5161,0.3531
+squat,Scheme_B,lstm,0.7347,0.5,0.8471,0.605
+lunge,Scheme_A,naive,0.5902,0.5,0.0,0.5
+lunge,Scheme_A,peak,0.8033,0.815,0.7857,0.8289
+lunge,Scheme_A,shape,0.5738,0.5839,0.5517,0.5889
+lunge,Scheme_A,lstm,0.541,0.5378,0.4815,0.5378
+lunge,Scheme_B,naive,0.5902,0.5,0.0,0.5
+lunge,Scheme_B,peak,0.8033,0.815,0.7857,0.8289
+lunge,Scheme_B,shape,0.5738,0.5839,0.5517,0.5889
+lunge,Scheme_B,lstm,0.4262,0.3917,0.2222,0.4144
