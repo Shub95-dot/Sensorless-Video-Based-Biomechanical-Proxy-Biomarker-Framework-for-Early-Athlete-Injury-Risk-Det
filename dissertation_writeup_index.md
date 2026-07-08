@@ -49,7 +49,7 @@ This is the running one-line-per-section writeup map for the Sensorless Biomecha
    - **Section 10.1: Continuous-Update Infrastructure Design**: Planned.
 
 9. **Chapter 12: Self-Supervised Pretraining**
-   - **Section 11.1: Pretraining Framework and Sample Constraints**: Planned.
+   - **Section 11.1: Pretraining Framework and Sample Constraints**: **FUTURE WORK (evidence-grounded, not implemented)**. Trajectory classification overfitting (Phase 12) demonstrates that representation learning on deep sequence models is unlikely to generalize at this cohort scale ($N=9$ squats, $N=7$ lunges). Future work outlines requirements for larger cohorts.
 
 ## Dissertation Chapter Drafts
 
@@ -79,6 +79,12 @@ This is the running one-line-per-section writeup map for the Sensorless Biomecha
 - Result — validated **Outcome 3 (Endpoint Dominance)**. Peak flexion alone is the optimal classifier (Squat: 81.36% Balanced Accuracy; Lunge: 81.50% Balanced Accuracy). Trajectory shape features perform at or below chance (Squat: 33.76% Balanced Accuracy; Lunge: 58.39% Balanced Accuracy). Source: `temporal_model_comparison.csv` + `temporal_model_evaluation_report.md`.
 - Overfitting Finding — under Scheme B (shape-only), the LSTM collapses completely to majority-class guessing (50.00% Balanced Accuracy for Squats). Under Scheme A (amplitude kept), the LSTM reaches only ~54% Balanced Accuracy, failing to reliably extract the amplitude signal that a simple peak flexion threshold captures (81.36%). A clear demonstration of high-capacity model overfitting on small-subject cohorts ($N=9$ squats / $N=7$ lunges). Source: `temporal_model_evaluation_report.md` §4.
 - Does NOT claim — no diagnostic prediction, no injury risk classification, not clinically deployed.
+
+## Component — Self-Supervised Pretraining (Track B) · FUTURE WORK (evidence-grounded, not implemented)
+- Status — NOT implemented as an active pipeline component; written up as reasoned future work, grounded in the temporal model results. This represents a pre-accepted time-boxed null outcome.
+- Reasoning — the temporal LSTM comparison (Phase 12) demonstrated that supervised deep models overfit at this cohort scale ($N=9$ squat / $N=7$ lunge subjects): the LSTM failed to extract even the amplitude signal that a single-feature peak-flexion classifier captures (LSTM ~54% vs peak-flexion 81.36% balanced accuracy). Since self-supervised pretraining's value is learning representations to aid downstream deep models, and since (a) the downstream screening task is solved by a single endpoint biomarker and (b) deep representations do not generalize at this subject count, pretraining is highly unlikely to yield downstream gains at this scale.
+- Future-work framing — self-supervised pretraining is identified as future work requiring substantially larger multi-subject cohorts, where representation learning could plausibly help before endpoint saturation. Source: reasoning from Phase 12 temporal_model_evaluation_report.md.
+- Does NOT claim — not that self-supervised representation learning is generally without value; specifically that at this cohort scale, with the demonstrated overfitting ceilings, it is not warranted.
 
 ---
 
