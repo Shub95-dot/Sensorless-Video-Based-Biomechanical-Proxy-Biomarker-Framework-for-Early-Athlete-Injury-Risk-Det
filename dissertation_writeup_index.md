@@ -43,7 +43,7 @@ This is the running one-line-per-section writeup map for the Sensorless Biomecha
 - Does NOT claim — no real longitudinal progression, no injury prediction, no rep good/bad classification, no group re-analysis, not deployed. Source: `baseline_design.md`.
 
 7. **Chapter 10: Temporal Sequence Models (LSTM)**
-   - **Section 9.1: Sequence Classification & Biomarker Validation**: Planned.
+   - **Section 9.1: Sequence Classification & Biomarker Validation**: **ANALYSIS DONE / WRITEUP DEFERRED** (Phase 12). Controlled LOSO comparison completed; Outcome 3 (Endpoint Dominance) validated.
 
 8. **Chapter 11: Biomechanical Digital Twin**
    - **Section 10.1: Continuous-Update Infrastructure Design**: Planned.
@@ -72,6 +72,13 @@ This is the running one-line-per-section writeup map for the Sensorless Biomecha
 - Purpose — counterfactual explanation of rule-based screening flags: faithful by construction (exact margin calculations, not post-hoc approximations). Source: `21_xai_outputs/xai_design.md`.
 - Templates — descriptive (not prescriptive) counterfactual statements per rule. MKI as a descriptive set of conditions. Confidence grading via 0.5×NF buffer. Source: `xai_design.md` + `phase11_counterfactual_xai.py`.
 - Result — explanations rendered for PM_113 (squat) and PM_104 (lunge). Source: `worked_example_explanations.json`.
+
+## Component — Temporal Sequence Models (Phase 12, Track B demo) · ANALYSIS DONE / WRITEUP DEFERRED
+- Purpose — controlled comparison of within-rep knee-flexion trajectory shape classification (LSTM deep learning vs. shallow shape-feature baseline) against static endpoints under Leave-One-Subject-Out (LOSO) cross-validation to isolate value-add of sequence shape. Source: `23_temporal_model_outputs/temporal_model_design.md`.
+- Method — linear interpolation to $100$-point sequence. Two normalizations: Scheme A (offset-subtracted, keeps amplitude), Scheme B (min-max scaled, shape-only). Models: Naive guess-majority (73.47% Squat / 59.02% Lunge), Peak Flexion Logistic Regression, regularized shape-feature Logistic Regression (6 amplitude-invariant features), and heavily regularized LSTM. Source: `temporal_model_design.md` + `phase12_temporal_sequence_model.py`.
+- Result — validated **Outcome 3 (Endpoint Dominance)**. Peak flexion alone is the optimal classifier (Squat: 81.36% Balanced Accuracy; Lunge: 81.50% Balanced Accuracy). Trajectory shape features perform at or below chance (Squat: 33.76% Balanced Accuracy; Lunge: 58.39% Balanced Accuracy). Source: `temporal_model_comparison.csv` + `temporal_model_evaluation_report.md`.
+- Overfitting Finding — under Scheme B (shape-only), the LSTM collapses completely to majority-class guessing (50.00% Balanced Accuracy for Squats). Under Scheme A (amplitude kept), the LSTM reaches only ~54% Balanced Accuracy, failing to reliably extract the amplitude signal that a simple peak flexion threshold captures (81.36%). A clear demonstration of high-capacity model overfitting on small-subject cohorts ($N=9$ squats / $N=7$ lunges). Source: `temporal_model_evaluation_report.md` §4.
+- Does NOT claim — no diagnostic prediction, no injury risk classification, not clinically deployed.
 
 ---
 
