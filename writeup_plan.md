@@ -94,3 +94,54 @@ This document serves as the detailed assembly scaffold for the final writing of 
 *   Verify all Cohen's d values strictly against the frozen output [phase5b_effect_sizes_ci.csv](file:///c:/Users/shiro/OneDrive/Desktop/Python%20files/BIOMECHANICAL%20ANALYSIS%20OF%20INJURY/14_rehab24_outputs/metadata/phase5b_effect_sizes_ci.csv).
 *   Flag the 4 Zotero reference citations as pending verification during the week-16 sweep.
 
+---
+
+## CHAPTER: Lunge (mirrors squat structure; distinctive finding = ascent-velocity divergence)
+**STRUCTURE:** cohort & methods → headline finding → cross-exercise divergence → discussion → limitations → figures
+
+### § Cohort & Methods
+*   **REHAB24-6 Lunge Dataset:** 88 repetitions in the manifest [source: phase5b_integration_summary.txt].
+*   **Usable Analytical Cohort:** 61 repetitions across 7 usable subjects (25 correct, 36 incorrect) successfully processed after quality filtering [source: phase5b_integration_summary.txt].
+*   **Cohort Exclusions:** Two subjects were excluded from the usable dataset due to far-leg self-occlusion during the lunge movement:
+    *   Subject 5 (PM_042): 12 of 13 repetitions failed phase identification (92.3% failure rate).
+    *   Subject 8 (PM_112): All 12 repetitions failed phase identification (100% failure rate).
+    *   *Systematic Link:* These exclusions are direct failure modes that feed the monocular camera occlusion taxonomy.
+*   **Angle Convention:** Included-angle convention (consistent with the squat chapter).
+*   **Statistical Methodology:** The cluster-aware subject-level bootstrapping procedure is replicated (written from scratch, not imported) from the squat analysis, as documented in the methods chapter.
+
+### § Headline Finding
+*   **Kinematic Signature of Deviation:** Incorrect lunge repetitions exhibit **increased peak flexion depth (deeper bend) and a larger joint range of motion (ROM)**, mirroring the squat chapter's overall behavior.
+*   **Peak Flexion Effect Size:** Large effect size showing deeper flexion for incorrect repetitions ($d = 1.6904$, $n=25$ correct vs. $36$ incorrect) [source: phase5c_effect_sizes_ci.csv].
+    *   *Correction Verification:* An earlier draft contained a calculation error ($d = 1.4944$); the corrected value is strictly $d = 1.6904$.
+*   **Visual Proof:** Incorrect deeper flexion is visibly confirmed via time-series overlay of Subject 7 (PM_125) correct repetition 14 vs. incorrect repetition 16.
+*   **ROM Effect Size:** Correspondingly larger joint range of motion for incorrect reps ($d = -1.2653$, correct mean = $59.02^\circ$ vs. incorrect mean = $90.30^\circ$) [source: phase5c_effect_sizes_ci.csv].
+
+### § Cross-Exercise Divergence (The Distinctive Finding)
+*   **Ascent Velocity Discrimination:** Unlike the squat (where ascent velocities do not discriminate between form groups), **lunge ascent velocities are highly discriminative**:
+    *   Peak ascent velocity ($d = -0.9721$, correct mean = $3.85^\circ/\text{frame}$ vs. incorrect mean = $6.95^\circ/\text{frame}$) is a reliable indicator [source: phase5c_effect_sizes_ci.csv].
+    *   Mean ascent velocity ($d = -0.7962$, correct mean = $1.26^\circ/\text{frame}$ vs. incorrect mean = $1.87^\circ/\text{frame}$) is a reliable-marginal indicator [source: phase5c_effect_sizes_ci.csv].
+*   **MUST-LINK TO SQUAT:** Connect these findings explicitly to the squat chapter. The fact that the lunge's ascent phase is a primary indicator of form deviation (representing a rapid, less-controlled propulsion or spring-back step) whereas the squat's ascent phase carries zero discriminative signal is a core cross-exercise finding.
+*   **CAUTION — Overclaim Correction:** Ensure the text does not overclaim. Earlier drafts claimed significance for all ascent metrics; only report those where the bootstrap confidence intervals exclude zero (peak ascent velocity $d=-0.97$, mean ascent velocity $d=-0.80$). Exclude metrics with zero-crossing CIs (e.g., peak extension $d = -0.4972$, tempo ratio $d = -0.3796$) from significance claims.
+
+### § Discussion
+*   **Screening-not-prediction:** Kinematic markers (like ascent propulsion) are evaluated as movement characterisations, not as diagnostic classifiers.
+*   **Cross-Exercise Value:** Different exercises expose discriminative signals in different movement phases. Squats reveal form deviations exclusively in the eccentric descent phase, whereas lunges reveal form deviations in both descent (eccentric) and ascent (propulsive concentric spring-back) phases.
+
+### § Limitations
+*   **Occlusion Exclusions:** 2 subjects fully excluded due to far-side occlusion on monocular sagittal camera view.
+*   **Sample Constraints:** Small usable cohort size (7 subjects, 61 repetitions).
+*   **Geometric Boundaries:** Sagittal-only tracking limits valgus/rotation analysis.
+
+### § Figures (4)
+*   **Figure L1 (Distributions):** Histograms comparing correct vs. incorrect repetitions.
+*   **Figure L2 (Forest Plot):** Cohen's d effect sizes and 95% confidence intervals for lunge biomarkers [source: fig_L2_effect_sizes.png / fig_L2_effect_sizes.svg].
+    *   *KNOWN BUG:* Same guide-label overprint bug as the squat forest plot; to be resolved in the week-16 sweep.
+*   **Figure L3 (Cross-Exercise):** Side-by-side forest plot comparison highlighting the lunge-squat ascent-velocity divergence.
+*   **Figure L4 (Representative Trajectories):** Representative time-series overlay of Subject 7 (PM_125) showing lunge repetition trajectories (rep 14 vs. rep 16).
+
+### § MUST-INCLUDE Flags
+*   **Ascent-Velocity Divergence:** Ensure this finding is highlighted as the primary biomechanical difference between squats and lunges.
+*   **Overclaim Correction:** Verify that only CI-reliable effects (peak ascent velocity $d=-0.97$, mean ascent velocity $d=-0.80$) are presented as significant.
+*   **Occlusion Failure Modes:** Explicitly connect the Subject 5 and Subject 8 exclusions to the monocular camera occlusion taxonomy.
+
+
