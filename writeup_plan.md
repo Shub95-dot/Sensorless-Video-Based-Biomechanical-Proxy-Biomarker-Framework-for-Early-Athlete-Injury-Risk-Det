@@ -47,3 +47,50 @@ This document serves as the detailed assembly scaffold for the final writing of 
 ### § Discussion
 *   **KEY THREAD:** Because the peak overestimation bias is shown to be a **constant systematic offset within each subject**, it does not degrade screening performance when using personalised baseline tracking. In **Option B (Personalised-Deviation Screening)**, the baseline subtraction step ($\mu_{\text{base}} - NF$) mathematically cancels out this static projection offset, fully validating the screening rules designed in Step 10.
 *   The drop-jump validation establishes the mathematical foundation for the uncertainty propagation weights (Phase 8 baseline noise floors) utilized throughout the framework.
+
+---
+
+## CHAPTER: Squat (first exercise chapter — sets template for lunge)
+**STRUCTURE:** cohort & methods → headline finding → cross-cohort consistency → discussion → limitations → figures
+
+### § Cohort & Methods
+*   **YouTube Cohort:** 10 subjects performing a single repetition under in-the-wild conditions [source: phase5a_integration_summary.txt / squat_results_v4.md].
+*   **REHAB24-6 Cohort:** 9 subjects performing a total of 98 processed repetitions (72 correct, 26 incorrect) in a controlled laboratory environment [source: phase5a_integration_summary.txt].
+*   **Convention Check:** Squats are analyzed using the **included-angle** convention ($\approx 180^\circ$ = standing extension, smaller angle = deeper flexion bend). This is the opposite of the clinical convention ($0^\circ$ = extension) used in the drop-jump validation chapter.
+*   **Extracted Biomarkers:** Peak flexion angle, Range of Motion (ROM), descent and ascent phase frame durations, mean/peak descent and ascent velocities, and jerk proxy standard deviation [source: phase5a_integration_summary.txt].
+
+### § Headline Finding
+*   **Kinematic Signature of Deviation:** Incorrect squat form in this cohort is characterized by **excessive knee flexion depth (deeper bend), a faster descent phase, and a rougher (jerkier) movement profile**.
+*   **Peak Flexion Effect Size:** Large effect size showing deeper flexion for incorrect repetitions ($d = 1.7306$, $n=72$ correct vs. $26$ incorrect) [source: phase5b_effect_sizes_ci.csv].
+*   **ROM Effect Size:** Correspondingly larger joint range of motion for incorrect reps ($d = -1.4484$) [source: phase5b_effect_sizes_ci.csv].
+*   **Descent-Phase Localization:** Form differences are heavily localized to the descent phase:
+    *   Mean descent velocity ($d = 0.7768$) and peak descent velocity ($d = 0.8216$) both show statistically significant increases for incorrect reps [source: phase5b_effect_sizes_ci.csv].
+    *   *Contrast with Ascent:* Ascent-phase velocity effect sizes show confidence intervals that cross zero (mean ascent velocity $d = -0.4996$, 95% CI: $[-1.7017, +0.1301]$; peak ascent velocity $d = -0.5049$, 95% CI: $[-1.4838, +0.0848]$), meaning the ascent phase is non-discriminative for squats [source: phase5b_effect_sizes_ci.csv]. This contrasts directly with lunges.
+
+### § Cross-Cohort Consistency (Pipeline-Validation Finding)
+*   **Biomechanical Ranges:** Both YouTube and REHAB24-6 cohorts yield overlapping, biomechanically plausible knee angle distributions, showing the extraction pipeline generalizes across diverse camera angles and lighting.
+*   **Cohort Differences:** REHAB24-6 exhibits systematically deeper peak flexion and larger ROM than the YouTube cohort, reflecting the difference between laboratory execution and in-the-wild physical constraints.
+*   **Methodological Role:** The cross-cohort analysis serves as a **reproducibility finding**, showing the software pipeline consistently extracts kinematics. It acts as a complement to, not a substitute for, the OpenCap 3D optoelectronic physical validation.
+
+### § Discussion
+*   **Clinical Risk Interpretation:** Deeper flexion depth paired with faster, jerkier descent indicates a compensation pattern (loss of eccentric control and rapid loading) associated with increased patellofemoral loading and joint shear stress in literature.
+*   **Clinical Citation Chain:** Salem & Powers (2002), FEA (2023), PMC12736615, and Farrokhi (2011) — *PENDING: author/DOI verification in Zotero during the week-16 reference sweep*.
+*   **Clinical Guardrail:** Kinematic deviations are framed strictly as screening indicators of movement pattern divergence, not as diagnostic predictive markers for injury occurrence.
+
+### § Limitations
+*   **Cohort Split:** Small sample size of incorrect repetitions ($n=26$).
+*   **Geometric Limits:** Sagittal-only monocular tracking lacks multi-planar coverage (no valgus/rotation tracking).
+*   **Analytical Role:** The cohort analysis demonstrates reproducibility and association; it cannot validate absolute measurement accuracy (which is deferred to the Drop-Jump Validation Chapter).
+
+### § Figures (4)
+*   **Figure 1 (Distributions):** Joint angle histograms for correct vs. incorrect repetitions.
+*   **Figure 2 (Forest Plot):** Cohen's d effect sizes and 95% confidence intervals for the 10 biomarkers [source: fig2_effect_sizes.png / fig2_effect_sizes.svg].
+    *   *KNOWN BUG:* Overprinting of "small/medium/large" guide-labels near the boundaries; to be resolved in the week-16 figure sweep.
+*   **Figure 3 (Cross-Cohort):** Overlay comparison between YouTube and REHAB24-6 distributions.
+*   **Figure 4 (Representative Trajectories):** Time-series plot of representative correct vs. incorrect knee-flexion profiles showing descent-localized slope differences.
+
+### § MUST-INCLUDE Flags
+*   Highlight that the **ascent phase does NOT discriminate** for squats (effect size CIs cross zero), which highlights the unique value of the lunge ascent phase.
+*   Verify all Cohen's d values strictly against the frozen output [phase5b_effect_sizes_ci.csv](file:///c:/Users/shiro/OneDrive/Desktop/Python%20files/BIOMECHANICAL%20ANALYSIS%20OF%20INJURY/14_rehab24_outputs/metadata/phase5b_effect_sizes_ci.csv).
+*   Flag the 4 Zotero reference citations as pending verification during the week-16 sweep.
+
