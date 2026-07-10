@@ -201,5 +201,57 @@ This document serves as the detailed assembly scaffold for the final writing of 
 *   Clearly maintain the distinction between **projection-transferable** and **motion-non-transferable** variance to protect the design against questions on task-variance transfer.
 *   Emphasize that the error bounds represent **measurement uncertainty**, not physical joint range of motion variability.
 
+---
+
+## COMPONENT: Personalised Baseline (Track B demo)
+**STRUCTURE:** purpose → method → result (both-sides) → cross-component finding → personalised-not-group → limitation → does-not-claim
+
+### § Purpose
+*   **Role:** An architectural demonstration of tracking kinematics relative to an individual's own baseline, with deviation detection gated by a validated measurement-noise floor.
+*   **Time Model:** Utilizes pseudo-timepoints (within-session repetition order) to represent sequence progression. It is **not** a longitudinal baseline tracking system.
+*   **Source:** [18_personalised_baseline_outputs/baseline_design.md](file:///c:/Users/shiro/OneDrive/Desktop/Python%20files/BIOMECHANICAL%20ANALYSIS%20OF%20INJURY/18_personalised_baseline_outputs/baseline_design.md).
+
+### § Method
+*   **Baseline Initialization:** Established using the mean of the first two correct repetitions of the session:
+    $$\mu_{\text{base}, i} = \frac{x_{1, i} + x_{2, i}}{2}$$
+    The standard error ($SD$) is recorded for descriptive consistency but is **not** used to set threshold gates due to small-sample instability.
+*   **Noise-Gating Rule:** Test repetitions are gated per-biomarker against the Phase 7 projection-transferred noise floors ($NF_i$):
+    *   Peak flexion noise floor: **$\pm 11.99^\circ$** [source: baseline_design.md / phase8_personalised_baseline.py].
+    *   ROM noise floor: **$\pm 23.17^\circ$** [source: baseline_design.md].
+    *   Descent velocity noise floor: **$\pm 40.86^\circ/\text{s}$** [source: baseline_design.md / phase8_personalised_baseline.py].
+*   **Deviation Rule:** A test repetition triggers a flag if the absolute difference exceeds the biomarker's floor:
+    $$\Delta_i = |x_{\text{test}, i} - \mu_{\text{base}, i}| > NF_i$$
+
+### § Result (Both-Sides Demonstration)
+*   **Evaluation Subjects:** Demonstrated on Squat PM_113 and Lunge PM_104 [source: worked_example_baseline.csv].
+*   **Quiet Side (No False Alarms):** Correct repetitions 3–5 remain within the noise floors (squat deviations $\Delta$ range between $2.0^\circ\text{--}9.3^\circ$). This includes a minor propulsive wobble in the lunge that is correctly classified as within-noise, showing **no false alarms** on normal movement variability.
+*   **Firing Side (Deviation Detected):** Incorrect repetitions 6–10 successfully exceed the noise floors (squat peak flexion deviations $\Delta$ of $21.0^\circ\text{--}36.0^\circ$).
+*   **Analysis:** The noise floor sits precisely in the "clean gap" between natural biomechanical variation and a genuine movement deviation. Showing both sides (preventing false alarms while catching real changes) is the primary value.
+*   **Source Data:** [worked_example_baseline.csv](file:///c:/Users/shiro/OneDrive/Desktop/Python%20files/BIOMECHANICAL%20ANALYSIS%20OF%20INJURY/18_personalised_baseline_outputs/worked_example_baseline.csv) and `baseline_tracking.png`.
+
+### § Cross-Component Finding (Payoff of Weighting)
+*   **Biomarker Roles:** The baseline tracking illustrates the uncertainty weights designed in Phase 7:
+    *   *Peak Flexion:* Dominates the detection layer because it has a tight noise floor ($\pm 11.99^\circ$) and high projection weight ($57.15\%$).
+    *   *Descent Velocity:* Has a wide noise floor ($\pm 40.86^\circ/\text{s}$) due to high monocular measurement uncertainty ($SD_{\text{proj}} = 20.85^\circ/\text{s}$) and carries a low projection weight ($4.92\%$). It does **not** independently trigger any flags, except for a single large, genuine velocity spike on Squat PM_113 rep 6 ($110.0^\circ/\text{s}$), where the deviation is large enough to exceed the wide noise floor.
+*   **Wording Guardrail:** Velocity's wide noise floor does **not** "actively suppress noise"; it is simply a low-confidence biomarker that is correctly down-weighted by a wide noise gate to reflect its measurement uncertainty.
+
+### § Personalised-Not-Group (The Distinction)
+*   **Unit of Analysis:** The system compares the individual to their own baseline state, not to a group average or cohort classification.
+*   **Flag Meaning:** A fired flag means the movement exhibits a **real kinematic deviation beyond monocular measurement noise**, not a clinical pathology or a "bad repetition."
+
+### § Limitations
+*   **Floor Width:** Subtle, sub-floor movement progression (changes $<12^\circ$ in flexion) is masked by the wide monocular measurement uncertainty.
+*   **Temporal Limits:** Utilizes single-session repetitions as pseudo-timepoints; longitudinal baseline tracking across weeks is deferred.
+
+### § Does-Not-Claim
+*   Does not evaluate longitudinal progression across sessions, does not predict joint pathology, does not classify repetitions, and does not represent a clinically deployed system.
+
+### § MUST-INCLUDE Flags
+*   Include the **both-sides demonstration** (quiet correct reps vs. firing incorrect reps) to prove that the noise floors prevent false alarms.
+*   Link this demo directly to the **Phase 7 uncertainty weights** (flexion dominance vs. velocity down-weighting).
+*   Maintain the **personalised vs. group** analysis distinction to avoid reading as a squat/lunge cohort repeat.
+*   Frame a fired flag as a **deviation-beyond-measurement-noise**, never as a "bad rep" or pathology.
+
+
 
 
