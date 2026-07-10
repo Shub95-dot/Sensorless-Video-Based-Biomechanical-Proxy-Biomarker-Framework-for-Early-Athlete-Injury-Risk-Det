@@ -516,6 +516,45 @@ The validation metrics propagate through a unified mathematical chain:
 *   Provide a clear, definitive statement on the **screening-not-prediction** guardrail.
 *   Incorporate the **prediction-to-screening evolution narrative** as a strong concluding thesis-defense argument.
 
+---
+
+## CHAPTERS: Introduction, Abstract, Conclusion (write LAST — after everything else is drafted)
+
+### § Introduction
+*   **Opening:** Address the clinical assessment gap in sports biomechanics. Existing laboratory-grade methods (3D motion capture, force plates) do not scale for high-throughput athletic screening. Monocular, sensorless, markerless video pose estimation represents a scale opportunity but lacks integrated, transparent error-characterization.
+*   **The Thesis Claim (PARAGRAPH ONE boundary):** Define the scope immediately as a **screening framework** that characterizes movement deviations associated with loading and risk in literature. State explicitly that it is **not** an injury prediction system or a clinical diagnostic tool.
+*   **Scope:** Focuses on three athletic exercises (bilateral squat, unilateral lunge, dynamic drop-jump) utilizing a single, consumer-grade sagittal camera validated against 3D optoelectronic and force ground truth.
+*   **Preview of the Four Contributions:** 
+    1.  *Cross-exercise integration:* Modality-independent pose extraction pipeline.
+    2.  *Failure-mode taxonomy:* Mapping systematic geometric and occlusion failure points.
+    3.  *Uncertainty-weighted transfer:* Transferring validated measurement boundaries to qualify screening decisions.
+    4.  *Counterfactual XAI:* Providing exact-margin, faithful-by-construction explanations for rule decisions.
+*   **Evolution Seed:** Mention briefly in the introduction that this work began as an attempt to build a machine-learning-based injury *prediction* model but was systematically scoped to a validated *screening* framework once measurement uncertainty bounds were quantified. This establishes the narrative thread early.
+
+### § Abstract (Write ABSOLUTELY last)
+*   *Length:* $\approx 250\text{--}300$ words.
+*   *Context:* The sports screening scalability gap and the opportunity of consumer video.
+*   *Method:* Monocular markerless pipeline tested across squats, lunges, and drop-jumps, validated against laboratory ground truth.
+*   *Headline Numbers (MUST RE-VERIFY AT POLISH):*
+    *   *Validation:* Peak landing overestimation bias of $+10.52^\circ$ (timing-clean) vs. peak-to-peak bias of $+19.72^\circ$ (containing temporal overshoot); contact underestimation bias of $-6.69^\circ$. Decomposed projection-based noise floors (peak flexion $\pm 11.99^\circ$, ROM $\pm 23.17^\circ$, velocity $\pm 40.86^\circ/\text{s}$).
+    *   *Exercise Findings:* Squats show descent-phase-only form discrimination ($d = 1.7306$ peak, $d = -1.4484$ ROM), whereas lunges show both descent and Concentric Ascent propulsion divergence ($d = -0.9721$ peak ascent velocity).
+    *   *Explainability & Modeling:* Explainability is exact-margin faithful. Temporal sequence modeling (LSTM) overfits at this scale, reverting to guessing ($50.00\%$ balanced accuracy) when amplitude is stripped, whereas simple peak flexion baseline achieves $81.36\%$ balanced accuracy.
+*   *Honesty Guardrails:* Emphasize the screening-not-prediction stance, the small analytical cohorts ($N=9$ squats, $N=7$ lunges), and the Track B status of the baseline/twin updates.
+*   *Contribution:* Deliver a sensorless screening spine grounded in validated measurement uncertainty and faithful explainability.
+
+### § Conclusion
+*   **Thesis Claim:** Restate clearly that the thesis delivers a sensorless screening framework with validated, quantified measurement uncertainty boundaries and faithful explainability, not a diagnostic or prognostic injury classifier.
+*   **Chapter Summaries:** One paragraph summarizing the findings of the Drop-Jump validation (systematic overestimation offset), one for the Squat (descent-localized deviations), one for the Lunge (propulsive ascent divergence), and one for the explainability/temporal modeling (endpoint dominance and LSTM data-scale mismatch).
+*   **Delivered Contributions:** Summarize the four contributions.
+*   **Consolidated Future Work:** Condense the future work items: vertical jump trajectory integration (Bath BioCV), multi-session longitudinal baselines, scale pretraining on large cohorts, motion-component error validation for slow movements, and twin temporal persistence logic.
+*   **Closing Reflection (The Evolution Narrative Payoff):** Conclude with the reflection on the project's evolution. Transitioning from injury prediction to validated screening is framed as a maturation of the scientific contribution—recognizing that clinical utility is best served by transparent, explainable bounds rather than ungrounded black-box risk projections.
+
+### § MUST-INCLUDE Flags
+*   **First-Paragraph Boundary:** The screening-not-prediction boundary must be stated explicitly in the very first paragraph of the introduction to set the reading posture.
+*   **Evolution Narrative Mapping:** Plant the evolution seed in the introduction, and place the final reflective payoff **exclusively in the Conclusion** as a closing reflection (do not repeat it verbatim in the discussion chapter).
+*   **Abstract Number Audit:** Flag all abstract numbers for independent verification against raw CSV/manifest files at final polish to prevent copy-paste drift.
+
+
 
 
 
