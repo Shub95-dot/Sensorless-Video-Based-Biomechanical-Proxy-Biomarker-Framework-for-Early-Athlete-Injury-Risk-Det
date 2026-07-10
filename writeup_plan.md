@@ -144,4 +144,62 @@ This document serves as the detailed assembly scaffold for the final writing of 
 *   **Overclaim Correction:** Verify that only CI-reliable effects (peak ascent velocity $d=-0.97$, mean ascent velocity $d=-0.80$) are presented as significant.
 *   **Occlusion Failure Modes:** Explicitly connect the Subject 5 and Subject 8 exclusions to the monocular camera occlusion taxonomy.
 
+---
+
+## COMPONENT: Uncertainty-Weighted Screening Framework (Track B demo)
+**STRUCTURE:** purpose → uncertainty source → projection/motion decomposition → inverse-variance weighting → cross-exercise transfer → worked example → does-not-claim
+
+### § Purpose
+*   **Role:** An architectural demonstration of combining multi-biomarker screening signals weighted dynamically by their ground-truth-validated measurement uncertainty.
+*   **Framework Identity:** It represents a weighting methodology, **not** a risk score generator or a repetition classifier.
+*   **Scientific Value:** Serves as the "connective tissue" of the thesis, directly linking the Drop-Jump Mocap validation results to the downstream squat/lunge screening layers.
+*   **Source:** [17_uncertainty_framework_outputs/framework_design.md](file:///c:/Users/shiro/OneDrive/Desktop/Python%20files/BIOMECHANICAL%20ANALYSIS%20OF%20INJURY/17_uncertainty_framework_outputs/framework_design.md).
+
+### § Uncertainty Source
+*   **Variance Calculation:** Error standard deviations ($SD_i$) and total variances ($\sigma^2_{i, \text{total}}$) are derived directly from the Drop-Jump 95% Limits of Agreement width:
+    $$SD_i = \frac{LoA_{i, \text{upper}} - LoA_{i, \text{lower}}}{2 \cdot 1.96}$$
+    $$\sigma^2_{i, \text{total}} = (SD_i)^2$$
+*   **Source Data:** [phase6_agreement_final.csv](file:///c:/Users/shiro/OneDrive/Desktop/Python%20files/BIOMECHANICAL%20ANALYSIS%20OF%20INJURY/16_opencap_dropjump_outputs/metadata/phase6_agreement_final.csv).
+*   **Asymmetry Excluded:** Inter-limb asymmetry is excluded from monocular video transfer since it could not be validated on monocular video due to contralateral self-occlusion.
+
+### § Projection/Motion Decomposition (Methodological Core)
+*   **Variance Partitioning:** The total observed drop-jump variance is decomposed into two distinct physical components:
+    $$\sigma^2_{i, \text{total}} = \sigma^2_{i, \text{proj}} + \sigma^2_{i, \text{mot}}$$
+    where $\sigma^2_{i, \text{proj}}$ represents transferable camera projection/geometry error, and $\sigma^2_{i, \text{mot}}$ represents non-transferable dynamic motion/timing error (specific to drop-jump landings).
+*   **Biomarker Splits:**
+    *   *Peak Flexion:* $100\%$ projection, $0\%$ motion (directly measured at the static peak landing absorption frame where velocity $\approx 0$).
+    *   *Range of Motion:* Mathematically propagated from the start (contact) and end (peak) points.
+    *   *Contact Flexion & Loading Rate:* Split ratios are assumed based on movement dynamics.
+*   **Sensitivity-Sweep Robustness:** A 9-configuration sensitivity sweep proves these assumed splits are **immaterial** to the framework. Across all permutations, peak flexion remains the dominant biomarker ($50.01\%\text{--}58.59\%$, a variance range $<8.6\%$) and velocity remains heavily down-weighted ($2.30\%\text{--}9.38\%$), validating weight stability [source: framework_design.md §4].
+
+### § Inverse-Variance Weighting
+*   **Concept:** Biomarker weights ($w_i$) are calculated as:
+    $$w_i = \frac{1}{\sigma^2_{i, \text{proj}}}$$
+    representing the textbook-optimal statistical combination for combining measurements with unequal precision.
+*   **Result:** High-variance biomarkers (such as loading rate/descent velocity, which has an LoA width of $\approx \pm 130^\circ/\text{s}$) are heavily down-weighted (near-zero contribution), whereas low-variance biomarkers (contact flexion) are favored.
+
+### § Cross-Exercise Transfer (The Honesty Point)
+*   **Transfer Guardrail:** Only the **projection-based variance** ($\sigma^2_{i, \text{proj}}$) is transferred to slow, controlled sagittal squats and lunges. The dynamic motion-based timing error ($\sigma^2_{i, \text{mot}}$) is task-dependent and **not** transferred (unvalidated for slow movements, documented as future work).
+*   **Transfer Weights:**
+    *   Peak Flexion: **$57.15\%$** [source: framework_design.md §4].
+    *   Start/Contact Flexion: **$22.63\%$** [source: framework_design.md §4].
+    *   Range of Motion: **$15.30\%$** [source: framework_design.md §4].
+    *   Joint Velocity (descent): **$4.92\%$** [source: framework_design.md §4].
+*   **Biomechanical Mapping:** The parameter transfer is justified by kinematic function: squat/lunge starting flexion maps to drop-jump contact flexion (shallow extension); descent velocity maps to loading rate (angular rate, $^\circ/\text{s}$).
+
+### § Worked Example
+*   **Demonstration:** Projection weights applied to REHAB24-6 squat PM_008 and lunge PM_021 repetitions.
+*   **Result:** Visually and numerically demonstrates peak flexion depth dominating the tracking, while velocity features are down-weighted to prevent noisy, high-uncertainty signals from corrupting the screening layer.
+*   **MUST CLARIFY:** The uncertainty bounds represent the monocular pipeline's **measurement uncertainty** (constant across repetitions by construction), **not** the subject's baseline movement variability.
+*   **Source Data:** [worked_example.csv](file:///c:/Users/shiro/OneDrive/Desktop/Python%20files/BIOMECHANICAL%20ANALYSIS%20OF%20INJURY/17_uncertainty_framework_outputs/worked_example.csv) and `worked_example_weights.png`.
+
+### § Does-Not-Claim
+*   Does not output combined risk scores, does not evaluate injury probability, does not classify repetitions, does not transfer drop-jump landing motion-uncertainty, and does not represent a clinically deployed system.
+
+### § MUST-INCLUDE Flags
+*   Include the **$<8.6\%$ sensitivity-sweep robustness result** to demonstrate that the framework's weights are robust to assumed component splits.
+*   Clearly maintain the distinction between **projection-transferable** and **motion-non-transferable** variance to protect the design against questions on task-variance transfer.
+*   Emphasize that the error bounds represent **measurement uncertainty**, not physical joint range of motion variability.
+
+
 
