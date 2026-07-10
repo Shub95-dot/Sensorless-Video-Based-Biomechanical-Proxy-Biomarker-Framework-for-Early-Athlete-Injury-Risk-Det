@@ -399,6 +399,67 @@ Threshold gates ($NF_i$) are defined at a 95% confidence interval ($1.96 \cdot S
 *   State the **MKI coupling assumption** explicitly as a stated simplification, not an absolute biomechanical law.
 *   Note the development timeline: this component was built from scratch after establishing Step 10's screening rules, replacing the empty SHAP/LIME scaffolding.
 
+---
+
+## COMPONENT: Temporal Sequence Model + Self-Supervised (future work)
+**STRUCTURE:** purpose → design → results → interpretation → self-supervised future-work link → does-not-claim
+
+### § Purpose
+*   **Role:** A controlled comparison to evaluate whether within-repetition joint-angle trajectory shape carries discriminative form screening signal beyond simple static endpoint biomarkers (peak flexion, ROM), and whether a complex sequence model (LSTM) adds value over a simple shape baseline at this cohort scale.
+*   **Time Model:** Evaluates within-repetition frame-by-frame joint trajectories; it is **not** an across-session longitudinal model.
+*   **Source:** [23_temporal_model_outputs/temporal_model_design.md](file:///c:/Users/shiro/OneDrive/Desktop/Python%20files/BIOMECHANICAL%20ANALYSIS%20OF%20INJURY/23_temporal_model_outputs/temporal_model_design.md) and [temporal_model_evaluation_report.md](file:///c:/Users/shiro/OneDrive/Desktop/Python%20files/BIOMECHANICAL%20ANALYSIS%20OF%20INJURY/23_temporal_model_outputs/temporal_model_evaluation_report.md).
+
+### § Design (The Evaluation Rigor)
+*   **LOSO CV:** Leave-One-Subject-Out cross-validation (9 squat folds, 7 lunge folds). No subject reps leak across train/test splits.
+*   **Anti-Leakage Normalization:** Evaluates two schemes to isolate the signal:
+    *   *Scheme A (Offset-Subtracted):* $\theta(t) - \theta(0)$, which preserves angular amplitude.
+    *   *Scheme B (Min-Max Scaled):* Scales between 0.0 and 1.0 to isolate pure shape timing/velocity profiles independent of range.
+*   **Fair Baseline Feature Mapping:** Handcrafted shape features are computed on the same normalized trajectory as the LSTM sees, denying the baseline classifier absolute amplitude whenever the LSTM is.
+*   **Baselines:** Majority-class zero-rule guesser, and a Logistic Regression classifier fit only on `peak_flexion_deg`.
+*   **Pre-Registration:** All three potential outcome scenarios were pre-registered in the design file **before** running the training, establishing a null/tie result as a rigorous scientific finding rather than an engineering failure.
+*   **Balance:** Class weighting used to prevent gradient updates favoring the majority class.
+
+### § Results
+*   **Naive Floors (Majority Guess):**
+    *   *Squat:* $73.47\%$ Accuracy / $50.00\%$ Balanced Accuracy.
+    *   *Lunge:* $59.02\%$ Accuracy / $50.00\%$ Balanced Accuracy.
+*   **Peak Flexion Baseline (Winner):**
+    *   *Squat:* **$81.36\%$ Balanced Accuracy** (Accuracy: $81.63\%$, AUC-ROC: $0.9038$).
+    *   *Lunge:* **$81.50\%$ Balanced Accuracy** (Accuracy: $80.33\%$, AUC-ROC: $0.8289$).
+*   **Shape Feature Baseline:**
+    *   *Squat:* **$33.76\%$ Balanced Accuracy** (sub-chance score verified as a genuine statistical artifact of class weighting on zero-signal noise).
+    *   *Lunge:* **$58.39\%$ Balanced Accuracy**.
+*   **LSTM Model A (Scheme B — Pure Shape):**
+    *   *Squat:* **$50.00\%$ Balanced Accuracy** (reverts completely to majority guessing).
+    *   *Lunge:* **$39.17\%$ Balanced Accuracy** (below chance).
+*   **LSTM Model A (Scheme A — Amplitude Preserved):**
+    *   *Squat:* **$53.79\%$ Balanced Accuracy** (barely above chance).
+    *   *Lunge:* **$53.78\%$ Balanced Accuracy** (barely above chance).
+*   **Result Source:** [temporal_model_comparison.csv](file:///c:/Users/shiro/OneDrive/Desktop/Python%20files/BIOMECHANICAL%20ANALYSIS%20OF%20INJURY/23_temporal_model_outputs/temporal_model_comparison.csv) and `temporal_model_evaluation_report.md`.
+
+### § Interpretation (Outcome 3 — Endpoint Dominance)
+*   **Finding:** Validates **Outcome 3 (Endpoint Dominance)**. Flexion depth is the dominant discriminative kinematic signal. Frame-by-frame shape details do not carry useful independent information for form classification on this dataset.
+*   **LSTM Failure Mode:** Even when amplitude is kept (Scheme A), the LSTM fails to extract it, scoring $\approx 54\%$ vs. the single-feature baseline's $\approx 81\%$. This represents a classic manifestation of **small-data overfitting/subject-memorisation**: the high parameter capacity of the LSTM network leads it to memorize subject-specific calibration offsets on our 9/7 subject cohorts, rather than generalizing the depth boundary.
+*   **Step 10 Validation:** Retroactively validates Step 10's screening layer design, confirming that transparent, simple rules based on peak flexion and ROM endpoints are optimal.
+
+### § Self-Supervised Pretraining (Reasoned Future Work)
+*   **Reasoning:** Self-supervised pretraining aims to learn representations to aid downstream deep models. Since:
+    1.  The downstream screening task is solved by a single static endpoint biomarker (peak flexion), and
+    2.  Deep sequence models overfit and fail to generalize at this cohort scale,
+    Self-supervised pretraining is highly unlikely to yield downstream gains on this dataset.
+*   **Framing:** Pretraining is documented as evidence-grounded future work requiring substantially larger multi-subject cohorts, where representation learning could help before endpoint saturation. It represents a pre-accepted time-boxed null scoping outcome.
+*   **Source:** [dissertation_writeup_index.md](file:///c:/Users/shiro/OneDrive/Desktop/Python%20files/BIOMECHANICAL ANALYSIS OF INJURY/dissertation_writeup_index.md) Chapter 12 entry.
+
+### § Does-Not-Claim
+*   Does not claim that trajectory shape never contains signal, specifically that it is not warranted at this cohort scale; does not claim pretraining is generally without value, specifically that it cannot yield gains given the demonstrated ceiling here.
+
+### § MUST-INCLUDE Flags
+*   Clearly state that the outcome scenarios were **pre-registered in the design document before training** to establish the null result as scientific rigor.
+*   Frame the LSTM results as **subject-memorisation overfitting** rather than a generic underperformance note.
+*   Present the **retroactive validation of Step 10's endpoint rules** as a key cross-component thread.
+*   Directly ground the **self-supervised pretraining future work omission** in the empirical LSTM results.
+
+
 
 
 
