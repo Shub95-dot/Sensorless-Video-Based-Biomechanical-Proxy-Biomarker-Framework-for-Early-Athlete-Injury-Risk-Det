@@ -459,6 +459,64 @@ Threshold gates ($NF_i$) are defined at a 95% confidence interval ($1.96 \cdot S
 *   Present the **retroactive validation of Step 10's endpoint rules** as a key cross-component thread.
 *   Directly ground the **self-supervised pretraining future work omission** in the empirical LSTM results.
 
+---
+
+## CHAPTER: General Discussion + Failure-Mode Taxonomy (cross-cutting synthesis — write LAST among content chapters)
+**STRUCTURE:** synthesis of contributions → cross-exercise findings → the failure-mode taxonomy → what the uncertainty framework enables → limitations of the whole thesis → future work → closing statement
+
+### § Synthesis of the Four Novelty Contributions
+1.  **Cross-Exercise Integration (Modality-Independent Processing):** Demonstrates that a single monocular video pipeline can extract comparable biomechanical biomarkers across squats (slow bilateral), lunges (slow unilateral), and drop-jumps (rapid dynamic landing impact).
+2.  **Failure-Mode-Aware Pose Extraction (Contribution #2):** Departs from traditional "black-box" validation. The thesis explicitly maps **where and why** the pose-tracking pipeline fails (occlusion, camera angles, movement velocities), establishing a formalized taxonomy of monocular limitations.
+3.  **Uncertainty-Weighted Screening Transfer (The Methodological Spine):** Connects the ground-truth Mocap validation directly to the screening layer by decomposing observed error into transferable projection vs. non-transferable motion components, enabling inverse-variance weighting of clinical biomarkers.
+4.  **Counterfactual XAI on Rule-Based Flags (Novelty #4):** Replaces model-approximating feature importance (SHAP/LIME placeholders) with a faithful-by-construction explanation engine that outputs the exact numeric margins needed to satisfy clinical rules.
+
+### § Cross-Exercise Findings (The Comparative Story)
+*   **Squat:** Kinematic form deviations are strictly localized to the eccentric phase. Peak flexion depth and ROM dominate discrimination, whereas ascent-phase velocities do not discriminate (bootstrap CIs cross zero).
+*   **Lunge:** Parallels the squat on flexion depth, but exhibits **ascent velocity divergence**. Peak ascent velocity ($d = -0.97$) and mean ascent velocity ($d = -0.80$) are highly discriminative, representing rapid concentric propulsion.
+*   **Drop-Jump:** Serves as the validation anchor, qualifying baseline camera projection errors under high-velocity landing conditions.
+*   **Synthesis Finding:** Different exercises expose form screening signals in different phases of movement (squat = descent only, lunge = descent + ascent).
+
+### § The Failure-Mode Taxonomy (Contribution #2)
+Rather than a list of unrelated anomalies, monocular tracking limits are synthesized into four categorized failure types:
+1.  **Sagittal self-occlusion (Occlusion failure):** Direct cause of lunge subject exclusions (Subject 5: 92% phase-ID failure; Subject 8: 100% failure) and the drop-jump asymmetry exclusion. Far-leg tracking is occluded by the near leg in the sagittal camera plane.
+2.  **Dataset recording truncation (Temporal limit):** Dropping the Time-to-Stabilisation (TTS) biomarker in the drop-jump validation due to videos cutting off $0.05\text{--}0.2\text{ s}$ post-impact. This is identified as a data collection boundary, not an algorithmic pipeline failure.
+3.  **Camera projection geometry bias (Projection bias):** A constant $+10.52^\circ$ overestimation bias at peak flexion, shown to be depth-independent in the landing band.
+4.  **Small-cohort model mismatch (Data-scale-model mismatch):** LSTM sequence models memorizing subject identities (overfitting) rather than generalizing flexion rules across 9/7 subjects. Represents a general lesson in deep model complexity vs. data limits.
+
+### § What the Uncertainty Framework Enables (The Connective Payoff)
+The validation metrics propagate through a unified mathematical chain:
+1.  **Validation:** Establish absolute limits of agreement (LoA) against optoelectronic ground truth (Drop-Jump).
+2.  **Uncertainty Quantification:** Decompose total variance to extract the transferable projection error.
+3.  **Weighting:** Apply inverse-variance weighting ($w_i = 1/\sigma^2_{i, \text{proj}}$) to down-weight unreliable markers.
+4.  **Screening Design Choice:** Establish personalized-deviation noise floors ($NF_i$) that cancel out constant subject-specific projection offsets in the screening rules.
+5.  **Empirical Confirmation:** Personalised baseline and digital twin demonstrations confirm that high-confidence markers (peak flexion) drive detection, while low-confidence markers (velocity) are gated.
+
+### § Limitations of the Thesis as a Whole
+*   **Cohort Size:** Small subject counts (9 squats, 7 lunges), which directly limits the applicability of deep sequence learning.
+*   **Camera Count:** Sagittal-only monocular configuration makes contralateral occlusion a recurring limitation.
+*   **Movement Breadth:** Evaluates only three exercise modalities; multi-planar athletic movements (cutting, pivoting) are deferred.
+*   **Implementation Depth:** Track B personalisation components are architectural mockups utilizing repetition sequences, not clinically deployed longitudinal tracking.
+*   **Clinical Standing:** Screening thresholds are grounded in cohort statistics and literature associations, **not** validated diagnostic diagnostic cut-offs (reiterating the screening-not-prediction guardrail).
+
+### § Consolidated Future Work
+*   **Dataset Expansion:** Integrating vertical jump trajectories (securing Bath BioCV dataset access).
+*   **Longitudinal Baselines:** Collecting 10–14 sessions over multiple weeks to validate true longitudinal digital twin updates (ethics-gated; deferred due to timeframe limitations).
+*   **Scale Representation Learning:** Implementing self-supervised pretraining once larger multi-subject cohorts are compiled, preventing the overfitting observed in Phase 12.
+*   **Motion Validation:** Conducting ground-truth motion error validation for slow movements to transfer motion-based noise floors.
+*   **Digital Twin Logic:** Implementing temporal persistence checks to distinguish transient aberrations from sustained shifts.
+
+### § Closing Statement (Evolution Narrative)
+*   **Thesis Claim:** A sensorless, markerless pipeline that extracts screening-relevant kinematic patterns, with validated, quantified monocular measurement uncertainty, and transparent, counterfactually explainable screening decisions.
+*   **The Evolution Note:** The project was originally conceived as an injury-prediction system. However, empirical validation demonstrated that while the evidence could support robust, transparent **screening** of kinematics, it could not support predictive clinical claims. Matured into a validated screening framework, demonstrating scientific rigor and epistemic humility.
+
+### § MUST-INCLUDE Flags
+*   Format the **Failure-Mode Taxonomy** strictly as categorized failure types (Contribution #2).
+*   State the **validation $\rightarrow$ uncertainty $\rightarrow$ weighting $\rightarrow$ screening** pipeline chain as a single cohesive methodological argument.
+*   Link the **occlusion failure modes** in lunges and drop-jumps as a systematic monocular pattern.
+*   Provide a clear, definitive statement on the **screening-not-prediction** guardrail.
+*   Incorporate the **prediction-to-screening evolution narrative** as a strong concluding thesis-defense argument.
+
+
 
 
 
