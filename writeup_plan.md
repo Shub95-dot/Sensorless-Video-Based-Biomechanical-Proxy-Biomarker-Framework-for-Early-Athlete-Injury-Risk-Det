@@ -249,8 +249,57 @@ This document serves as the detailed assembly scaffold for the final writing of 
 ### § MUST-INCLUDE Flags
 *   Include the **both-sides demonstration** (quiet correct reps vs. firing incorrect reps) to prove that the noise floors prevent false alarms.
 *   Link this demo directly to the **Phase 7 uncertainty weights** (flexion dominance vs. velocity down-weighting).
-*   Maintain the **personalised vs. group** analysis distinction to avoid reading as a squat/lunge cohort repeat.
+*   Maintain the **personalised vs. group** analysis distinction to avoid reading as a squat-chapter repeat.
 *   Frame a fired flag as a **deviation-beyond-measurement-noise**, never as a "bad rep" or pathology.
+
+---
+
+## COMPONENT: Digital Twin (Track B demo)
+**STRUCTURE:** purpose → mechanism → result → exclusion explanation (design feature) → transient-vs-sustained (future work) → does-not-claim
+
+### § Purpose
+*   **Role:** An architectural demonstration of continuous-update personalization. It extends the Phase 8 baseline tracking by updating the subject's reference state dynamically as repetitions are ingested.
+*   **Modeling Identity:** Non-predictive; it is **not** a learned machine learning model (no parameters, training loops, or learning rates) and does not represent real longitudinal tracking across weeks.
+*   **Source:** [19_digital_twin_outputs/twin_design.md](file:///c:/Users/shiro/OneDrive/Desktop/Python%20files/BIOMECHANICAL%20ANALYSIS%20OF%20INJURY/19_digital_twin_outputs/twin_design.md).
+
+### § Mechanism
+*   **State Representation:** The twin state is defined as the running reference mean ($\mu_{t, i}$) paired with the fixed Phase 7 projection-based noise floor ($NF_i$).
+*   **Conditional Update Rule:**
+    *   *Within-Noise:* If absolute deviation is within the noise floor ($\Delta_i \le NF_i$), the repetition is absorbed. The reference updates:
+        $$\mu_{t+1, i} = \frac{N_t \mu_{t, i} + x_{t+1, i}}{N_t + 1}$$
+    *   *Out-of-Noise:* If absolute deviation exceeds the noise floor ($\Delta_i > NF_i$), the repetition is rejected (aberration rejection) to prevent reference drift. The state locks:
+        $$\mu_{t+1, i} = \mu_{t, i}$$
+    *   *Flagging:* Excluded repetitions are counted, flagged, and explained in the output, never discarded silently.
+*   **Algorithm Characteristics:** Simple, parameter-free arithmetic update, adhering to clinical transparency requirements.
+*   **Source Code:** `phase9_digital_twin.py`.
+
+### § Result
+*   **Evaluation Subject:** Demonstrated on Squat PM_113 [source: worked_example_twin.csv].
+*   **Tracking Drift:** The peak flexion reference evolves dynamically from $72.98^\circ$ to $69.21^\circ$ across repetitions 3–5, absorbing the subject's natural baseline drift.
+*   **Locking Flat:** The reference locks flat at $69.21^\circ$ for repetitions 6–10 when incorrect reps deviate past the noise gate.
+*   **Tracking Band:** The noise floor band is not static; it dynamically tracks the evolving reference line, stepping down and locking in tandem with the reference mean.
+*   **Independent Gating:** Gating is computed independently per biomarker. For a single repetition, peak flexion can exceed its threshold and lock, while velocity remains within its threshold and continues to update. Highlight this behavior explicitly so it does not read as a tracking inconsistency.
+*   **Source Data:** [worked_example_twin.csv](file:///c:/Users/shiro/OneDrive/Desktop/Python%20files/BIOMECHANICAL%20ANALYSIS%20OF%20INJURY/19_digital_twin_outputs/worked_example_twin.csv) and `twin_tracking.png`.
+
+### § Exclusion Explanation (Design Feature)
+*   **Transparency Output:** When a repetition is excluded, the twin outputs a measurement-based justification rather than a quality verdict:
+    *   *"Repetition N has deviated from your baseline reference beyond monocular measurement uncertainty. The twin reference has locked and will not update from this observation. From a single repetition, the twin cannot distinguish a transient movement deviation from a genuine sustained shift in baseline state."*
+*   **Epistemic Humility:** Explains what the monocular pipeline can mathematically justify (measurement uncertainty boundaries) without labeling the movement as "bad" or "incorrect." Verified on Squat PM_113 rep 6.
+
+### § Transient-vs-Sustained (Future Work)
+*   **Current Logic Constraint:** Rejects all out-of-noise repetitions to protect baseline state, which is correct for transient form breakdowns.
+*   **Downstream Limitation:** It cannot distinguish a temporary aberration from a permanent transition to a new baseline (e.g. if the subject permanently shifts their depth profile).
+*   **Longitudinal Future Work:** A deployed clinical twin requires multi-session tracking: if a deviation persists across sessions, it should be absorbed as a sustained shift; if it is isolated, it remains classified as a transient deviation.
+*   **Motivation:** The exclusion explanation itself provides the biomechanical argument for this future-work extension.
+
+### § Does-Not-Claim
+*   Does not forecast future performance, does not output correct/incorrect form labels (only flags baseline deviations), does not utilize learned parameters, does not represent multi-session longitudinal tracking, does not evaluate joint pathology or injury risk, and does not represent a clinically deployed system.
+
+### § MUST-INCLUDE Flags
+*   Explicitly mention **independent per-biomarker gating** (e.g., peak locks while velocity updates on the same rep) to clarify the twin's tracking logic.
+*   Present the **exclusion explanation** as a design feature representing epistemic humility, not simply error-handling text.
+*   Connect the **transient-vs-sustained limitation** directly to the future-work section, using the twin's output text as the motivating argument.
+
 
 
 
