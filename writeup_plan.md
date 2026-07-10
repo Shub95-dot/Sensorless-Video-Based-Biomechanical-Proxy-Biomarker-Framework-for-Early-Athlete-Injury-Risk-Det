@@ -300,6 +300,58 @@ This document serves as the detailed assembly scaffold for the final writing of 
 *   Present the **exclusion explanation** as a design feature representing epistemic humility, not simply error-handling text.
 *   Connect the **transient-vs-sustained limitation** directly to the future-work section, using the twin's output text as the motivating argument.
 
+---
+
+## COMPONENT: Rule-Based Screening Layer (Step 10, Track A CORE — not a demo)
+**STRUCTURE:** purpose → distinction from Phase 8/9 → screening modality choice → rules & grounding → convention → result → does-not-claim
+
+### § Purpose
+*   **Role:** The screening decision layer that translates raw monocular joint measurements into named, clinically meaningful screening flags (e.g. EXCESS_DEPTH, EXCESS_ROM, EXCESS_VELOCITY).
+*   **Pipeline Status:** A core Track A pipeline deliverable (not a demo), representing the decision logic that the Counterfactual XAI (Step 11) is designed to explain.
+*   **Source:** [20_screening_outputs/screening_rules_design.md](file:///c:/Users/shiro/OneDrive/Desktop/Python%20files/BIOMECHANICAL%20ANALYSIS%20OF%20INJURY/20_screening_outputs/screening_rules_design.md).
+
+### § Distinction from Phase 8/9 (Uncertainty & Baseline)
+*   **Phase 8/9 baseline:** Evaluates generic, unnamed kinematic deviation relative to the subject's baseline state (answering: *"has the movement changed beyond monocular measurement noise?"*).
+*   **Step 10 screening:** Assigns named, clinically grounded rules on top of those deviations (answering: *"this deviation is EXCESS_DEPTH, representing a kinematic profile linked to joint loading in literature"*).
+*   **Relation:** Phase 8/9 is the noise-gating engine; Step 10 is the clinical screening interpretation layer.
+
+### § Screening Modality Choice
+*   **Option B (Personalised-Deviation Screening):** A repetition is flagged only if it deviates from the subject's personal session baseline mean ($\mu_{\text{base}, i}$) beyond the validated monocular noise floor ($NF_i$).
+*   **Justification:** Neutralizes individual anatomical variations and camera perspective/geometry offsets (which are constant within a subject's video session).
+*   **Rejected Option A:** Fixed population-based thresholds were rejected as unvalidated claims of universal biomechanical normality.
+
+### § Rules & Grounding
+Threshold gates ($NF_i$) are defined at a 95% confidence interval ($1.96 \cdot SD_{\text{proj}, i}$). Every rule direction is empirically grounded in cohort distributions:
+1.  **EXCESS_DEPTH (Knee Flexion Depth):**
+    *   *Rule:* Fires if $x_{\text{peak}} < \mu_{\text{base}, \text{peak}} - 11.99^\circ$.
+    *   *Squat Grounding:* Correct reps ($60.85^\circ \pm 12.72^\circ$) vs. Incorrect reps ($41.14^\circ \pm 6.20^\circ$) [source: phase5a_integration_summary.txt]. Incorrect reps have smaller angles (deeper flexion bend).
+    *   *Lunge Grounding:* Correct reps ($89.66^\circ \pm 8.33^\circ$) vs. Incorrect reps ($68.03^\circ \pm 15.11^\circ$) [source: phase5c_effect_sizes_ci.csv]. Incorrect is deeper.
+2.  **EXCESS_ROM (Range of Motion Excursion):**
+    *   *Rule:* Fires if $x_{\text{rom}} > \mu_{\text{base}, \text{rom}} + 23.17^\circ$ (direction corrected; incorrect reps exhibit larger joint excursion).
+    *   *Squat Grounding:* Correct reps ($111.19^\circ \pm 18.06^\circ$) vs. Incorrect reps ($134.31^\circ \pm 7.23^\circ$) [source: phase5a_integration_summary.txt].
+    *   *Lunge Grounding:* Correct reps ($59.02^\circ \pm 20.94^\circ$) vs. Incorrect reps ($90.30^\circ \pm 27.00^\circ$) [source: phase5c_effect_sizes_ci.csv].
+3.  **EXCESS_VELOCITY (Uncontrolled Descent Speed):**
+    *   *Rule:* Fires if $x_{\text{velocity}} > \mu_{\text{base}, \text{velocity}} + 40.86^\circ/\text{s}$ (where raw biomarker $^\circ/\text{frame}$ is multiplied by $30.0\text{ FPS}$ to convert to physical velocity).
+
+### § Convention Check
+*   **Squat/Lunge Convention:** Included-angle convention ($\approx 180^\circ$ = standing extension, smaller angle = deeper flexion). Therefore, a smaller peak flexion angle value physically represents more flexion depth (reconciled with the `EXCESS_DEPTH` negative sign in the rule).
+*   **Contrast:** Differs from drop-jump's clinical flexion convention ($0^\circ$ = extension), which is flagged for Zotero/Chapter harmonization during the week-16 sweep.
+
+### § Result
+*   **Application:** Run on Squat PM_113 and Lunge PM_104 [source: worked_example_screening.csv].
+*   **Performance:** Correct reps are classified as `NOT_FLAGGED`. Incorrect reps are flagged as `SCREENING_POSITIVE` with the active rule list and numeric deviation margins ($M_i$).
+*   **Verification:** These margins ($M_i$) are saved to the output CSV and serve as the input targets consumed by the Counterfactual XAI (Step 11) layer.
+*   **Validation Aside:** Flags align with the validation labels of this dataset, but this alignment is coincidental to the experimental design, not a claim of algorithmic diagnostic validation.
+
+### § Does-Not-Claim
+*   Outputs screening characterisations, not clinical diagnoses; rules act as heuristic risk association indicators, not diagnostic cut-offs; not a trained model; screening-not-prediction.
+
+### § MUST-INCLUDE Flags
+*   Clearly maintain the **Phase 8/9 vs. Step 10 distinction** (deviation detection engine vs. named screening decision layer) to prevent redundancy.
+*   Confirm the **empirical direction of `EXCESS_ROM`** is correct (incorrect reps have larger joint range of motion).
+*   Specify that the output records **numeric deviation margins** ($M_i$) for every fired rule, which is the data Step 11 XAI consumes.
+
+
 
 
 
