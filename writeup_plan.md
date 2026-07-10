@@ -351,6 +351,55 @@ Threshold gates ($NF_i$) are defined at a 95% confidence interval ($1.96 \cdot S
 *   Confirm the **empirical direction of `EXCESS_ROM`** is correct (incorrect reps have larger joint range of motion).
 *   Specify that the output records **numeric deviation margins** ($M_i$) for every fired rule, which is the data Step 11 XAI consumes.
 
+---
+
+## COMPONENT: Counterfactual XAI (Step 11, Track A CORE — NOVELTY CONTRIBUTION #4)
+**STRUCTURE:** purpose → faithfulness argument → templates → MKI → confidence grading → verified example → does-not-claim
+
+### § Purpose
+*   **Role:** Computes counterfactual explanations for Step 10's screening flags by specifying the exact physical boundary changes that would have prevented the flags from firing.
+*   **Novelty Status:** Novelty contribution #4 of the thesis. Prior to this build, the workspace contained only empty folders scaffolding post-hoc feature importance frameworks (SHAP/LIME), which were deprecated as the incorrect approach for rule-based screening.
+*   **Source:** [21_xai_outputs/xai_design.md](file:///c:/Users/shiro/OneDrive/Desktop/Python%20files/BIOMECHANICAL%20ANALYSIS%20OF%20INJURY/21_xai_outputs/xai_design.md).
+
+### § Faithfulness Argument (The Key Defensible Advantage)
+*   **Faithfulness by Construction:** Feature importance methods (SHAP/LIME) are post-hoc approximations of a black-box model's local decision boundary, introducing approximation error. In our framework, the screening rules *are* the actual decision boundaries. 
+*   **Exact Margins:** The counterfactual engine calculates the exact margin distance ($M_i$) to the decision boundaries directly from the biomarker inputs with **zero approximation error**. The explanations are thus faithful by construction.
+*   **Deprecation:** The placeholder directories `8_xai_outputs/` (SHAP/LIME) are deprecated, establishing that model-agnostic feature importance is inappropriate for transparent, rule-based screening decision systems.
+
+### § Counterfactual Templates
+*   **Descriptive Wording:** Explanations are framed as descriptive conditions (describing the mathematical coordinates required to clear the flag) rather than prescriptive instructions to the subject (e.g. telling the user how to move).
+*   **Convention Match:** Squat peak flexion (included-angle) is verified:
+    *   *Values:* Squat PM_113 rep 6 peak flexion $= 43.22^\circ$ vs. threshold $= 60.99^\circ$ [source: worked_example_explanations.json].
+    *   *Text:* *"Had the peak flexion angle been at least 60.99° (representing a shallower bend of 17.77° less depth), the EXCESS_DEPTH flag would not have fired."* The numeric direction matches the biomechanical convention (larger angle = shallower).
+
+### § MKI (Minimal Kinematic Intervention)
+*   **Coupled Adjustments:** If both `EXCESS_DEPTH` and `EXCESS_ROM` fire on a repetition, the MKI resolves their physical coupling. Under the explicit biomechanical assumption that range of motion scales directly with peak flexion depth (assuming a constant standing extension start point), the MKI computes the maximum of the two required depth changes:
+    $$\Delta \theta_{\text{MKI}} = \max(M_{\text{depth}}, M_{\text{rom}})$$
+    This determines the single flexion adjustment that will simultaneously satisfy both rules.
+*   **Task Verification:** Verified on the lunge dataset, where the ROM margin exceeded the depth margin, and the `max()` operator correctly selected the larger ROM constraint to clear both flags.
+*   **Independent Rules:** Uncoupled rules (such as `EXCESS_VELOCITY`) are reported as separate independent conditions in a set (e.g. *"and descent speed had been at least 19.82°/s slower"*), rather than folded into the single MKI flexion value. Stated as descriptive conditions rather than prescriptive advice.
+
+### § Confidence Grading (Ties to Phase 7 Validation)
+*   **Uncertainty Buffer:** Counterfactual margins are evaluated against a confidence buffer defined as half the biomarker's validated noise floor ($0.5 \cdot NF_i$):
+    *   If $M_i \le 0.5 \cdot NF_i$, a `LOW CONFIDENCE (Near Noise Floor)` caution is appended, indicating the deviation is close to monocular measurement uncertainty limits.
+*   **Scientific Integration:** Ties the explanation certainty directly back to the physical ground-truth validation (Drop-Jump LoAs), threading measurement discipline through the final output.
+
+### § Verified Worked Example
+*   **Subject:** Squat PM_113 rep 6 [source: worked_example_explanations.json].
+    *   *EXCESS_DEPTH:* Margin $= 17.77^\circ > 5.99^\circ$ buffer $\implies$ `HIGH CONFIDENCE`.
+    *   *EXCESS_ROM:* Margin $= 7.83^\circ \le 11.58^\circ$ buffer $\implies$ `LOW CONFIDENCE (Near Noise Floor)`.
+*   *Explanation Set:* The coupled depth/ROM flags would not have fired if flexion depth had been $17.77^\circ$ shallower (high confidence) AND descent velocity had been $19.82^\circ/\text{s}$ slower (high confidence).
+
+### § Does-Not-Claim
+*   Explains only the mathematical rule-firing decisions (why a flag was raised based on inputs); it does **not** explain clinical injury causation, biomechanical injury mechanisms, or predict clinical outcomes. No prescriptive advice or diagnostic claims are made.
+
+### § MUST-INCLUDE Flags
+*   Highlight **faithfulness-by-construction** as the primary defensible advantage over SHAP/LIME (crucial for defending the novelty of Track A contribution #4).
+*   Document the **descriptive-not-prescriptive wording change** and its clinical rationale (screening output vs. professional coaching advice).
+*   State the **MKI coupling assumption** explicitly as a stated simplification, not an absolute biomechanical law.
+*   Note the development timeline: this component was built from scratch after establishing Step 10's screening rules, replacing the empty SHAP/LIME scaffolding.
+
+
 
 
 
