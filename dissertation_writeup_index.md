@@ -14,10 +14,10 @@ This is the running one-line-per-section writeup map for the Sensorless Biomecha
    - **Section 5.2: Cross-Exercise Comparative Analysis**: Draft complete. Comparative forest plots and subject-clustered bootstrapping analysis completed.
 
 3. **Chapter 6: Drop-Jump Validation (OpenCap)**
-   - **Section 6.1: Synchronization and Event Detection**: **ANALYSIS COMPLETE / WRITEUP DEFERRED**. GRF-anchored lag alignment verified and temporal events mapped.
-   - **Section 6.2: Biomarker Agreement Summary**: **ANALYSIS COMPLETE / WRITEUP DEFERRED**. 4+1 biomarker agreement final table produced (`16_opencap_dropjump_outputs/metadata/phase6_agreement_final.csv`).
-   - **Section 6.3: Projection Bias vs. Depth (Static Peak)**: **ANALYSIS COMPLETE / WRITEUP DEFERRED**. Constant deep-flexion overestimation bias validated (+10.5° timing-clean; +19.7° peak-to-peak) and shown to be depth-independent in the landing band.
-   - **Section 6.4: Robustness and Limitations**: **ANALYSIS COMPLETE / WRITEUP DEFERRED**. Bias verified similar across symmetric/asymmetric landings. Documented TTS, occlusion, and timing-contamination limits.
+   - **Section 6.1: Synchronization and Event Detection**: **DRAFTED** (`22_dissertation_writing/results_dropjump_validation_v1.md`). GRF-anchored lag alignment verified and temporal events mapped.
+   - **Section 6.2: Biomarker Agreement Summary**: **DRAFTED** (`22_dissertation_writing/results_dropjump_validation_v1.md`). 4+1 biomarker agreement table produced.
+   - **Section 6.3: Projection Bias vs. Depth (Static Peak)**: **DRAFTED** (`22_dissertation_writing/results_dropjump_validation_v1.md`). Constant deep-flexion overestimation bias validated ($+10.52^\circ$ timing-clean; $+19.72^\circ$ peak-to-peak) and shown to be depth-independent in the landing band.
+   - **Section 6.4: Robustness and Limitations**: **DRAFTED** (`22_dissertation_writing/results_dropjump_validation_v1.md`). Bias verified similar across symmetric/asymmetric landings. Documented TTS, contralateral occlusion, and timing-contamination limits.
 
 4. **Chapter 7: Vertical Jump Pipeline**
    - **Section 7.1: Pose-Extraction and Event Identification**: *Next Active*.
