@@ -78,7 +78,7 @@ We evaluate whether landing symmetry affects tracking errors. The mean peak flex
 *   *Methodological Finding:* Markerless monocular coordinate tracking is robust to movement loading asymmetries, indicating that errors are driven by camera placement and projection geometry rather than kinetic variability [source: 16_opencap_dropjump_outputs/phase6_final_report.md].
 
 ### 3.4 Contralateral Occlusion Limitation
-Inter-limb asymmetry (Biomarker #5) could not be validated on monocular sagittal video due to far-leg occlusion during deep flexion [source: 16_opencap_dropjump_outputs/phase6_final_report.md]. Thus, asymmetry is demoted to a 3D-only reference value (mocap mean: $2.07^\circ$, SD: $9.39^\circ$) and excluded from the video-only screening rules [source: 16_opencap_dropjump_outputs/phase6_final_report.md].
+Inter-limb asymmetry (Biomarker #5) could not be validated on monocular sagittal video due to far-leg occlusion during deep flexion [source: 16_opencap_dropjump_outputs/phase6_final_report.md]. Thus, asymmetry is demoted to a 3D-only reference value (mocap mean: $2.07^\circ$, SD: $2.06^\circ$) and excluded from the video-only screening rules [source: 16_opencap_dropjump_outputs/phase6_final_report.md].
 
 ---
 

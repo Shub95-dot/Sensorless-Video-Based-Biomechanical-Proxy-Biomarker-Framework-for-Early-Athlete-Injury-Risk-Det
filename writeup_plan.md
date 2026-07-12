@@ -26,7 +26,7 @@ This document serves as the detailed assembly scaffold for the final writing of 
 *   **Peak Flexion (Landing Peak):** Mean bias of $+19.72^\circ$ (95% LoA: $[+7.73^\circ, +31.71^\circ]$, Pearson $r = 0.8238$) [source: phase6_agreement_final.csv]. Biased-systematic but exhibits strong linear tracking.
 *   **Range of Motion (ROM):** Mean bias of $+26.41^\circ$ (95% LoA: $[+2.34^\circ, +50.48^\circ]$, Pearson $r = 0.4020$) [source: phase6_agreement_final.csv]. Biased high due to the coupling of contact underestimation and peak overestimation.
 *   **Loading Rate (Mean Landing Velocity):** Mean bias of $+13.30^\circ/\text{s}$ (95% LoA: $[-115.92^\circ/\text{s}, +142.51^\circ/\text{s}]$, Pearson $r = 0.6076$) [source: phase6_agreement_final.csv]. Extremely high-variance; should not be used as an absolute kinematic metric.
-*   **Asymmetry (Inter-limb):** Demoted to an OpenSim inverse kinematics (IK)-only reference (mean $2.07^\circ$, SD $9.39^\circ$) due to contralateral occlusion [source: phase6_final_report.md].
+*   **Asymmetry (Inter-limb):** Demoted to an OpenSim inverse kinematics (IK)-only reference (mean $2.07^\circ$, SD $2.06^\circ$) due to contralateral occlusion [source: phase6_final_report.md].
 *   **MUST-INCLUDE RECONCILIATION:** Explain the difference between the **$+10.52^\circ$ timing-clean peak bias** (calculated at the exact physical peak frame of each individual signal) and the **$+19.72^\circ$ peak-to-peak bias** (calculated from the absolute maximum values of the unsynced curves, which contains video overshoot due to frame-rate dynamic lag). Failure to distinguish these will read as a contradiction.
 
 ### § Robustness
