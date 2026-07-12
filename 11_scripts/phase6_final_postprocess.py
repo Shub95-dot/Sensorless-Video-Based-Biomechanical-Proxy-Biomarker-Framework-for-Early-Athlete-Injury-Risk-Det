@@ -218,15 +218,15 @@ def run_postprocess():
     df_asym = df_static_clean[df_static_clean["condition"].str.lower() == "asymmetric"]
     
     sym_bias = np.mean(df_sym["error"].values)
-    sym_sd = np.std(df_sym["error"].values, ddof=1)
+    symmetric_sd = np.std(df_sym["error"].values, ddof=1)
     asym_bias = np.mean(df_asym["error"].values)
-    asym_sd = np.std(df_asym["error"].values, ddof=1)
+    asymmetric_sd = np.std(df_asym["error"].values, ddof=1)
     
     print("\n=========================================================")
     print("4. ROBUSTNESS STRATIFICATION (Symmetric vs Asymmetric)")
     print("=========================================================")
-    print(f"Symmetric  Static Peak Bias: {sym_bias:.4f} degrees (SD = {sym_sd:.4f}, n = {len(df_sym)})")
-    print(f"Asymmetric Static Peak Bias: {asym_bias:.4f} degrees (SD = {asym_sd:.4f}, n = {len(df_asym)})")
+    print(f"Symmetric  Static Peak Bias: {sym_bias:.4f} degrees (SD = {symmetric_sd:.4f}, n = {len(df_sym)})")
+    print(f"Asymmetric Static Peak Bias: {asym_bias:.4f} degrees (SD = {asymmetric_sd:.4f}, n = {len(df_asym)})")
     print("Conclusion: The measurement error is highly consistent across landing conditions, demonstrating robustness to asymmetric loading.")
     
     # 3. Plotting Corrected Bland-Altman
@@ -339,8 +339,8 @@ Isolating the landing peak absorption frames—where joint velocity is approxima
 
 ## 2. Robustness to Landing Conditions (Symmetric vs. Asymmetric)
 Comparing the static-peak errors between symmetric and asymmetric landings confirms that measurement accuracy is dictated by camera perspective and depth rather than movement loading:
-*   **Symmetric Landings ($n = 48$ points)**: Mean bias of **{sym_bias:.2f}°** (SD: {sym_sd:.2f}°)
-*   **Asymmetric Landings ($n = 48$ points)**: Mean bias of **{asym_bias:.2f}°** (SD: {asym_sd:.2f}°)
+*   **Symmetric Landings ($n = 48$ points)**: Mean bias of **{sym_bias:.2f}°** (SD: {symmetric_sd:.2f}°)
+*   **Asymmetric Landings ($n = 48$ points)**: Mean bias of **{asym_bias:.2f}°** (SD: {asymmetric_sd:.2f}°)
 The bias remains virtually identical between conditions, demonstrating that markerless measurements are robust to movement asymmetry.
 
 ---

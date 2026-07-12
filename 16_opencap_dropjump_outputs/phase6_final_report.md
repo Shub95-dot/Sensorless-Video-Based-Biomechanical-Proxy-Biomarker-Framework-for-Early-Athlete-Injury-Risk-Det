@@ -31,7 +31,7 @@ Evaluation of the video-measurable biomarkers against the 3D Mocap IK reference 
 | **#2 peak_landing_flexion** | 120.23° | 100.51° | 19.72° | [7.73°, 31.71°] | 0.8238 | biased-systematic (constant overestimation, low variance) |
 | **#3 landing_rom** | 106.72° | 80.31° | 26.41° | [2.34°, 50.48°] | 0.4020 | biased-systematic (constant overestimation, high variance) |
 | **#6 loading_rate** | 286.14°/s | 272.84°/s | 13.30°/s | [-115.92°, 142.51°]/s | 0.6076 | high-variance (moderate bias, extremely high variance) |
-| **#5 asymmetry** | N/A | 2.07° | N/A | N/A | N/A | **IK-only, not video-validated (far-leg occlusion)**; mean=2.07° (SD=9.39°) |
+| **#5 asymmetry** | N/A | 2.07° | N/A | N/A | N/A | **IK-only, not video-validated (far-leg occlusion)**; mean=2.07° (SD=2.06°) |
 
 ---
 
