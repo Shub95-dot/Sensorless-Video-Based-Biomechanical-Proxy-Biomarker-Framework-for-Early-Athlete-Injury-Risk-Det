@@ -159,7 +159,7 @@ To diagnose why the video-vs-IK flexion angles disagree by ~15 to 22 degrees, we
 ## 7. Video-vs-IK Sync Lag Stability Analysis
 We compared **GRF-anchored lag** (synchronizing the onset of force contact $F_y > 20$ N with the onset of knee flexion in the video) against **RMSE-minimised lag** (fitting the curves to minimize average squared error):
 *   **Trial `subject2` `DJ1`**: GRF lag = **3.00 ms (0 frames)** | RMSE lag = **-33.33 ms (-2 frames)**
-*   **Trial `subject2` `DJAsym1`**: GRF lag = **-191.17 ms (-11 frames)** | RMSE lag = **200.00 ms (12 frames)**
+*   **Trial `subject2` `DJAsym1`**: GRF lag = **-241.17 ms (-14 frames)** | RMSE lag = **200.00 ms (12 frames)**
 *   **Trial `subject8` `DJ1` (flipped)**: GRF lag = **-157.17 ms (-9 frames)** | RMSE lag = **33.33 ms (2 frames)**
 *   **Lag Stability Verdict**:
     *   **RMSE Fitting Instability**: Because the Mocap IK window is cropped extremely short (~1.0s), RMSE fitting is highly unstable and chooses incorrect, out-of-phase alignments (e.g., +12 frames for `DJAsym1`, placing the video peak 0.4s before the mocap peak).

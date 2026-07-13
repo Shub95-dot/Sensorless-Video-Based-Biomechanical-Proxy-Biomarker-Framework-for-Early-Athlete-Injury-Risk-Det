@@ -69,7 +69,7 @@ A critical comparison emerges between the **$+10.52^\circ$ timing-clean peak bia
 *   *Timing-Clean peak bias ($+10.52^\circ$)*: Evaluates the frame-matched error at the exact peak time ($t_{\text{peak}}$) of the reference 3D motion capture signal [source: 16_opencap_dropjump_outputs/metadata/phase6_stage0_report.md].
 *   *Peak-to-Peak bias ($+19.72^\circ$)*: Compares the absolute maximum value of the video trajectory to the absolute maximum of the Mocap trajectory, regardless of timing alignment [source: 16_opencap_dropjump_outputs/metadata/phase6_stage0_report.md]. 
 
-Because monocular 2D pose estimators are subject to frame-rate limitations and dynamic joint-tracking overshoot during high-velocity impact landings, the peak-to-peak method captures this temporal overshoot, inflating the apparent measurement bias by $+9.20^\circ$. For slower, controlled sagittal movements (squats, lunges) where landing impact velocities are absent, the timing-clean peak bias of $+10.52^\circ$ represents the transferable projection coordinate error [source: 17_uncertainty_framework_outputs/framework_design.md].
+Because monocular 2D pose estimators are subject to frame-rate limitations and dynamic joint-tracking overshoot during high-velocity impact landings, the peak-to-peak method captures this temporal overshoot, inflating the apparent measurement bias by $+9.20^\circ$. For slower, controlled sagittal movements (squats, lunges) where landing impact velocities are absent, this validation isolates the deep-flexion projection component, whose validated measurement variance ($\sigma^2_{\text{proj}}$) is what the uncertainty-weighted framework (Chapter 8) subsequently transfers [source: 17_uncertainty_framework_outputs/framework_design.md].
 
 ---
 
@@ -92,10 +92,10 @@ To confirm that the peak overestimation represents a genuine spatial projection 
 
 ### 6.5.1. Dynamic Lag Test
 We evaluated whether temporal misalignment between the video and Mocap trajectories caused the deep-flexion error. If timing lag were the primary source of error, aligning the peak frames of the two signals (peak-matching) should reduce disagreement:
-*   *Frame-matched (GRF-aligned) Mean Absolute Error (MAE)*: **$14.80^\circ$** (RMSE: $15.53^\circ$) [source: 11_scripts/phase6_timing_vs_projection_diagnostics.py task-73 output].
-*   *Peak-matched Mean Absolute Error (MAE)*: **$20.15^\circ$** (RMSE: $20.98^\circ$) [source: 11_scripts/phase6_timing_vs_projection_diagnostics.py task-73 output].
+*   *Frame-matched (GRF-aligned) Mean Absolute Error (MAE)*: **$14.80^\circ$** (RMSE: $15.53^\circ$) [source: 16_opencap_dropjump_outputs/metadata/timing_vs_projection_error_comparison.json].
+*   *Peak-matched Mean Absolute Error (MAE)*: **$20.15^\circ$** (RMSE: $20.98^\circ$) [source: 16_opencap_dropjump_outputs/metadata/timing_vs_projection_error_comparison.json].
 
-Artificially forcing peak alignment worsened the MAE by $5.35^\circ$ and increased the RMSE by $5.45^\circ$ [source: 11_scripts/phase6_timing_vs_projection_diagnostics.py task-73 output]. This result rules out timing lag as the cause of peak overestimation: peak-alignment forces the video's dynamic overshoot to match the Mocap peak, increasing the overall trajectory error and confirming that the overestimation is spatial in origin.
+Artificially forcing peak alignment worsened the MAE by $5.35^\circ$ and increased the RMSE by $5.45^\circ$ [source: 16_opencap_dropjump_outputs/metadata/timing_vs_projection_error_comparison.json]. This result rules out timing lag as the cause of peak overestimation: peak-alignment forces the video's dynamic overshoot to match the Mocap peak, increasing the overall trajectory error and confirming that the overestimation is spatial in origin.
 
 ### 6.5.2. Software Modeling Defect Test
 To rule out coordinate definition mismatches between the clinical OpenSim anatomical model and superficial marker geometry, we compared:
@@ -107,7 +107,7 @@ The mean offset between the two modeling definitions was **$1.64^\circ$** (RMSE:
 ### 6.5.3. Sync Method Stability Analysis
 We compared the stability of the force-plate-based **GRF-anchored alignment** against a mathematical **RMSE-minimisation alignment** (which shifts the video timeline to minimize squared difference):
 *   *subject2 DJ1*: GRF lag = **3.00 ms (0 frames)** vs. RMSE lag = **-33.33 ms (-2 frames)** [source: 16_opencap_dropjump_outputs/metadata/phase6_stage0_report.md].
-*   *subject2 DJAsym1*: GRF lag = **-191.17 ms (-11 frames)** vs. RMSE lag = **200.00 ms (12 frames)** [source: 16_opencap_dropjump_outputs/metadata/phase6_stage0_report.md].
+*   *subject2 DJAsym1*: GRF lag = **-241.17 ms (-14 frames)** vs. RMSE lag = **200.00 ms (12 frames)** [source: 16_opencap_dropjump_outputs/metadata/phase6_stage0_report.md].
 *   *subject8 DJ1*: GRF lag = **-157.17 ms (-9 frames)** vs. RMSE lag = **33.33 ms (2 frames)** [source: 16_opencap_dropjump_outputs/metadata/phase6_stage0_report.md].
 
 Because the Mocap IK dataset is trimmed to a short window ($\sim 1.0$ s), the RMSE-minimization method is highly unstable, choosing out-of-phase alignments (e.g., $+12$ frames, shifting the video peak $0.4$ s before the mocap peak) [source: 16_opencap_dropjump_outputs/metadata/phase6_stage0_report.md]. By contrast, GRF-anchoring directly anchors the physical impact event, remaining stable across all trials. Consequently, the GRF method was adopted as the validated standard, and the frame-level pooled trajectory error-vs-depth curve (Pearson $r = 0.3491$, $n = 3046$ frames) [source: 16_opencap_dropjump_outputs/metadata/phase6_cohort_report.md] was demoted to a cautionary supplementary figure due to curve-fitting instabilities.

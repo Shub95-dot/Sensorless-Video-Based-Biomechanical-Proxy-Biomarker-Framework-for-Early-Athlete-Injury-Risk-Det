@@ -417,6 +417,23 @@ def run_diagnostics():
     print(f"Mean Bias           | {bias_a:<17.4f} | {bias_b:.4f}")
     print(f"SD of Error         | {sd_a:<17.4f} | {sd_b:.4f}")
     
+    # Save the error comparison to a JSON file
+    import json
+    error_comp_dict = {
+        "frame_matched_mae": float(mae_a),
+        "peak_matched_mae": float(mae_b),
+        "frame_matched_rmse": float(rmse_a),
+        "peak_matched_rmse": float(rmse_b),
+        "frame_matched_bias": float(bias_a),
+        "peak_matched_bias": float(bias_b),
+        "frame_matched_sd": float(sd_a),
+        "peak_matched_sd": float(sd_b)
+    }
+    json_path = METADATA_DIR / "timing_vs_projection_error_comparison.json"
+    with open(json_path, "w", encoding="utf-8") as f:
+        json.dump(error_comp_dict, f, indent=4)
+    print(f"Saved timing-vs-projection error comparison JSON to: {json_path}")
+    
     # 3. Process Static-Peak Error-vs-Depth
     df_static = pd.DataFrame(static_peak_records)
     

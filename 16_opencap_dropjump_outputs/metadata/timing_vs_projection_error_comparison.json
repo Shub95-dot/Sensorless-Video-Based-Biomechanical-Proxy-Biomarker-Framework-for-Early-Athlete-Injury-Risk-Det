@@ -1,0 +1,10 @@
+{
+    "frame_matched_mae": 14.801018164127065,
+    "peak_matched_mae": 20.14689384944453,
+    "frame_matched_rmse": 15.528982598693682,
+    "peak_matched_rmse": 20.97946658147936,
+    "frame_matched_bias": 13.844035764127065,
+    "peak_matched_bias": 20.14689384944453,
+    "frame_matched_sd": 7.109500337024166,
+    "peak_matched_sd": 5.913477107612217
+}

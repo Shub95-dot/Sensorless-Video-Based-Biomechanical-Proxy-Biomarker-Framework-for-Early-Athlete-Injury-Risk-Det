@@ -5,9 +5,9 @@ This is the running one-line-per-section writeup map for the Sensorless Biomecha
 ## Exercise Modality Chapters
 
 1. **Chapter 4: Squat Kinematic Screening**
-   - **Section 4.1: YouTube Cohort Analysis (n=10)**: Draft complete. Descriptive kinematics range established; exemplar profiles mapped.
-   - **Section 4.2: REHAB24-6 Squat Integration (n=98 reps)**: Draft complete (`14_rehab24_outputs/drafts/squat_results_v4.md`). Form-discrimination validated (correct vs. incorrect difference in peak flexion, ROM, descent/ascent velocities, and jerk).
-   - **Section 4.3: Cross-Cohort Squat Comparison**: Draft complete. Verified pipeline generalization across YouTube in-the-wild and REHAB24-6 lab cohorts.
+   - **Section 4.1: YouTube Cohort Analysis (n=10)**: **DRAFTED** (`22_dissertation_writing/results_squat_v1.md`). Descriptive kinematics range established; exemplar profiles mapped.
+   - **Section 4.2: REHAB24-6 Squat Integration (n=98 reps)**: **DRAFTED** (`22_dissertation_writing/results_squat_v1.md`). Form-discrimination validated (correct vs. incorrect difference in peak flexion, ROM, descent/ascent velocities, and jerk).
+   - **Section 4.3: Cross-Cohort Squat Comparison**: **DRAFTED** (`22_dissertation_writing/results_squat_v1.md`). Verified pipeline generalization across YouTube in-the-wild and REHAB24-6 lab cohorts.
 
 2. **Chapter 5: Lunge Kinematic Screening**
    - **Section 5.1: REHAB24-6 Lunge Cohort (n=61 reps)**: Draft complete (`15_rehab24_lunge_outputs/drafts/lunge_results_v1.md`). Form-discrimination validated (kinematic signature matches squats; ascent velocities discriminate propulsion).
