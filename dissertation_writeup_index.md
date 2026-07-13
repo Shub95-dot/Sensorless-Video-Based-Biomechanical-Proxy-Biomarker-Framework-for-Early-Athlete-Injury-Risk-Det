@@ -41,7 +41,9 @@ This is the running one-line-per-section writeup map for the Sensorless Biomecha
    - **Section 9.1: Sequence Classification & Biomarker Validation**: **ANALYSIS DONE / WRITEUP DEFERRED** (Phase 12). Controlled LOSO comparison completed; Outcome 3 (Endpoint Dominance) validated.
 
 8. **Chapter 11: Biomechanical Digital Twin**
-   - **Section 10.1: Continuous-Update Infrastructure Design**: Planned.
+   - **Section 11.1: Continuous-Update Infrastructure Design**: **DRAFTED** (`22_dissertation_writing/results_digital_twin_v1.md`). Developed incremental rolling mean update rules with conditional aberration rejection.
+   - **Section 11.2: Reference Evolution & Gated Updates**: **DRAFTED** (`22_dissertation_writing/results_digital_twin_v1.md`). Validated reference evolution (PM_113: $72.98^\circ \rightarrow 69.21^\circ$) and locking behavior across correct and incorrect pseudo-sessions.
+   - **Section 11.3: Explainable Exclusion & Humility Wording**: **DRAFTED** (`22_dissertation_writing/results_digital_twin_v1.md`). Implemented measurement-based exclusion messages with epistemic humility. Transient-vs-sustained adaptation limits analyzed.
 
 9. **Chapter 12: Self-Supervised Pretraining**
    - **Section 11.1: Pretraining Framework and Sample Constraints**: **FUTURE WORK (evidence-grounded, not implemented)**. Trajectory classification overfitting (Phase 12) demonstrates that representation learning on deep sequence models is unlikely to generalize at this cohort scale ($N=9$ squats, $N=7$ lunges). Future work outlines requirements for larger cohorts.
@@ -52,7 +54,7 @@ This is the running one-line-per-section writeup map for the Sensorless Biomecha
     - Covers: pipeline architecture, cohort assembly (REHAB24-6 + OpenCap + YouTube), OpenCap validation, uncertainty decomposition & transfer, personalised baseline & digital twin, rule-based screening (Step 10), counterfactual XAI (Step 11), statistical methods. ~2,950 words. Every number carries an inline `[source:]` tag. Results deferred.
     - Status: First chapter section drafted. Distinct from deferred results/discussion sections.
 
-## Component — Digital Twin (Track B demo) · ANALYSIS DONE / WRITEUP DEFERRED
+## Component — Digital Twin (Track B demo) · DRAFTED (`22_dissertation_writing/results_digital_twin_v1.md`)
 - Purpose — architectural demonstration of continuous-update personalisation: extends the Phase 8 baseline so the per-subject reference UPDATES as pseudo-sessions arrive. Non-predictive; NOT a learned model; NOT real longitudinal. Source: `19_digital_twin_outputs/twin_design.md`.
 - Mechanism — twin state = running reference mean + Phase-7 noise floor. Within-noise reps update the reference (running mean); deviation reps are excluded (aberration rejection) but counted, flagged, and explained. Simple arithmetic update, no learned parameters. Source: `twin_design.md` + `phase9_digital_twin.py`.
 - Result — reference evolves on clean reps (squat PM_113: 72.98→69.21° across reps 3-5), locks when incorrect reps deviate past floor. Noise band tracks the evolving reference. Source: `worked_example_twin.csv` + `twin_tracking.png`.
