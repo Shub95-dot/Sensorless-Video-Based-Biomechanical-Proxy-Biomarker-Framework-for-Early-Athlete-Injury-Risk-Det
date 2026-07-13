@@ -10,8 +10,8 @@ This is the running one-line-per-section writeup map for the Sensorless Biomecha
    - **Section 4.3: Cross-Cohort Squat Comparison**: **DRAFTED** (`22_dissertation_writing/results_squat_v1.md`). Verified pipeline generalization across YouTube in-the-wild and REHAB24-6 lab cohorts.
 
 2. **Chapter 5: Lunge Kinematic Screening**
-   - **Section 5.1: REHAB24-6 Lunge Cohort (n=61 reps)**: Draft complete (`15_rehab24_lunge_outputs/drafts/lunge_results_v1.md`). Form-discrimination validated (kinematic signature matches squats; ascent velocities discriminate propulsion).
-   - **Section 5.2: Cross-Exercise Comparative Analysis**: Draft complete. Comparative forest plots and subject-clustered bootstrapping analysis completed.
+   - **Section 5.1: REHAB24-6 Lunge Cohort (n=61 reps)**: **DRAFTED** (`22_dissertation_writing/results_lunge_v1.md`). Form-discrimination validated (kinematic signature matches squats; ascent velocities discriminate propulsion).
+   - **Section 5.2: Cross-Exercise Comparative Analysis**: **DRAFTED** (`22_dissertation_writing/results_lunge_v1.md`). Comparative forest plots and subject-clustered bootstrapping analysis completed.
 
 3. **Chapter 6: Drop-Jump Validation (OpenCap)**
    - **Section 6.1: Synchronization and Event Detection**: **DRAFTED** (`22_dissertation_writing/results_dropjump_validation_v1.md`). GRF-anchored lag alignment verified and temporal events mapped.
