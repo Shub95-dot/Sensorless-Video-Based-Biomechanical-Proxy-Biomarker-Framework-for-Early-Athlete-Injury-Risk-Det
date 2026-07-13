@@ -60,7 +60,7 @@ This is the running one-line-per-section writeup map for the Sensorless Biomecha
 - Result — reference evolves on clean reps (squat PM_113: 72.98→69.21° across reps 3-5), locks when incorrect reps deviate past floor. Noise band tracks the evolving reference. Source: `worked_example_twin.csv` + `twin_tracking.png`.
 - Exclusion explanation (design feature) — on exclusion, twin outputs a MEASUREMENT-BASED reason: deviation exceeded validated measurement uncertainty; from a single observation, transient fluctuation vs genuine sustained change cannot be distinguished. Epistemic humility, not quality judgment. Source: `twin_design.md`.
 
-## Component — Rule-Based Screening Layer (Step 10, Track A core) · ANALYSIS DONE / WRITEUP DEFERRED
+## Component — Rule-Based Screening Layer (Step 10, Track A core) · DRAFTED (`22_dissertation_writing/results_screening_layer_v1.md`)
 - Purpose — named-rule screening layer turning validated biomarkers into screening flags with clinical meaning. Personalised-deviation rules grounded in Phase 7 noise floors. Source: `20_screening_outputs/screening_rules_design.md`.
 - Rules — EXCESS_DEPTH (peak < baseline − 11.99°), EXCESS_ROM (ROM > baseline + 23.17°), EXCESS_VELOCITY (velocity > baseline + 40.86°/s). Source: `screening_rules_design.md` + `phase10_rule_screening.py`.
 - Result — correct reps 3-5 gated NOT_FLAGGED; incorrect reps 6-10 fire SCREENING_POSITIVE. Source: `worked_example_screening.csv`.
