@@ -26,10 +26,10 @@ This is the running one-line-per-section writeup map for the Sensorless Biomecha
 ## Architectural Demonstration Chapters (Track B Future Work)
 
 5. **Chapter 8: Uncertainty-Weighted Screening Framework (Track B Demo)**
-   - **Section 8.1: Purpose and Methodology**: **ANALYSIS DONE / WRITEUP DEFERRED**. Framework designed for combining biomarkers weighted by validated measurement uncertainty (inverse-variance) without producing combined risk scores or rep classification.
-   - **Section 8.2: Variance Decomposition & Provenance**: **ANALYSIS DONE / WRITEUP DEFERRED**. Decomposed total uncertainty into transferable projection component and non-transferable motion component. Peak flexion split measured (static peak), ROM propagated (endpoints), contact flexion and loading rate splits assumed (immaterial via sensitivity sweep).
-   - **Section 8.3: Cross-Exercise Weight Transfer**: **ANALYSIS DONE / WRITEUP DEFERRED**. Projection component transfers to squat/lunge (peak 57%, contact 23%, ROM 15%, velocity 5%), motion-component validation deferred.
-   - **Section 8.4: Worked Repetition Illustration**: **ANALYSIS DONE / WRITEUP DEFERRED**. Projection-weighted characterisation run on REHAB24-6 squats (PM_008) and lunges (PM_021), illustrating peak flexion dominance.
+   - **Section 8.1: Purpose and Methodology**: **DRAFTED** (`22_dissertation_writing/results_uncertainty_framework_v1.md`). Framework designed for combining biomarkers weighted by validated measurement uncertainty (inverse-variance) without producing combined risk scores or rep classification.
+   - **Section 8.2: Variance Decomposition & Provenance**: **DRAFTED** (`22_dissertation_writing/results_uncertainty_framework_v1.md`). Decomposed total uncertainty into transferable projection component and non-transferable motion component. Peak flexion split measured (static peak), ROM propagated (endpoints), contact flexion and loading rate splits assumed (immaterial via sensitivity sweep).
+   - **Section 8.3: Cross-Exercise Weight Transfer**: **DRAFTED** (`22_dissertation_writing/results_uncertainty_framework_v1.md`). Projection component transfers to squat/lunge (peak 57%, contact 23%, ROM 15%, velocity 5%), motion-component validation deferred.
+   - **Section 8.4: Worked Repetition Illustration**: **DRAFTED** (`22_dissertation_writing/results_uncertainty_framework_v1.md`). Projection-weighted characterisation run on REHAB24-6 squats (PM_008) and lunges (PM_021), illustrating peak flexion dominance.
 
 6. **Chapter 9: Personalised Session-to-Session Baselines (Track B Demo)**
 
