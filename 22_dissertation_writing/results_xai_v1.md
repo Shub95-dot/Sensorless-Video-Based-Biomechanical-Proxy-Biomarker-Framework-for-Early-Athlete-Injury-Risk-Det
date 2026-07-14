@@ -97,7 +97,7 @@ On Repetition 6, Subject `PM_113` triggered three screening rules: `EXCESS_DEPTH
 *   **Minimal Kinematic Intervention (MKI)**: Peak flexion and ROM margins were coupled. The MKI flexion adjustment was $\max(17.77^\circ, 7.83^\circ) = 17.77^\circ$ [source: 21_xai_outputs/worked_example_explanations.json]. The velocity was independent. The MKI output was rendered as:
     > `"The screening flags would not have fired if peak knee flexion joint angle had been at least 17.77° shallower (which, assuming range of motion scales directly with peak flexion depth under a constant standing extension start point, would simultaneously restrict joint range of motion sufficiently to clear both the EXCESS_DEPTH and EXCESS_ROM flags) AND descent joint velocity had been at least 19.82°/s slower."` [source: 21_xai_outputs/worked_example_explanations.json].
 
-### 10.7.2. Lunge Worked Example: Subject `PM_104` Repetition 6
+### 12.7.2. Lunge Worked Example: Subject `PM_104` Repetition 6
 On Repetition 6, Subject `PM_104` triggered `EXCESS_DEPTH` and `EXCESS_ROM` [source: 21_xai_outputs/worked_example_explanations.json].
 *   **`EXCESS_DEPTH` Explanation**: Knee flexion angle was $59.12^\circ$ (threshold: $72.68^\circ$), yielding a margin of **$13.55^\circ$** (graded as **`HIGH CONFIDENCE`**) [source: 21_xai_outputs/worked_example_explanations.json].
 *   **`EXCESS_ROM` Explanation**: Range of motion was $117.28^\circ$ (threshold: $99.95^\circ$), yielding a margin of **$17.33^\circ$** (graded as **`HIGH CONFIDENCE`**, since $17.33^\circ > 11.58^\circ$) [source: 21_xai_outputs/worked_example_explanations.json].
@@ -106,9 +106,25 @@ On Repetition 6, Subject `PM_104` triggered `EXCESS_DEPTH` and `EXCESS_ROM` [sou
 
 This lunge example highlights the clinical value of the MKI coupling logic. Because the ROM margin ($17.33^\circ$) exceeded the peak flexion depth margin ($13.55^\circ$), the max-coupling operator successfully selected the larger ROM constraint, ensuring that the counterfactual flexion adjustment satisfies both rules simultaneously. All calculated margins and texts match the Step 10 screening outputs precisely, confirming mathematical consistency.
 
+### 12.7.3. Mathematical Verification and Cross-Check Evidence
+To provide empirical evidence of the faithfulness by construction claim, Table 12.1 presents a side-by-side comparison between the raw kinematics and margins exported from the Step 10 screening logic (`worked_example_screening.csv`) and the parameters ingested and rendered by the Step 11 explanation engine (`worked_example_explanations.json`) for Repetition 6 of both subjects [source: 20_screening_outputs/worked_example_screening.csv / 21_xai_outputs/worked_example_explanations.json].
+
+#### Table 12.1: Step 10 Screening vs. Step 11 XAI Parameter Cross-Check (Repetition 6)
+
+| Subject (Trial) | Biomarker / Rule | Step 10 Screening Value [source: worked_example_screening.csv] | Step 11 Explanation Value [source: worked_example_explanations.json] | Calculated Margin (Step 10) [source: worked_example_screening.csv] | Rendered Margin (Step 11) [source: worked_example_explanations.json] |
+| :--- | :--- | :---: | :---: | :---: | :---: |
+| **PM_113 (Squat)** | Peak Flexion | $43.2178^\circ$ | $43.22^\circ$ | $17.7703^\circ$ | $17.77^\circ$ |
+| | ROM | $136.4995^\circ$ | $136.50^\circ$ | $7.8325^\circ$ | $7.83^\circ$ |
+| | descent velocity | $110.6160^\circ/\text{s}$ | $110.62^\circ/\text{s}$ | $19.8195^\circ/\text{s}$ | $19.82^\circ/\text{s}$ |
+| **PM_104 (Lunge)** | Peak Flexion | $59.1212^\circ$ | $59.12^\circ$ | $13.5540^\circ$ | $13.55^\circ$ |
+| | ROM | $117.2779^\circ$ | $117.28^\circ$ | $17.3306^\circ$ | $17.33^\circ$ |
+| | descent velocity | $59.9580^\circ/\text{s}$ | N/A (Not Fired) | $0.0000^\circ/\text{s}$ | N/A (Not Fired) |
+
+The cross-check demonstrates a mathematically exact match across all tracked parameters and derived margins, confirming that the counterfactual explanation layer operates with 100% faithfulness to the underlying screening boundaries, with variations limited strictly to formatting and rounding.
+
 ---
 
-## 10.8. Does Not Claim
+## 12.8. Does Not Claim
 
 To maintain scientific integrity and align with the screening scope established across this dissertation, we outline the boundaries of the counterfactual explanation layer:
 *   **Rule Explanations only**: The XAI layer explains rule-firing logic (why a flag was raised given biomarker values); it does **NOT** explain injury causation, biomechanical mechanism, or clinical outcome.
