@@ -65,3 +65,75 @@ Rather than presenting tracking errors as isolated anomalies, this section estab
 
 ### 14.2.5. Synthesis of the Taxonomy
 Categorizing these failures into named, mechanistically-understood categories—rather than treating them as isolated, random tracking anomalies—represents a major methodological contribution. This taxonomy provides future developers and clinical users of markerless biomechanical pipelines with a predictive roadmap: it outlines exactly where tracking failures will occur (far-limb unilateral joints), why spatial biases are introduced (projection foreshortening at deep angles), and how model architectures must be constrained (simplifying models to match data scale) to maintain generalizability across different datasets and exercises.
+
+---
+
+## 14.3. Cross-Exercise Kinematic Divergence
+
+A key finding of this multi-exercise integration is that kinematic form discrimination is highly task-dependent, revealing that form deviations do not manifest uniformly across exercises.
+
+### 14.3.1. Descent-Localized vs. Ascent-Discriminative Kinematics
+*   **Squat Form Discrimination (Descent-Localized)**: Group-level statistical analysis of the squat cohort in Chapter 4 demonstrated that form-quality discrimination is strictly localized to the eccentric descent phase [source: Section 4.2]. Peak flexion depth ($d = 1.7306$), range of motion ($d = -1.4484$), and peak descent velocity ($d = 1.6375$) successfully differentiated correct and incorrect execution [source: Section 4.2]. In contrast, the concentric ascent velocities did not discriminate form, with both peak ascent velocity ($d = -0.5049$, 95% CI: $[-1.4838, +0.0848]$) and mean ascent velocity ($d = -0.4996$, 95% CI: $[-1.7017, +0.1301]$) having confidence intervals that crossed zero [source: Section 4.2 / Section 4.3.1].
+*   **Lunge Form Discrimination (Ascent-Discriminative)**: In contrast, lunge form discrimination in Chapter 5 extended into the concentric ascent phase [source: Section 5.3]. In addition to descent depth and velocity, both lunge peak ascent velocity ($d = -0.9721$, 95% CI: $[-1.6403, -0.6554]$) and mean ascent velocity ($d = -0.7962$, 95% CI: $[-2.0731, -0.0807]$) reliably discriminated between form groups, with bootstrap confidence intervals excluding zero [source: Section 5.2 / Section 5.3.1].
+
+### 14.3.2. Biomechanical Interpretation of Divergence
+This divergence is explained by the physical loading differences between the tasks:
+*   The squat is a bilateral, symmetric movement where the body's mass is supported equally by both limbs, allowing for a controlled, symmetric recovery phase that does not systematically vary with descent faults [source: Section 5.3.2].
+*   The lunge is an asymmetric, unilateral task. In an incorrect lunge—which is characterized by an excessively deep bottom position—the subject is in a biomechanically disadvantaged posture at maximum depth [source: Section 5.3.2]. Returning to a standing position requires a forceful concentric push-off from the front leg, resulting in a rapid, less-controlled concentric propulsion step to recover standing balance [source: Section 5.3.2].
+
+### 14.3.3. Methodological Significance
+This finding demonstrates that the discriminative kinematic signal for form screening is phase-specific and exercise-specific. Evaluating a single exercise in isolation (such as only squats or only lunges) would have failed to reveal this task-dependent behavior. This comparative insight provides empirical justification for Contribution 1: integrating multiple movements under a unified pipeline is necessary to characterize the full kinematic profile of an athlete's movement deviations.
+
+---
+
+## 14.4. What the Validated Framework Enables
+
+The principal practical payoff of the continuous validation-to-screening uncertainty chain (Section 14.1.3) is that it bounds the dissertation's clinical screening claims with ground-truth-validated precision.
+
+### 14.4.1. Bounded Screening Claims
+Rather than simply asserting that a joint angle has deviated from a baseline, every biomarker evaluated in this framework carries a quantified confidence bound:
+*   Peak flexion deviations are monitored with high confidence ($\sigma^2_{\text{proj}} = 37.4132$, yielding a 95% measurement confidence bound of $\pm 11.99^\circ$) [source: Section 8.2.2 / Section 8.6.1].
+*   Joint descent velocities are monitored with lower confidence ($\sigma^2_{\text{proj}} = 434.6253$, yielding a 95% measurement confidence bound of $\pm 40.86^\circ/\text{s}$) [source: Section 8.2.2 / Section 8.6.1].
+
+This statistical qualification ensures that the clinical screening layer does not over-interpret noisy joint angle metrics, gating velocity deviations to prevent false-alarm triggers while confidently flagging changes in depth.
+
+### 14.4.2. Contrast with Weak Validation Paradigms
+This approach represents a major advancement over typical markerless pose-estimation studies, which rely on weaker validation paradigms. We distinguish two levels of validation:
+*   *Internal Consistency / Cross-Cohort Agreement (Weaker)*: Asserting measurement accuracy because two independent cohorts demonstrate similar kinematic means (such as the squat laboratory-vs-YouTube cohort agreement in Section 4.5.3, or the lunge statistical consistency in Section 5.5.3). While useful for demonstrating reproducibility, cross-cohort consistency cannot detect systematic coordinate offsets or characterize individual trial variance [source: Section 6.1].
+*   *Ground-Truth Optoelectronic Validation (Stronger)*: Synchronized, frame-by-frame coordinate comparison against optoelectronic motion capture and force-plate ground truth [source: Section 6.1]. 
+
+By executing a ground-truth validation on drop-jumps (Chapter 6) and decomposing the error to isolate the transferable projection component (Chapter 8), this framework moves beyond qualitative consistency, enabling quantitative uncertainty bounds to be propagated directly to unvalidated datasets.
+
+---
+
+## 14.5. Limitations of the Thesis as a Whole
+
+To maintain scientific rigor, we consolidate the limitations of individual chapters into five thesis-level themes:
+
+1.  **Cohort Size Constraints**: The datasets evaluated were restricted to small subject counts (9 squat subjects, 7 lunge subjects, and 8 drop-jump subjects) [source: Section 4.1.1 / Section 5.1.1 / Section 6.1]. The LSTM sequence classification experiment in Chapter 13 provides direct empirical proof of the limitations of this scale: the deep network failed to generalize and overfitted to subject identities (scoring $\approx 54\%$ balanced accuracy under Scheme A), whereas a simple, single-feature peak flexion threshold achieved $81.36\%$ balanced accuracy [source: Section 13.3]. This confirms that complex deep learning sequence models are not generalizable at this cohort scale.
+2.  **Sagittal-Camera-Only Design**: Restricting the pipeline to a single sagittal camera view makes contralateral occlusion a recurring limitation. This design choice is the direct cause of the lunge subject exclusions (Subject 8/`PM_112` and Subject 5/`PM_042` dropped due to occlusion) and the exclusion of the drop-jump inter-limb asymmetry biomarker (visibility reduced to $\sim 0\%$ on the far limb) [source: Section 14.2.1]. Monocular sagittal setups are blind to frontal-plane movements, preventing the evaluation of valgus or pelvic drop.
+3.  **Exercise Battery Scope**: The framework evaluated only three exercises (squat, lunge, drop-jump) [source: Section 14.1.1]. Multi-planar athletic maneuvers such as running, cutting, and pivoting remain unaddressed. While vertical jump trajectory extraction was planned, it was scoped out of the dissertation timeline due to external data access dependencies.
+4.  **Track B Architectural Status**: The personalised baseline (Chapter 9) and digital twin (Chapter 11) architectures are Track B demonstrations evaluated on repetition sequences (pseudo-sessions), not live, longitudinal deployments tracked over weeks or months. The adaptation rates and aberration-rejection gates are mockups demonstrating coordinate flow, rather than clinically verified physiological trends.
+5.  **Screening-not-Prediction Boundary**: The screening thresholds and baseline gating rules are statistical heuristics grounded in cohort distributions and literature-associated risk factors; they are **not** clinically validated diagnostic cut-offs. The framework identifies coordinate deviations matching movement templates; it cannot predict injury risk or estimate clinical probabilities.
+
+---
+
+## 14.6. Consolidated Future Work
+
+To guide subsequent developments, we consolidate the future-work axes identified across the completed chapters:
+
+*   **Expanded Exercise Battery**: Integrating vertical jump trajectories by securing access to the Bath BioCV dataset, expanding the pipeline to high-velocity vertical propulsion.
+*   **Longitudinal Digital Twin Validation**: Collecting multi-session datasets (10–14 testing sessions per subject spaced over multiple weeks) to validate baseline update templates. Real baseline data collection was deferred in this study due to ethics-gating and dissertation timeline constraints.
+*   **Motion-Error Validation for Slow Movements**: Conducting ground-truth optoelectronic validation for squats and lunges to directly measure their motion-error component ($\sigma^2_{\text{mot}}$), replacing the projection-only transfer assumption currently implemented in Chapter 8 [source: Section 8.5.4].
+*   **Temporal Twin Logic**: Implementing temporal persistence logic for the digital twin (Chapter 11) to distinguish transient movement aberrations from sustained physiological shifts (such as strength adaptation or fatigue) [source: Section 11.3].
+*   **Representation Learning at Scale**: Implementing self-supervised pretraining (contrastive learning, masked autoencoders) once larger multi-subject datasets are compiled, allowing deep sequence models to generalize joint coordinate representations without overfitting [source: Section 13.5].
+*   **Large-Cohort Sequence Modeling**: Evaluating within-repetition trajectory shape modeling (Chapter 13) on cohorts of hundreds of subjects to determine if temporal shapes contain discriminative signals when model capacity matches data scale [source: Section 13.5].
+
+---
+
+## 14.7. Closing Statement
+
+In summary, this dissertation delivers a sensorless, monocular markerless kinematic screening framework that extracts comparable biomarkers across squats, lunges, and drop-jumps. By mapping limits of agreement to a transferable projection uncertainty, the framework propagates validated confidence bounds to qualify screening decisions, while providing faithful-by-construction counterfactual explanations for rule-based flags. 
+
+Consistent with the writeup plan's must-include flags, the project's evolution narrative—detailing the transition from a predictive injury classifier to a validated screening framework—is placed exclusively in Chapter 15 (Conclusion) as a final reflective note on methodological maturity [source: writeup_plan.md line 554]. Chapter 14 has established the cross-exercise findings, quantified uncertainty weights, and failure-mode taxonomy that support this screening architecture.
+
