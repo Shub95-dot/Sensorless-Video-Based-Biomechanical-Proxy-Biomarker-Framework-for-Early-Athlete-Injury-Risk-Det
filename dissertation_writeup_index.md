@@ -38,7 +38,7 @@ This is the running one-line-per-section writeup map for the Sensorless Biomecha
    - **Section 9.4: Personalised-vs-Group Tracking**: **DRAFTED** (`22_dissertation_writing/results_baseline_v1.md`). Analytical contrast between group cohort comparisons and personalized tracking relative to own template. Gating floor constraint and timeline limits documented.urce: `baseline_design.md`.
 
 7. **Chapter 10: Temporal Sequence Models (LSTM)**
-   - **Section 9.1: Sequence Classification & Biomarker Validation**: **ANALYSIS DONE / WRITEUP DEFERRED** (Phase 12). Controlled LOSO comparison completed; Outcome 3 (Endpoint Dominance) validated.
+   - **Section 9.1: Sequence Classification & Biomarker Validation**: **DRAFTED** (`22_dissertation_writing/results_temporal_model_v1.md`). Controlled LOSO comparison completed; Outcome 3 (Endpoint Dominance) validated.
 
 8. **Chapter 11: Biomechanical Digital Twin**
    - **Section 11.1: Continuous-Update Infrastructure Design**: **DRAFTED** (`22_dissertation_writing/results_digital_twin_v1.md`). Developed incremental rolling mean update rules with conditional aberration rejection.
@@ -46,7 +46,7 @@ This is the running one-line-per-section writeup map for the Sensorless Biomecha
    - **Section 11.3: Explainable Exclusion & Humility Wording**: **DRAFTED** (`22_dissertation_writing/results_digital_twin_v1.md`). Implemented measurement-based exclusion messages with epistemic humility. Transient-vs-sustained adaptation limits analyzed.
 
 9. **Chapter 12: Self-Supervised Pretraining**
-   - **Section 11.1: Pretraining Framework and Sample Constraints**: **FUTURE WORK (evidence-grounded, not implemented)**. Trajectory classification overfitting (Phase 12) demonstrates that representation learning on deep sequence models is unlikely to generalize at this cohort scale ($N=9$ squats, $N=7$ lunges). Future work outlines requirements for larger cohorts.
+   - **Section 11.1: Pretraining Framework and Sample Constraints**: **DRAFTED** (`22_dissertation_writing/results_temporal_model_v1.md`). Trajectory classification overfitting (Phase 12) demonstrates that representation learning on deep sequence models is unlikely to generalize at this cohort scale ($N=9$ squats, $N=7$ lunges). Future work outlines requirements for larger cohorts.
 
 ## Dissertation Chapter Drafts
 
@@ -70,14 +70,14 @@ This is the running one-line-per-section writeup map for the Sensorless Biomecha
 - Templates — descriptive (not prescriptive) counterfactual statements per rule. MKI as a descriptive set of conditions. Confidence grading via 0.5×NF buffer. Source: `xai_design.md` + `phase11_counterfactual_xai.py`.
 - Result — explanations rendered for PM_113 (squat) and PM_104 (lunge). Source: `worked_example_explanations.json`.
 
-## Component — Temporal Sequence Models (Phase 12, Track B demo) · ANALYSIS DONE / WRITEUP DEFERRED
+## Component — Temporal Sequence Models (Phase 12, Track B demo) · DRAFTED (`22_dissertation_writing/results_temporal_model_v1.md`)
 - Purpose — controlled comparison of within-rep knee-flexion trajectory shape classification (LSTM deep learning vs. shallow shape-feature baseline) against static endpoints under Leave-One-Subject-Out (LOSO) cross-validation to isolate value-add of sequence shape. Source: `23_temporal_model_outputs/temporal_model_design.md`.
 - Method — linear interpolation to $100$-point sequence. Two normalizations: Scheme A (offset-subtracted, keeps amplitude), Scheme B (min-max scaled, shape-only). Models: Naive guess-majority (73.47% Squat / 59.02% Lunge), Peak Flexion Logistic Regression, regularized shape-feature Logistic Regression (6 amplitude-invariant features), and heavily regularized LSTM. Source: `temporal_model_design.md` + `phase12_temporal_sequence_model.py`.
 - Result — validated **Outcome 3 (Endpoint Dominance)**. Peak flexion alone is the optimal classifier (Squat: 81.36% Balanced Accuracy; Lunge: 81.50% Balanced Accuracy). Trajectory shape features perform at or below chance (Squat: 33.76% Balanced Accuracy; Lunge: 58.39% Balanced Accuracy). Source: `temporal_model_comparison.csv` + `temporal_model_evaluation_report.md`.
 - Overfitting Finding — under Scheme B (shape-only), the LSTM collapses completely to majority-class guessing (50.00% Balanced Accuracy for Squats). Under Scheme A (amplitude kept), the LSTM reaches only ~54% Balanced Accuracy, failing to reliably extract the amplitude signal that a simple peak flexion threshold captures (81.36%). A clear demonstration of high-capacity model overfitting on small-subject cohorts ($N=9$ squats / $N=7$ lunges). Source: `temporal_model_evaluation_report.md` §4.
 - Does NOT claim — no diagnostic prediction, no injury risk classification, not clinically deployed.
 
-## Component — Self-Supervised Pretraining (Track B) · FUTURE WORK (evidence-grounded, not implemented)
+## Component — Self-Supervised Pretraining (Track B) · DRAFTED (`22_dissertation_writing/results_temporal_model_v1.md`)
 - Status — NOT implemented as an active pipeline component; written up as reasoned future work, grounded in the temporal model results. This represents a pre-accepted time-boxed null outcome.
 - Reasoning — the temporal LSTM comparison (Phase 12) demonstrated that supervised deep models overfit at this cohort scale ($N=9$ squat / $N=7$ lunge subjects): the LSTM failed to extract even the amplitude signal that a single-feature peak-flexion classifier captures (LSTM ~54% vs peak-flexion 81.36% balanced accuracy). Since self-supervised pretraining's value is learning representations to aid downstream deep models, and since (a) the downstream screening task is solved by a single endpoint biomarker and (b) deep representations do not generalize at this subject count, pretraining is highly unlikely to yield downstream gains at this scale.
 - Future-work framing — self-supervised pretraining is identified as future work requiring substantially larger multi-subject cohorts, where representation learning could plausibly help before endpoint saturation. Source: reasoning from Phase 12 temporal_model_evaluation_report.md.
