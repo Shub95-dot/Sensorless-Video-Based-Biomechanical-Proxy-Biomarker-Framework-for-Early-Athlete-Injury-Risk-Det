@@ -65,7 +65,7 @@ This is the running one-line-per-section writeup map for the Sensorless Biomecha
 - Rules — EXCESS_DEPTH (peak < baseline − 11.99°), EXCESS_ROM (ROM > baseline + 23.17°), EXCESS_VELOCITY (velocity > baseline + 40.86°/s). Source: `screening_rules_design.md` + `phase10_rule_screening.py`.
 - Result — correct reps 3-5 gated NOT_FLAGGED; incorrect reps 6-10 fire SCREENING_POSITIVE. Source: `worked_example_screening.csv`.
 
-## Component — Counterfactual XAI (Step 11, Track A novelty #4) · ANALYSIS DONE / WRITEUP DEFERRED
+## Component — Counterfactual XAI (Step 11, Track A novelty #4) · DRAFTED (`22_dissertation_writing/results_xai_v1.md`)
 - Purpose — counterfactual explanation of rule-based screening flags: faithful by construction (exact margin calculations, not post-hoc approximations). Source: `21_xai_outputs/xai_design.md`.
 - Templates — descriptive (not prescriptive) counterfactual statements per rule. MKI as a descriptive set of conditions. Confidence grading via 0.5×NF buffer. Source: `xai_design.md` + `phase11_counterfactual_xai.py`.
 - Result — explanations rendered for PM_113 (squat) and PM_104 (lunge). Source: `worked_example_explanations.json`.
