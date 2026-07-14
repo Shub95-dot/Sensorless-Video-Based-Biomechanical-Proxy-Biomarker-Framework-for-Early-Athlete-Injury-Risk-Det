@@ -43,7 +43,7 @@ To establish grounded screening rules, we analyze correct-rep (Label 1) and inco
 ### A. Squat Cohort Distributions (n = 72 Correct, 26 Incorrect)
 1.  **Peak Knee Flexion (`peak_flexion_deg`):**
     *   *Correct (Label 1):* Mean = $60.85^\circ$, SD = $12.72^\circ$, Range = ($36.32^\circ$, $84.73^\circ$)
-    *   *Incorrect (Label 0):* Mean = $41.14^\circ$, SD = $6.08^\circ$, Range = ($31.91^\circ$, $56.47^\circ$)
+    *   *Incorrect (Label 0):* Mean = $41.14^\circ$, SD = $6.20^\circ$, Range = ($31.91^\circ$, $56.47^\circ$)
     *   *Direction:* Smaller joint angle represents more flexion (physically deeper). Incorrect reps exhibit a **flexion increase / deep squat shift** (Mean Shift: $-19.71^\circ$).
 2.  **Range of Motion (`rom_deg`):**
     *   *Correct (Label 1):* Mean = $111.19^\circ$, SD = $18.06^\circ$, Range = ($73.90^\circ$, $141.44^\circ$)

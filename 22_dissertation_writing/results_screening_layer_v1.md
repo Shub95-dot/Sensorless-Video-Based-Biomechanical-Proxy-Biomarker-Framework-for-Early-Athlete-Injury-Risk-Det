@@ -51,7 +51,7 @@ Sagittal knee joint angles are defined as the angle between the thigh and shank 
 Comparing the correct (Label 1) and incorrect (Label 0) distributions in the `REHAB24-6` squat (n=98 reps) and lunge (n=61 reps) cohorts grounds the direction of each rule [source: 20_screening_outputs/screening_rules_design.md]:
 
 1.  **Peak Knee Flexion (`peak_flexion`)**:
-    *   *Squat Cohort*: Correct reps mean = $60.85^\circ \pm 12.72^\circ$; Incorrect reps mean = $41.14^\circ \pm 6.08^\circ$ (representing correct reps having a larger joint angle, Cohen's d = $+1.7306$) [source: 20_screening_outputs/screening_rules_design.md].
+    *   *Squat Cohort*: Correct reps mean = $60.85^\circ \pm 12.72^\circ$; Incorrect reps mean = $41.14^\circ \pm 6.20^\circ$ (representing correct reps having a larger joint angle, Cohen's d = $+1.7306$) [source: 14_rehab24_outputs/metadata/phase5a_integration_summary.txt].
     *   *Lunge Cohort*: Correct reps mean = $89.66^\circ \pm 8.33^\circ$; Incorrect reps mean = $68.03^\circ \pm 15.11^\circ$ (effect size d = $1.6904$) [source: 20_screening_outputs/screening_rules_design.md].
     *   *Biomechanical Interpretation*: Incorrect repetitions in both exercises exhibit a smaller knee angle, which physically represents a shift towards **excessive flexion depth (deeper movement)** (Mean Shifts: $-19.71^\circ$ for squats, $-21.63^\circ$ for lunges) [source: 20_screening_outputs/screening_rules_design.md]. 
     *   *Rule Grounding*: This grounds the **EXCESS_DEPTH** rule, which fires when knee flexion angle drops below baseline:
