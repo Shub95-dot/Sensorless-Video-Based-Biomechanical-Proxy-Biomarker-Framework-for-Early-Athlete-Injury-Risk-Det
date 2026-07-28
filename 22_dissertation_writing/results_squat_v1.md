@@ -8,7 +8,7 @@ This chapter presents the results of the markerless kinematic screening framewor
 
 To evaluate the generalization and discriminative capability of the monocular pose estimation pipeline, squats were analyzed across two distinct cohorts:
 
-1.  **YouTube Cohort (In-the-Wild)**: Consisted of $n = 10$ subjects, with each subject performing a single squat repetition under unconstrained, real-world conditions (varying camera perspectives, backgrounds, and clothing) [source: 4_pose_outputs/temporal/squats_biomarkers.csv]. This cohort served as a test of pipeline generalization and descriptive baseline consistency.
+1.  **Penn Action Cohort (In-the-Wild)**: Consisted of $n = 10$ subjects, with each subject performing a single squat repetition under unconstrained, real-world conditions (varying camera perspectives, backgrounds, and clothing) [CITE: Zhang_Penn_Action_2013] [source: 4_pose_outputs/temporal/squats_biomarkers.csv]. Sequences were drawn from the Penn Action dataset (Zhang, Zhu & Derpanis, ICCV 2013), filtered from 230 raw squat sequences (IDs 1659–1889) to 10 included subjects via a gold/bronze/excluded quality audit [source: 3_metadata/squats_temporal_inclusion.csv]. This cohort served as a test of pipeline generalization and descriptive baseline consistency.
 2.  **REHAB24-6 Cohort (Controlled Laboratory)**: Consisted of $n = 9$ subjects performing a total of $98$ processed repetitions ($72$ correct and $26$ incorrect repetitions) in a controlled laboratory setting [source: 14_rehab24_outputs/metadata/phase5a_integration_summary.txt]. Movement correctness was labeled by expert clinical observers based on the presence of form deviations (specifically, excessive squat depth and rapid loading).
 
 ### 4.1.1. Kinematic Coordinate Convention
@@ -89,15 +89,15 @@ The negative effect size indicates that correct repetitions had a lower jerk pro
 
 ## 4.3. Cross-Cohort Consistency and Generalisation
 
-To evaluate the generalization of the markerless pose-extraction pipeline, descriptive kinematics from the controlled REHAB24-6 cohort were compared to the in-the-wild YouTube cohort. Both cohorts produced overlapping, biomechanically plausible ranges for knee joint angles, demonstrating that the software pipeline generalizes across diverse lighting, clothing, and camera profiles:
-*   The YouTube cohort ($n = 10$ subjects, single-rep) had a mean peak flexion angle of **$78.84^\circ \pm 30.76^\circ$**, a mean ROM of **$99.27^\circ \pm 31.12^\circ$**, and a mean jerk proxy of **$1.42 \pm 0.65$** [source: 4_pose_outputs/temporal/squats_biomarkers.csv statistical run].
+To evaluate the generalization of the markerless pose-extraction pipeline, descriptive kinematics from the controlled REHAB24-6 cohort were compared to the in-the-wild Penn Action cohort [CITE: Zhang_Penn_Action_2013]. Both cohorts produced overlapping, biomechanically plausible ranges for knee joint angles, demonstrating that the software pipeline generalizes across diverse lighting, clothing, and camera profiles:
+*   The Penn Action cohort ($n = 10$ subjects, single-rep) had a mean peak flexion angle of **$78.84^\circ \pm 30.76^\circ$**, a mean ROM of **$99.27^\circ \pm 31.12^\circ$**, and a mean jerk proxy of **$1.42 \pm 0.65$** [source: 4_pose_outputs/temporal/squats_biomarkers.csv statistical run].
 *   The REHAB24-6 cohort ($n = 98$ reps) had an overall mean peak flexion angle of **$55.62^\circ \pm 14.31^\circ$**, a mean ROM of **$117.32^\circ \pm 18.91^\circ$**, and a mean jerk proxy of **$0.78 \pm 0.18$** [source: 14_rehab24_outputs/metadata/phase5a_integration_summary.txt].
 
 ### 4.3.1. Cohort-Level Biomechanical Differences
 The systematically deeper peak flexion (smaller included angle: $55.62^\circ$ vs. $78.84^\circ$) and larger ROM ($117.32^\circ$ vs. $99.27^\circ$) in the REHAB24-6 cohort reflect the difference in cohort constraints and movement instructions:
 *   The REHAB24-6 trials were performed in a biomechanics laboratory under explicit instructions to perform deep squats and to deliberately introduce form errors (such as deep flexion beyond parallel) for clinical training.
-*   The YouTube videos captured recreational squatters performing self-selected repetitions under varied physical constraints, where joint extension and flexion depth were typically more restricted.
-*   The elevated jerk proxy in the YouTube cohort ($1.42 \pm 0.65$ vs. $0.78 \pm 0.18$) reflects the increased tracking noise inherent in lower-quality, compressed in-the-wild video recordings rather than poorer neuromuscular control.
+*   The Penn Action sequences captured squat technique under varied, unconstrained real-world conditions, where joint extension and flexion depth were typically more restricted than in the controlled laboratory context.
+*   The elevated jerk proxy in the Penn Action cohort ($1.42 \pm 0.65$ vs. $0.78 \pm 0.18$) reflects the increased tracking noise inherent in lower-quality, compressed in-the-wild video recordings rather than poorer neuromuscular control.
 
 ### 4.3.2. Methodological Role of Generalisation
 The cross-cohort consistency check represents a **reproducibility finding**, demonstrating that the pose-extraction pipeline generates biologically plausible kinematic values across widely differing environments. However, cohort consistency is not a proof of tracking accuracy. The absolute accuracy of the monocular coordinate tracking is established in the Drop-Jump Validation Chapter (Chapter 6), where single-camera values are directly compared against optoelectronic and force-plate ground truth [source: 22_dissertation_writing/results_dropjump_validation_v1.md].
@@ -142,7 +142,7 @@ The findings presented in this chapter are supported by the following publicatio
     *   *Note*: A known label-overprinting bug exists in the background "small/medium/large" guide-labels in this figure, which will be resolved in the final compilation.
 *   **Figure 4.3: Cross-Cohort Kinematic Distribution Comparison**
     *   *Source file*: `14_rehab24_outputs/figures_publication/fig3_cross_cohort_distributions.png`
-    *   *Description*: Overlay of joint angle distributions comparing the YouTube cohort ($n=10$ subjects) and the REHAB24-6 cohort ($n=98$ reps), showing generalisation of biomechanical ranges across diverse settings.
+    *   *Description*: Overlay of joint angle distributions comparing the Penn Action cohort ($n=10$ subjects) [CITE: Zhang_Penn_Action_2013] and the REHAB24-6 cohort ($n=98$ reps), showing generalisation of biomechanical ranges across diverse settings.
 *   **Figure 4.4: Representative Correct vs. Incorrect Knee Flexion Trajectories**
     *   *Source file*: `14_rehab24_outputs/figures_publication/fig4_representative_trajectories.png`
     *   *Description*: Time-series overlay of representative correct (Subject 1, rep 2, $121$ frames) and incorrect (Subject 1, rep 17, $91$ frames) squat repetitions, illustrating the rapid eccentric descent and excessive flexion depth of incorrect execution.

@@ -117,7 +117,7 @@ As established in Chapter 4, this framework is a **kinematic screening layer**, 
 Several limitations of this lunge evaluation must be noted:
 1.  **Occlusion Exclusions**: The monocular sagittal view resulted in the exclusion of Subject 8 (12/12 reps failed) and Subject 5 (12/13 reps failed) due to contralateral self-occlusion [source: 15_rehab24_lunge_outputs/metadata/phase5b_integration_summary.txt]. These exclusions represent a systematic limitation of monocular tracking during asymmetric movements, feeding the monocular failure-mode taxonomy.
 2.  **Small Cohort Size**: The usable analytical cohort contained only $n = 61$ repetitions across $7$ subjects [source: 15_rehab24_lunge_outputs/metadata/phase5b_integration_summary.txt]. The reported effect sizes and confidence intervals represent the characteristics of this specific cohort and should not be used to make population-level generalizations.
-3.  **No Cross-Cohort Validation**: Unlike the squat chapter, which compared the lab-based cohort to an in-the-wild YouTube cohort, the lunge evaluation was restricted to the REHAB24-6 dataset. No YouTube-equivalent check was performed for lunges, representing an asymmetry in validation depth.
+3.  **No Cross-Cohort Validation**: Unlike the squat chapter, which compared the lab-based cohort to an in-the-wild Penn Action cohort [CITE: Zhang_Penn_Action_2013], the lunge evaluation was restricted to the REHAB24-6 dataset. No Penn Action-equivalent check was performed for lunges, representing an asymmetry in validation depth.
 4.  **Sagittal-Plane Restriction**: Monocular sagittal-view tracking is blind to frontal-plane errors, such as knee valgus or pelvic drop, which are heavily associated with ACL injury risk.
 
 ---

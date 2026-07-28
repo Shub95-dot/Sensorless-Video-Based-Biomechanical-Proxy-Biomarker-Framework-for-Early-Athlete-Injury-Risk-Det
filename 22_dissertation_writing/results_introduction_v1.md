@@ -46,16 +46,17 @@ During the technical implementation, however, a critical mismatch became apparen
 ## 1.5. Dissertation Structure Overview
 
 The remainder of this dissertation is organized as follows:
-*   **Chapter 2 (Literature Review)**: Reviews existing athletic screening protocols, wearables, and markerless pose estimation validation studies [CITE: ...].
-*   **Chapter 3 (Methodology)**: Details the monocular camera configuration, the coordinate conventions, the MediaPipe-based pose estimation pipeline, and the subject-clustered bootstrapping statistical procedures [source: methods_v2.md].
-*   **Chapter 4 (Squat Kinematic Screening)**: Presents the results of the squat screening evaluation, focusing on eccentric-localized form discrimination and laboratory-vs-YouTube reproducibility [source: Chapter 4].
+*   **Chapter 2 (Methods)**: Details the monocular camera configuration, the coordinate conventions, the MediaPipe-based pose estimation pipeline, and the subject-clustered bootstrapping statistical procedures [source: methods_v2.md].
+*   **Chapter 3 (Reserved - Literature Review)**: Reserved for a consolidated Literature Review. In this dissertation, literature engagement is distributed contextually across the results chapters, where each finding is positioned against relevant prior work at its point of use. This is a deliberate methodological choice for a project this methodologically dense, where contextual placement provides greater interpretive value to the reader than a front-loaded survey.
+*   **Chapter 4 (Squat Kinematic Screening)**: Presents the results of the squat screening evaluation, focusing on eccentric-localized form discrimination and laboratory-vs-Penn Action reproducibility [CITE: Zhang_Penn_Action_2013] [source: Chapter 4].
 *   **Chapter 5 (Lunge Kinematic Screening)**: Documents lunge kinematics, highlighting the concentric-ascent velocity divergence from squats [source: Chapter 5].
 *   **Chapter 6 (Drop-Jump Validation)**: Presents the ground-truth optoelectronic validation results, characterizing constant deep-flexion projection biases and lag-anchoring stability [source: Chapter 6].
-*   **Chapter 7 (Uncertainty-Weighted Framework)**: Details the variance conversion, projection/motion decomposition, and the inverse-variance transfer weights [source: Chapter 8].
-*   **Chapter 8 (Personalised Baselines)**: Demonstrates the gated baseline tracking engine under pseudo-session sequences [source: Chapter 9].
-*   **Chapter 9 (Biomechanical Digital Twin)**: Details continuous-update reference evolution and explainable exclusion gating [source: Chapter 11].
+*   **Chapter 7 (Reserved - Framework Overview)**: Reserved for a Framework Overview. The framework's components (uncertainty weighting, personalised baseline, digital twin, rule-based screening, and counterfactual XAI) are introduced and synthesised individually in Chapters 8-12, with their integrated relationships treated fully in the Discussion (Chapter 14, Section 14.1).
+*   **Chapter 8 (Uncertainty-Weighted Screening Framework)**: Details the variance conversion, projection/motion decomposition, and the inverse-variance transfer weights [source: Chapter 8].
+*   **Chapter 9 (Personalised Session-to-Session Baselines)**: Demonstrates the gated baseline tracking engine under pseudo-session sequences [source: Chapter 9].
 *   **Chapter 10 (Rule-Based Screening Layer)**: Documents the deterministic, literature-grounded decision rules and screening flags [source: Chapter 10].
-*   **Chapter 11 (Counterfactual XAI)**: Presents the exact-margin counterfactual explanations and Minimal Kinematic Intervention (MKI) coupling logic [source: Chapter 12].
-*   **Chapter 12 (Temporal Sequence Models)**: Evaluates within-repetition trajectory shape modeling and LSTM overfitting diagnostics under LOSO cross-validation [source: Chapter 13].
-*   **Chapter 13 (General Discussion)**: Synthesizes the four novelty contributions and details the Failure-Mode Taxonomy [source: Chapter 14].
-*   **Chapter 14 (Conclusion and Future Work)**: Summarizes the dissertation findings, consolidate future research directions, and delivers the closing evolution reflection.
+*   **Chapter 11 (Biomechanical Digital Twin)**: Details continuous-update reference evolution and explainable exclusion gating [source: Chapter 11].
+*   **Chapter 12 (Counterfactual Explainable AI (XAI))**: Presents the exact-margin counterfactual explanations and Minimal Kinematic Intervention (MKI) coupling logic [source: Chapter 12].
+*   **Chapter 13 (Temporal Sequence Model + Self-Supervised Future Work)**: Evaluates within-repetition trajectory shape modeling and LSTM overfitting diagnostics under LOSO cross-validation [source: Chapter 13].
+*   **Chapter 14 (General Discussion)**: Synthesizes the four novelty contributions and details the Failure-Mode Taxonomy [source: Chapter 14].
+*   **Chapter 15 (Conclusion)**: Summarizes the dissertation findings, consolidates future research directions, and delivers the closing evolution reflection.

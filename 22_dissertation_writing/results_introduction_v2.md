@@ -1,0 +1,62 @@
+# Chapter 1: Introduction
+
+Sports injury-risk screening represents a critical component of athletic preparation and musculoskeletal rehabilitation, aimed at identifying movement deviations before they manifest as clinical pathologies [CITE: Bahr_2016]. Traditional biomechanical screening protocols depend heavily on laboratory-grade instrumentation—such as multi-camera optoelectronic motion capture, force plates, or body-worn inertial sensors—to extract precise joint kinematics [CITE: Mundt_2019]. While accurate, these technologies are confined to elite research laboratories due to high equipment costs, complex calibration, and specialized operator requirements. Monocular sensorless video pose estimation has emerged as a low-cost, scalable alternative, leveraging deep neural networks to extract joint coordinates from standard 2D video recorded on consumer devices [CITE: OpenCap_2022] [CITE: MP_2020]. However, because single-camera systems estimate 3D joint motion from a flat 2D perspective, their tracking is subject to systematic geometric distortions and tracking noise [CITE: Colyer_2018]. Validating these markerless systems against laboratory gold standards is therefore an essential prerequisite for clinical screening [CITE: open_source_poses_2021].
+
+This dissertation establishes a validated markerless kinematic screening framework, but we define its scope immediately: **this work delivers a movement screening framework, not an injury prediction or clinical diagnostic system**. Kinematic screening identifies significant coordinate deviations relative to baseline templates and system measurement uncertainty [CITE: Bahr_2016]. In contrast, injury prediction or diagnostic classification requires prospective tracking of injury occurrences, clinical outcomes, and long-term cohort follow-ups—data that are absent in this work. By explicitly scoping this pipeline to kinematic screening, we establish a mathematically bounded and transparent framework that avoids ungrounded clinical claims common in black-box sports machine learning models [CITE: Halilaj_2018].
+
+---
+
+## 1.1. Technical Motivation: The Screening Gap
+
+The central limitation preventing widespread clinical adoption of markerless pose estimation is the absence of integrated, transparent error characterization. Existing pose estimation models typically output raw joint coordinate sequences without quantifying underlying spatial or temporal precision [CITE: MP_2020]. In clinical settings, this makes it impossible to distinguish genuine biomechanical movement deviations (such as loading asymmetry or excessive depth) from tracking noise (such as perspective foreshortening or coordinate jitter).
+
+To address this gap, this dissertation is structured around a continuous validation-to-screening chain. In Chapter 6, we execute a frame-by-frame optoelectronic and force-plate validation comparison during dynamic drop-jump landing trials, establishing limits of agreement (LoA) for knee biomarkers [source: Chapter 6]. In Chapter 8, we decompose these error bounds to isolate perspective projection errors from motion errors, deriving inverse-variance uncertainty weights for squats and lunges [source: Chapter 8]. This foundation ensures that downstream baseline tracking (Chapter 9) and rule-based screening (Chapter 10) are bounded by empirical measurements of pipeline precision, suppressing false alarms on noisy biomarkers.
+
+---
+
+## 1.2. Scope and Modality-Independent Approach
+
+The clinical utility of the screening framework is demonstrated across three fundamental athletic movements representing a progression in loading complexity:
+1.  **Bilateral Squat (Chapter 4)**: A slow, symmetric movement evaluating sagittal flexion depth and eccentric speed [source: Chapter 4].
+2.  **Unilateral Lunge (Chapter 5)**: A slow, asymmetric loading task requiring unilateral propulsion and balance recovery [source: Chapter 5].
+3.  **Dynamic Drop-Jump Landing (Chapter 6)**: A high-velocity, rapid-impact task generating extreme joint angular velocities [source: Chapter 6].
+
+Crucially, the drop-jump landing cohort serves **exclusively as a ground-truth measurement validation benchmark**, comparing single-camera markerless tracking directly against synchronized 3D motion capture and force-plate references under dynamic conditions [source: Section 6.1]. The drop-jump is not analyzed as a form-quality classification task. Using drop-jumps as a validation anchor characterizes systematic projection biases (such as deep flexion overestimation), which are integrated directly into the squat and lunge screening layers.
+
+---
+
+## 1.3. Preview of the Four Novelty Contributions
+
+This dissertation presents a cross-cutting biomechanical architecture organized around four core novelty contributions, fully synthesized in Chapter 14:
+*   **Contribution 1: Cross-Exercise Integration under a Unified Pipeline**: Integrating squats, lunges, and drop-jumps under a unified coordinate convention to enable direct cross-exercise comparisons of joint depth, velocity, and excursion [source: Section 14.1.1].
+*   **Contribution 2: Failure-Mode-Aware Pose Extraction (Taxonomy)**: Formalizing a four-part failure-mode taxonomy (occlusion, recording limits, projection bias, data-scale mismatch) that maps tracking loss to technical and physical sources [source: Section 14.1.2 / Section 14.2].
+*   **Contribution 3: Uncertainty-Weighted Screening Transfer**: Converting ground-truth limits of agreement into statistical variances to propagate inverse-variance weights that qualify screening decisions on unvalidated datasets [source: Section 14.1.3].
+*   **Contribution 4: Counterfactual XAI on Deterministic Rules**: Implementing a glass-box explainability layer that explains screening flags through exact physical joint margins, guaranteeing zero approximation error [source: Section 14.1.4].
+
+---
+
+## 1.4. Project Origin Story (Evolution Seed)
+
+A key methodological contribution of this research is the scientific maturation of its clinical scope. The project was initially conceived around an ambitious injury-prediction framework designed to classify physical injury risk using temporal sequence networks and self-supervised representation learning.
+
+During technical implementation, a critical mismatch became apparent: while single-camera pipelines could rigorously extract and validate sagittal kinematics, available datasets lacked prospective injury outcomes, clinical diagnostic labels, and multi-week longitudinal follow-up. Forcing an injury-prediction claim under these constraints would have required training ungrounded black-box classifiers on small cohorts, risking severe overfitting. Recognizing this limitation, the dissertation deliberately scoped the active pipeline to a validated, transparent kinematic screening foundation. Advanced components of the broader vision—self-supervised pretraining, temporal sequence modeling, and longitudinal digital twins—are explicitly positioned as future research directions grounded in the empirical sequence modeling results of Chapter 13. The reflective defense of this scoping transition is detailed in Chapter 15.
+
+---
+
+## 1.5. Dissertation Structure Overview
+
+The remainder of this dissertation is organized as follows:
+*   **Chapter 2 (Methods)**: Details the monocular camera configuration, coordinate conventions, MediaPipe pose estimation pipeline, and subject-clustered bootstrapping statistical procedures [source: methods_v2.md].
+*   **Chapter 3 (Reserved - Literature Review)**: Reserved for a consolidated Literature Review. In this dissertation, literature engagement is distributed contextually across results chapters, positioning each finding against relevant prior work at its point of use. This is a deliberate methodological choice (Option A handling), as contextual placement provides greater interpretive value for a methodologically dense pipeline than a front-loaded survey.
+*   **Chapter 4 (Squat Kinematic Screening)**: Evaluates squat screening, focusing on eccentric-localized form discrimination and laboratory-vs-Penn Action reproducibility [CITE: Zhang_Penn_Action_2013] [source: Chapter 4].
+*   **Chapter 5 (Lunge Kinematic Screening)**: Documents lunge kinematics, highlighting concentric-ascent velocity divergence from squats [source: Chapter 5].
+*   **Chapter 6 (Drop-Jump Validation)**: Presents ground-truth optoelectronic validation results, characterizing deep-flexion projection biases and lag-anchoring stability [source: Chapter 6].
+*   **Chapter 7 (Reserved - Framework Overview)**: Reserved for a Framework Overview. The framework's components (uncertainty weighting, baselines, digital twin, rule screening, counterfactual XAI) are introduced in Chapters 8–12, with integrated relationships treated in Chapter 14 (Section 14.1).
+*   **Chapter 8 (Uncertainty-Weighted Screening Framework)**: Details variance conversion, projection/motion error decomposition, and inverse-variance transfer weights [source: Chapter 8].
+*   **Chapter 9 (Personalised Session-to-Session Baselines)**: Demonstrates the gated baseline tracking engine under pseudo-session sequences [source: Chapter 9].
+*   **Chapter 10 (Rule-Based Screening Layer)**: Documents deterministic, literature-grounded decision rules and screening flags [source: Chapter 10].
+*   **Chapter 11 (Biomechanical Digital Twin)**: Details continuous-update reference evolution and explainable exclusion gating [source: Chapter 11].
+*   **Chapter 12 (Counterfactual Explainable AI (XAI))**: Presents exact-margin counterfactual explanations and Minimal Kinematic Intervention (MKI) coupling logic [source: Chapter 12].
+*   **Chapter 13 (Temporal Sequence Model + Self-Supervised Future Work)**: Evaluates trajectory shape modeling and LSTM overfitting diagnostics under LOSO cross-validation [source: Chapter 13].
+*   **Chapter 14 (General Discussion)**: Synthesizes the four novelty contributions and details the Failure-Mode Taxonomy [source: Chapter 14].
+*   **Chapter 15 (Conclusion)**: Summarizes findings, consolidates future research directions, and delivers the closing evolution reflection.

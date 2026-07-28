@@ -1,0 +1,39 @@
+# Chapter 15: Conclusion
+
+## 15.1. Restatement of the Thesis Claim
+This dissertation has delivered and validated a monocular, markerless kinematic screening framework that extracts movement patterns across bilateral squats, unilateral lunges, and dynamic drop-jump landings from consumer-grade video using a unified processing pipeline [source: Chapter 4 / Chapter 5 / Chapter 6]. The core thesis claim is that sensorless, single-camera tracking can be rigorously integrated into clinical screening workflows by systematically quantifying its measurement uncertainty against optoelectronic ground truth, propagating these error bounds to gate personalized baseline and digital twin tracking layers, and explaining decisions through exact-margin, faithful-by-construction counterfactual explanations [source: Section 8.4 / Section 9.2 / Section 11.2 / Section 12.3]. By grounding every screening decision in empirical limits of agreement, the framework provides a transparent bridge between low-cost video sensors and evidence-based biomechanical practice. 
+
+Crucially, this framework is designed and validated under a strict **screening-not-prediction** paradigm to characterize biomechanical execution deviations from baseline states; it does not classify, predict, or diagnose physical injury risk, nor does it require longitudinal injury-outcome data to justify its clinical utility [source: Section 1.1 / Section 14.4].
+
+---
+
+## 15.2. Summary of Delivered Contributions
+The primary research objectives of this dissertation were achieved through four core novelty contributions synthesized in Chapter 14:
+1.  **Cross-Exercise Integration**: We established a modality-independent coordinate extraction pipeline parsing bilateral squats, unilateral lunges, and dynamic drop-jumps under a unified skeletal convention, demonstrating that different exercises expose form deviations in distinct movement phases (Chapters 4, 5, and 6) [source: Section 14.1.1].
+2.  **Failure-Mode-Aware Pose Extraction**: We formalized a four-part taxonomy (self-occlusion, temporal truncation, camera projection geometry, and data-scale/model-mismatch) that systematically maps tracking degradation to physical and technical constraints, replacing "black-box" accuracy assumptions with transparent limits of monocular tracking (Section 14.2).
+3.  **Uncertainty-Weighted Screening Transfer**: We constructed a mathematical transfer spine that decomposes drop-jump validation errors into projection-based and motion-based components (Chapters 6 and 8). This allowed us to transfer projection-only variances as inverse-variance weights to qualify and gate screening rules, preventing noisy biomarkers from triggering false alarms (Chapters 9, 10, and 11) [source: Section 8.4].
+4.  **Counterfactual Explainable AI (XAI)**: We implemented a glass-box explainability layer for deterministic screening rules that computes the exact mathematical margin required to satisfy clinical thresholds, ensuring zero approximation error and rendering post-hoc local approximations obsolete (Chapter 12) [source: Section 12.3].
+
+---
+
+## 15.3. Honest Scope Statement and Consolidated Future Work
+To maintain scientific rigor, the framework's scope boundaries are explicitly stated: the active pipeline is restricted to small cohort sizes (9 squat, 7 lunge, and 8 drop-jump subjects), monocular sagittal-only camera views (which remain blind to frontal valgus or pelvic drop), and Track B software architectural status evaluated on within-session repetition sequences (pseudo-sessions) [source: Section 14.5].
+
+Building upon these empirical findings, consolidated future research directions are organized into six key areas (detailed in Section 14.6):
+*   **Vertical Jump & Exercise Battery Expansion**: Integrating vertical jump trajectories using the Bath BioCV dataset and extending the pipeline to multi-planar movement batteries.
+*   **True Longitudinal Cohort Tracking**: Transitioning personalised baseline (Chapter 9) and digital twin (Chapter 11) architectures from pseudo-session sequence mockups to true longitudinal trials spanning 10–14 sessions over multiple weeks.
+*   **Motion-Component Validation**: Conducting laboratory ground-truth motion error validation specifically for slow, controlled exercises (squats and lunges) to refine task-specific motion noise floors (Section 8.7).
+*   **Temporal Twin Persistence Logic**: Developing transient-versus-sustained anomaly classification within the digital twin update loop (Chapter 11) to distinguish temporary movement errors from permanent baseline shifts.
+*   **Scale Representation Learning**: Evaluating self-supervised trajectory pretraining on much larger multi-subject cohorts, avoiding the subject-memorization overfitting observed at current cohort scales (Chapter 13).
+*   **Larger-Cohort Shape Modeling**: Expanding trajectory-shape evaluation cohorts (Chapter 13) to determine if sequence-level shape features provide generalizable screening value when amplitude differences are controlled.
+
+---
+
+## 15.4. Reflective Closing: Methodological Maturity and Scope Evolution
+The biomechanical architecture delivered in this dissertation is the result of a deliberate, evidence-driven evolution of the project's clinical scope. The research was initially conceived as an ambitious, machine-learning-based injury prediction system, aiming to classify prospective musculoskeletal injury risk using temporal sequence models and self-supervised representation learning. However, as coordinate extraction progressed, a critical scientific mismatch became apparent: while single-camera pipelines could reliably capture sagittal kinematics, analytical cohorts lacked clinical diagnostic labels, prospective injury outcomes, and multi-week longitudinal follow-up.
+
+Forcing an injury prediction claim under these data-availability constraints would have necessitated training highly parameterized deep networks on small-subject cohorts ($N=9$ squats, $N=7$ lunges), leading to severe subject-memorization overfitting (as subsequently demonstrated by the LSTM diagnostics in Chapter 13). Attempting to assert diagnostic or prognostic prediction without clinical outcomes would have resulted in ungrounded claims, compromising the scientific integrity of the work.
+
+Recognizing this boundary, the project was deliberately scoped to a validated, transparent screening framework. This decision represents a maturation of scientific methodology: recognizing the distinction between the system one desires to build and the system one has empirical evidence to defend. Rather than presenting an ungrounded clinical predictor, we prioritized the rigorous, mathematical quantification of monocular measurement error.
+
+The resulting framework—anchored by ground-truth optoelectronic validation (Chapter 6), projection-based uncertainty transfer (Chapter 8), noise-gated baseline tracking (Chapter 9), and exact-margin counterfactual explanations (Chapter 12)—delivers a highly defensible biomechanical foundation. Advanced sequence modeling and longitudinal representation learning components of the original vision are positioned honestly as future research directions. By enforcing this scientific discipline, the delivered screening framework forms the necessary, validated coordinate and uncertainty foundation upon which any future predictive or diagnostic system utilizing monocular video must ultimately rest.
