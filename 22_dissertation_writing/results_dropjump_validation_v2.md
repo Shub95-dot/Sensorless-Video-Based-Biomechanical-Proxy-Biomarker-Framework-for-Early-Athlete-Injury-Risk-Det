@@ -65,6 +65,7 @@ Bland-Altman statistics (mean bias, 95% LoA, Pearson $r$) across all $n = 48$ tr
 | **#5 Asymmetry (IK-only)** | N/A | $2.07^\circ$ | N/A | N/A | N/A | **IK-only, not video-validated (far-leg occlusion)**; mean=$2.07^\circ$ (SD=$2.06^\circ$) [source: phase6_agreement_final.csv] |
 
 Across biomarkers, contact flexion (#1) achieves high accuracy with minor underestimation ($-6.69^\circ$), whereas peak flexion (#2) and ROM (#3) carry systematic positive bias requiring calibration [source: 16_opencap_dropjump_outputs/phase6_final_report.md]. Loading rate (#6) exhibits high variance from sampling jitter, and asymmetry (#5) is restricted to 3D IK reference data due to contralateral limb occlusion [source: 16_opencap_dropjump_outputs/phase6_final_report.md]. See Appendix D for detailed biomarker-level interpretation.
+Figure 6.1 presents the Bland-Altman agreement analysis for each biomarker.
 
 ### 6.3.1. Peak-to-Peak vs. Timing-Clean Bias Reconciliation
 A critical comparison emerges between the **$+10.52^\circ$ timing-clean peak bias** (Section 6.2) and the **$+19.72^\circ$ peak-to-peak bias** in Table 6.1 [source: 16_opencap_dropjump_outputs/phase6_final_report.md]:
@@ -113,8 +114,10 @@ Force-plate **GRF-anchored alignment** was compared against mathematical **RMSE-
 *   *subject8 DJ1*: GRF lag = **-157.17 ms (-9 frames)** vs. RMSE lag = **33.33 ms (2 frames)** [source: 16_opencap_dropjump_outputs/metadata/phase6_stage0_report.md].
 
 Because Mocap IK windows are trimmed ($\sim 1.0$ s), RMSE-minimization is unstable, choosing out-of-phase alignments (e.g., $+12$ frames, shifting video peak $0.4$ s before mocap peak) [source: 16_opencap_dropjump_outputs/metadata/phase6_stage0_report.md]. Conversely, GRF anchoring directly anchors physical impact, remaining stable across trials. Thus, GRF anchoring was adopted as standard, and pooled frame-level error-vs-depth correlation ($r = 0.3491$, $n = 3046$ frames) [source: 16_opencap_dropjump_outputs/metadata/phase6_cohort_report.md] was demoted to a cautionary supplementary figure.
+Figure 6.2 illustrates the naive pooled frame-level error plotted against knee flexion depth prior to timing diagnostic decomposition.
 
 Diagnostics confirm deep-flexion overestimation stems from **sagittal-plane projection foreshortening**: as the knee flexes deeply outside the orthogonal camera plane, 2D projection systematically inflates apparent knee flexion angle.
+Figure 6.3 demonstrates that when temporal artifacts are removed, static peak-flexion error is a constant scalar offset across flexion depths.
 
 ---
 
@@ -133,3 +136,12 @@ Pooled frame-level error-vs-depth displays high timing contamination and non-mon
 
 ### 6.6.4. Kinematic Angle Conventions
 This chapter evaluates knee flexion using **clinical flexion** ($0^\circ$ = extension, larger angle = deeper bend) [source: 16_opencap_dropjump_outputs/metadata/phase6_stage0_report.md], contrasting with the **included angle** convention ($\approx 180^\circ$ = extension, smaller angle = deeper bend) [source: 16_opencap_dropjump_outputs/metadata/phase6_stage0_report.md] in squat and lunge chapters. Raw angles are not directly comparable; the uncertainty-weighting framework (Chapter 8) resolves this by transferring validated error variances ($\sigma^2_{\text{proj}}$) rather than raw joint values [source: 17_uncertainty_framework_outputs/framework_design.md].
+
+---
+
+## 6.7. Figures and Provenance
+
+Publication-ready validation figures support this chapter [source: 16_opencap_dropjump_outputs/figures/]:
+*   **Figure 6.1: Bland-Altman agreement plots for peak knee flexion, contact flexion, ROM, and loading rate biomarkers**, comparing video-derived measurements against OpenCap motion-capture ground truth. The mean bias and 95% Limits of Agreement are indicated by solid and dashed horizontal lines respectively. [source: 16_opencap_dropjump_outputs/figures/fig_bland_altman_biomarkers.png]
+*   **Figure 6.2: Frame-level pipeline error plotted against knee flexion depth**, showing the naive pooled distribution that appears depth-dependent prior to timing diagnostic decomposition. [source: 16_opencap_dropjump_outputs/figures/fig_headline_error_vs_depth.png]
+*   **Figure 6.3: Static peak-flexion error plotted against ground-truth peak knee flexion depth.** The near-zero slope of the linear regression confirms that pipeline error is a constant scalar offset (approximately +10.5°) rather than a depth-dependent degradation. [source: 16_opencap_dropjump_outputs/figures/static_peak_error_scatter.png]

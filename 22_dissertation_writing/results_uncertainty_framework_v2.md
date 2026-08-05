@@ -105,6 +105,7 @@ Table 8.1 presents raw video measurements alongside validated uncertainty bounds
 | **Lunge** | `PM_021` | 7 | Incorrect | $18.51^\circ \pm 19.05^\circ$ | $54.65^\circ \pm 11.99^\circ$ | $106.84^\circ \pm 23.17^\circ$ | $69.57^\circ/\text{s} \pm 40.86^\circ/\text{s}$ |
 
 This demonstration highlights how the framework down-weights joint velocity ($4.92\%$) relative to peak flexion depth ($57.15\%$). Peak depth deviations are characterized with high confidence (narrower CI of $\pm 11.99^\circ$), whereas velocity deviations carry wider relative uncertainty ($\pm 40.86^\circ/\text{s}$).
+Figure 8.1 illustrates the worked example of the uncertainty-weighted biomarker framework across the four biomarkers.
 
 ---
 
@@ -124,3 +125,10 @@ To maintain scientific integrity, we define explicit boundaries for the framewor
 *   **No Repetition Classification**: Does not label repetitions as "passed" or "failed".
 *   **No Validation of Squat/Lunge Motion Error**: Motion error validation for slow exercises remains future work.
 *   **Methodological Demonstration Only**: Worked examples illustrate uncertainty propagation rather than a clinical diagnostic tool.
+
+---
+
+## 8.8. Figures and Provenance
+
+Publication-ready framework figures support this chapter [source: 17_uncertainty_framework_outputs/worked_example_weights.png]:
+*   **Figure 8.1: Worked example of the uncertainty-weighted biomarker framework**, showing each biomarker's validated 95% confidence bounds and derived inverse-variance weight. Peak flexion has the tightest bounds (±11.99°) and receives the largest weight (57.15%); descent velocity has the widest bounds (±40.86°/s) and receives the smallest weight (4.92%). [source: 17_uncertainty_framework_outputs/worked_example_weights.png]

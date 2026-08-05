@@ -8,7 +8,6 @@ import pandas as pd
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-from matplotlib.lines import Line2D
 import matplotlib.font_manager as fm
 
 # Define BASE and paths using pathlib
@@ -244,7 +243,7 @@ def main():
     # STAGE 3 — FIGURE 2 (effect-size forest plot)
     # ========================================================================
     print("\nGenerating Figure 2...")
-    plt.figure(figsize=(9, 7.5))
+    plt.figure(figsize=(7, 6))
     
     # Sort all 9 by absolute cohens_d descending
     df_effects['abs_d'] = df_effects['cohens_d'].abs()
@@ -266,23 +265,25 @@ def main():
         plt.errorbar(d_val, y_pos, xerr=[[d_val - ci_low], [ci_high - d_val]],
                      fmt='o', color=color, ecolor=color, capsize=4, elinewidth=1.5, markersize=6)
         
-        # FIX 1: Annotate d value vertically above whisker line with conditional shift for near-zero markers
-        if abs(d_val) < 0.1:
-            text_x = d_val - 0.15
-            ha = 'right'
+        # Annotate d value beside point
+        if d_val >= 0:
+            text_x = ci_high + 0.08
+            ha = 'left'
         else:
-            text_x = d_val
-            ha = 'center'
-        text_y = y_pos + 0.22
-        plt.text(text_x, text_y, f"{d_val:+.2f}", va='bottom', ha=ha, fontsize=8, color=color, fontweight='bold' if excludes_zero else 'normal')
+            text_x = ci_low - 0.08
+            ha = 'right'
+        plt.text(text_x, y_pos, f"{d_val:+.2f}", va='center', ha=ha, fontsize=8, color=color, fontweight='bold' if excludes_zero else 'normal')
 
     # Reference lines
     plt.axvline(0, color='black', linestyle='-', linewidth=1.0)
     
     # Guides at 0.2, 0.5, 0.8
-    guides = [-0.8, -0.5, -0.2, 0.2, 0.5, 0.8]
-    for val in guides:
+    guides = [(-0.8, "large"), (-0.5, "medium"), (-0.2, "small"),
+              (0.2, "small"), (0.5, "medium"), (0.8, "large")]
+    for val, label in guides:
         plt.axvline(val, color='gray', linestyle=':', alpha=0.3, linewidth=0.8)
+        plt.text(val, num_bios - 0.3, f"{val:+.1f}\n({label})",
+                 ha='center', va='bottom', fontsize=8, color='gray', alpha=0.8)
 
     # Set y-ticks
     labels_sorted = [row['biomarker'] for row in reversed(df_effects_sorted.to_dict('records'))]
@@ -293,17 +294,13 @@ def main():
     plt.xlabel("Cohen's d (correct − incorrect), subject-clustered 95% CI", fontsize=9)
     plt.title(f"Lunge biomarker form-discrimination effect sizes (n = {n_correct} correct vs {n_incorrect} incorrect)", fontsize=10, pad=15)
     
-    # Add caption note as figtext below the axes
-    plt.tight_layout(rect=[0, 0.12, 1, 0.97])
-    plt.figtext(0.5, 0.03,
-                "* Grey markers indicate CIs crossing zero (p >= 0.05 equivalent). "
-                "Dotted vertical lines: Cohen's d thresholds (|d| = 0.2 small, 0.5 medium, 0.8 large).",
-                ha='center', fontsize=8, style='italic', color='gray', wrap=True)
+    # Add caption note
+    plt.text(-3.4, -0.8, "* grey markers indicate confidence intervals crossing zero (p >= 0.05 equivalent)", fontsize=8, style='italic', color='gray')
 
     fig2_png = OUTDIR / "fig_L2_effect_sizes.png"
     fig2_svg = OUTDIR / "fig_L2_effect_sizes.svg"
-    plt.savefig(fig2_png, dpi=300, bbox_inches='tight')
-    plt.savefig(fig2_svg, bbox_inches='tight')
+    plt.savefig(fig2_png, dpi=300)
+    plt.savefig(fig2_svg)
     plt.close()
     print("Figure L2 generated.")
 
@@ -336,7 +333,7 @@ def main():
     for ax in [ax1, ax2]:
         ax.axvline(0, color='black', linestyle='-', linewidth=1.0)
         ax.set_xlim(-3.5, 4.0)
-        for val in guides:
+        for val, label in guides:
             ax.axvline(val, color='gray', linestyle=':', alpha=0.3, linewidth=0.8)
             
     # Plot left panel (Shared & Null Biomarkers)
@@ -366,7 +363,10 @@ def main():
         ax1.errorbar(d_l, y_pos - 0.15, xerr=[[d_l - ci_l_l], [ci_h_l - d_l]],
                      fmt='o', color=color_l, ecolor=color_l, capsize=4, elinewidth=1.5, markersize=6)
 
-
+    # Plot labels along the top of guides for ax1
+    for val, label in guides:
+        ax1.text(val, num_left - 0.3, f"{val:+.1f}\n({label})",
+                 ha='center', va='bottom', fontsize=8, color='gray', alpha=0.8)
                  
     ax1.set_yticks(range(num_left))
     ax1.set_yticklabels(reversed(left_bios_ordered), fontsize=9)
@@ -401,7 +401,10 @@ def main():
         ax2.errorbar(d_l, y_pos - 0.15, xerr=[[d_l - ci_l_l], [ci_h_l - d_l]],
                      fmt='o', color=color_l, ecolor=color_l, capsize=4, elinewidth=1.5, markersize=6)
 
-
+    # Plot labels along the top of guides for ax2
+    for val, label in guides:
+        ax2.text(val, num_right - 0.3, f"{val:+.1f}\n({label})",
+                 ha='center', va='bottom', fontsize=8, color='gray', alpha=0.8)
                  
     ax2.set_yticks(range(num_right))
     ax2.set_yticklabels(reversed(right_bios_ordered), fontsize=9)
@@ -417,15 +420,10 @@ def main():
                                markersize=6, label='Lunge (n = 25 vs 36)')
     ns_line = mlines.Line2D([], [], color='#888888', marker='o', linestyle='none',
                              markersize=6, label='CI crosses zero (p >= 0.05 equivalent)')
-    fig3.legend(handles=[squat_line, lunge_line, ns_line],
-                loc='upper left', bbox_to_anchor=(0.02, 0.97),
-                fontsize=8, frameon=True, ncol=1)
+    ax1.legend(handles=[squat_line, lunge_line, ns_line], loc='upper left', fontsize=8, frameon=True)
     
     fig3.suptitle("Cross-exercise form-discrimination signature: squat vs lunge (REHAB24-6)", fontsize=12, y=0.98)
-    fig3.text(0.5, 0.01, "* Grey markers indicate CIs crossing zero (p >= 0.05 equivalent). Dotted vertical lines: Cohen's d thresholds (|d| = 0.2 small, 0.5 medium, 0.8 large).",
-              ha='center', fontsize=8, style='italic', color='gray')
-    fig3.tight_layout(rect=[0, 0.06, 1, 0.85])
-    plt.subplots_adjust(top=0.85)
+    fig3.tight_layout()
     
     fig3_png = OUTDIR / "fig_L3_cross_exercise_distributions.png"
     fig3_svg = OUTDIR / "fig_L3_cross_exercise_distributions.svg"
@@ -474,7 +472,7 @@ def main():
                  arrowprops=dict(arrowstyle="->", color=color_correct, lw=1.0))
                  
     plt.annotate(f"peak flexion = {peak_incorr:.2f}°", xy=(frame_min_incorr, peak_incorr),
-                 xytext=(frame_min_incorr, peak_incorr + 20), ha='center', va='bottom',
+                 xytext=(frame_min_incorr, peak_incorr - 20), ha='center', va='top',
                  arrowprops=dict(arrowstyle="->", color=color_incorrect, lw=1.0))
 
     plt.xlabel("Frame index", fontsize=9)
@@ -489,8 +487,7 @@ def main():
         f"Correct (rep 14): peak {rep14_stats['peak_flexion_deg']:.2f}°, ROM {rep14_stats['rom_deg']:.2f}°, tempo {rep14_stats['tempo_ratio']:.2f}",
         f"Incorrect (rep 16): peak {rep16_stats['peak_flexion_deg']:.2f}°, ROM {rep16_stats['rom_deg']:.2f}°, tempo {rep16_stats['tempo_ratio']:.2f}"
     ]
-    plt.legend(leg_labels, loc='upper center', bbox_to_anchor=(0.5, 0.98),
-               ncol=1, fontsize=8, handlelength=1.5, columnspacing=1.0, frameon=True)
+    plt.legend(leg_labels, loc='upper right', fontsize=9)
     
     fig4_png = OUTDIR / "fig_L4_representative_trajectories.png"
     fig4_svg = OUTDIR / "fig_L4_representative_trajectories.svg"

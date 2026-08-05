@@ -8,7 +8,6 @@ import pandas as pd
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-from matplotlib.lines import Line2D
 import matplotlib.font_manager as fm
 
 # Define BASE and paths using pathlib
@@ -338,44 +337,39 @@ def main():
         plt.errorbar(d_val, y_pos, xerr=[[d_val - ci_low], [ci_high - d_val]],
                      fmt='o', color=color, ecolor=color, capsize=4, elinewidth=1.5, markersize=6)
         
-        # Annotate d value vertically above whisker line with conditional shift for near-zero markers
-        if abs(d_val) < 0.1:
-            text_x = d_val - 0.15
-            ha = 'right'
+        # Annotate d value beside point
+        # Adjust text placement depending on sign of d
+        if d_val >= 0:
+            text_x = ci_high + 0.08
+            ha = 'left'
         else:
-            text_x = d_val
-            ha = 'center'
-        text_y = y_pos + 0.22
-        plt.text(text_x, text_y, f"{d_val:+.2f}", va='bottom', ha=ha, fontsize=8, color=color, fontweight='bold' if excludes_zero else 'normal')
+            text_x = ci_low - 0.08
+            ha = 'right'
+        plt.text(text_x, y_pos, f"{d_val:+.2f}", va='center', ha=ha, fontsize=8, color=color, fontweight='bold' if excludes_zero else 'normal')
 
     # Reference lines
     plt.axvline(0, color='black', linestyle='-', linewidth=1.0)
     
     # Guides at 0.2, 0.5, 0.8
-    guides = [-0.8, -0.5, -0.2, 0.2, 0.5, 0.8]
-    for val in guides:
+    guides = [(-0.8, "large"), (-0.5, "medium"), (-0.2, "small"),
+              (0.2, "small"), (0.5, "medium"), (0.8, "large")]
+    for val, label in guides:
         plt.axvline(val, color='gray', linestyle=':', alpha=0.3, linewidth=0.8)
+        # Add tiny label along the top
+        plt.text(val, num_bios - 0.3, f"{val:+.1f}\n({label})",
+                 ha='center', va='bottom', fontsize=8, color='gray', alpha=0.8)
 
     # Set y-ticks
     labels_sorted = [res['biomarker'] for res in reversed(fig2_results_sorted)]
     plt.yticks(range(num_bios), labels_sorted, fontsize=9)
-    plt.ylim(-0.8, num_bios + 0.7)
-    plt.xlim(-2.5, 2.8)
-
-    # FIX 3: Legend explaining blue vs grey markers
-    legend_elements = [
-        Line2D([0], [0], color=cmap(0.35), marker='o', linestyle='-', linewidth=1.5, markersize=5, label='CI excludes zero (discriminative)'),
-        Line2D([0], [0], color='#888888', marker='o', linestyle='-', linewidth=1.5, markersize=5, label='CI crosses zero (non-discriminative)')
-    ]
-    plt.legend(handles=legend_elements, loc='upper right', bbox_to_anchor=(0.98, 0.98), fontsize=8, frameon=True, facecolor='white', framealpha=0.9)
+    plt.ylim(-0.5, num_bios - 0.2)
+    plt.xlim(-2.5, 2.5)
     
     plt.xlabel("Cohen's d (correct − incorrect), subject-clustered 95% CI", fontsize=9)
     plt.title("Biomarker form discrimination effect sizes (n = 72 correct vs 26 incorrect)", fontsize=10, pad=15)
     
-    # Add caption note below axis with breathing room
-    plt.figtext(0.5, 0.01, "* Grey markers indicate CIs crossing zero (p >= 0.05 equivalent).\nDotted vertical lines: Cohen's d thresholds (|d| = 0.2 small, 0.5 medium, 0.8 large).",
-                fontsize=8, style='italic', color='gray', ha='center')
-    plt.tight_layout(rect=[0, 0.07, 1, 1])
+    # Add caption note
+    plt.text(-2.4, -0.8, "* grey markers indicate confidence intervals crossing zero (p >= 0.05 equivalent)", fontsize=8, style='italic', color='gray')
 
     fig2_png = OUTDIR / "fig2_effect_sizes.png"
     fig2_svg = OUTDIR / "fig2_effect_sizes.svg"
@@ -422,21 +416,21 @@ def main():
         jitter_youtube = rng.uniform(-0.1, 0.1, size=len(data_youtube))
         
         ax.scatter(np.ones_like(data_rehab) + jitter_rehab, data_rehab, color=color_correct, alpha=0.4, s=12, label='REHAB24-6' if idx==0 else "")
-        ax.scatter(np.ones(len(data_youtube))*2 + jitter_youtube, data_youtube, color=color_incorrect, alpha=0.5, s=20, label='Penn Action' if idx==0 else "")
+        ax.scatter(np.ones(len(data_youtube))*2 + jitter_youtube, data_youtube, color=color_incorrect, alpha=0.5, s=20, label='YouTube' if idx==0 else "")
         
         ax.set_title(titles_dict[bio], fontsize=10)
         ax.set_xticks([1, 2])
-        ax.set_xticklabels(['REHAB24-6\n(n = 98 reps)', 'Penn Action\n(n = 10 subs)'], fontsize=9)
+        ax.set_xticklabels(['REHAB24-6\n(n = 98 reps)', 'YouTube\n(n = 10 subs)'], fontsize=9)
         ax.grid(True, alpha=0.25)
 
     fig3.suptitle("Cross-cohort kinematic distributions", fontsize=11, y=0.98)
-    fig3.legend(loc='upper center', bbox_to_anchor=(0.5, 0.93), ncol=2, fontsize=9)
+    fig3.legend(loc='upper right', bbox_to_anchor=(0.98, 0.94), fontsize=9)
     
     # Subtitle / caption
-    fig3.text(0.5, 0.01, "REHAB24-6 = per-repetition (n = 98 reps); Penn Action = per-subject (n = 10 subjects).",
+    fig3.text(0.5, -0.05, "REHAB24-6 = per-repetition (n = 98 reps); YouTube = per-subject (n = 10 subjects).",
               ha='center', fontsize=9, style='italic')
     
-    fig3.tight_layout(rect=[0, 0.05, 1, 0.90])
+    fig3.tight_layout()
     
     fig3_png = OUTDIR / "fig3_cross_cohort_distributions.png"
     fig3_svg = OUTDIR / "fig3_cross_cohort_distributions.svg"
@@ -487,27 +481,27 @@ def main():
     plt.scatter(frame_min_corr, peak_corr, color=color_correct, marker='o', s=40, zorder=5)
     plt.scatter(frame_min_incorr, peak_incorr, color=color_incorrect, marker='o', s=40, zorder=5)
     
-    # Annotate peak flexion text near respective peak data points with short leader arrows
-    plt.annotate(f"peak flexion = {peak_corr:.2f}° (correct)", xy=(frame_min_corr, peak_corr),
-                 xytext=(72, peak_corr), textcoords='data', ha='left', va='center',
-                 arrowprops=dict(arrowstyle="->", color=color_correct, lw=1.2))
+    # Annotate peak flexion text
+    plt.annotate(f"peak flexion = {peak_corr:.2f}°", xy=(frame_min_corr, peak_corr),
+                 xytext=(frame_min_corr, peak_corr + 15), ha='center', va='bottom',
+                 arrowprops=dict(arrowstyle="->", color=color_correct, lw=1.0))
                  
-    plt.annotate(f"peak flexion = {peak_incorr:.2f}° (incorrect)", xy=(frame_min_incorr, peak_incorr),
-                 xytext=(frame_min_incorr, 30), textcoords='data', ha='center', va='top',
-                 arrowprops=dict(arrowstyle="->", color=color_incorrect, lw=1.2))
+    plt.annotate(f"peak flexion = {peak_incorr:.2f}°", xy=(frame_min_incorr, peak_incorr),
+                 xytext=(frame_min_incorr, peak_incorr - 20), ha='center', va='top',
+                 arrowprops=dict(arrowstyle="->", color=color_incorrect, lw=1.0))
 
     plt.xlabel("Frame index", fontsize=9)
     plt.ylabel("Knee flexion angle (degrees)", fontsize=9)
-    plt.title("Representative knee-angle trajectories: correct vs incorrect squat form\n(subject PM_008)", fontsize=10, pad=25)
-    plt.ylim(10, 195)
+    plt.title("Representative knee-angle trajectories: correct vs incorrect squat form\n(subject PM_008)", fontsize=10)
     
-    # Compact Custom Legend above plot area
+    # Custom Legend
+    # correct (rep 02):   peak 62.16°, ROM 117°, tempo 1.00
+    # incorrect (rep 17): peak 50.03°, ROM 127.73°, tempo 1.65
     leg_labels = [
-        f"Correct (rep 02): peak {peak_corr:.2f}°",
-        f"Incorrect (rep 17): peak {peak_incorr:.2f}°"
+        f"Correct (rep 02): peak {peak_corr:.2f}°, ROM 117.02°, tempo 1.00",
+        f"Incorrect (rep 17): peak {peak_incorr:.2f}°, ROM 127.73°, tempo 1.65"
     ]
-    plt.legend(leg_labels, loc='upper center', bbox_to_anchor=(0.5, 1.02), ncol=2, fontsize=8, handlelength=1.5, columnspacing=1.0, frameon=True)
-    plt.tight_layout(rect=[0, 0, 1, 0.92])
+    plt.legend(leg_labels, loc='upper right', fontsize=9)
     
     fig4_png = OUTDIR / "fig4_representative_trajectories.png"
     fig4_svg = OUTDIR / "fig4_representative_trajectories.svg"
