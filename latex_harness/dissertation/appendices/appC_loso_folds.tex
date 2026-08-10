@@ -1,0 +1,96 @@
+\chapter{Leave-One-Subject-Out Fold Results}
+\label{app:loso}
+
+% SOURCE: appendix_B_loso_fold_results_v2.md
+% STATUS: converted from markdown
+% NOTE: [source:] tags stripped per ASSEMBLY_PLAN.md (harvested to appF)
+
+
+This appendix details the fold-by-fold Leave-One-Subject-Out (LOSO) cross-validation results for the temporal sequence models evaluated in Chapter 13 (\texttt{temporal\_model\_comparison.csv} and \texttt{temporal\_model\_evaluation\_report.md}).
+
+
+
+\section{LOSO Protocol Summary}
+\label{sec:b-1-loso-protocol-summary}
+
+
+To evaluate generalization and eliminate subject-identity leakage on small cohorts, Leave-One-Subject-Out (LOSO) cross-validation was executed across:
+\begin{itemize}
+  \item \textbf{Squat Cohort}: 9 folds corresponding to the 9 subjects ($N=98$ total repetitions).
+  \item \textbf{Lunge Cohort}: 7 folds corresponding to the 7 subjects ($N=61$ total repetitions).
+\end{itemize}
+
+In each fold, all repetitions of a single held-out subject formed the test set, while the models were trained on the remaining subjects' repetitions.
+
+
+
+\section{Fold-by-Fold Results Breakdown}
+\label{sec:b-2-fold-by-fold-results-breakdown}
+
+
+Fold-level LSTM accuracy varies substantially ($20.00\%\text{--}100.00\%$ for squats; $0.00\%\text{--}100.00\%$ for lunges), reflecting instability characteristic of deep sequence models trained on 7–9-subject cohorts. This variance is itself evidence for the endpoint-dominance interpretation reported in Chapter 13: where the peak-flexion baseline maintains consistent per-fold performance, LSTM fold outcomes are dominated by held-out-subject identity rather than form patterns. The globally-pooled aggregates reported in Chapter 13 Table 13.1 weight each fold by test-set rep count and represent the mathematically rigorous summary.
+
+\subsection{Table B.1a: Squat Cohort LOSO Fold-by-Fold Results (9 Folds, N=98 Reps)}
+\label{sec:table-b-1a-squat-cohort-loso-fold-by-fold-results-9-folds-n-98-reps}
+
+
+\begin{landscape}
+\begin{table}[htbp]
+\centering
+\small
+\caption{Squat Cohort LOSO Fold-by-Fold Results (9 Folds, N=98 Reps)}
+\label{tab:loso-squat-folds}
+\begin{tabular}{c p{3.5cm} p{3cm} c c c c}
+\hline
+\textbf{Fold} & \textbf{Held-Out Subject} & \textbf{Reps (C/I)} & \textbf{Peak-Flex Baseline} & \textbf{Shape Baseline} & \textbf{LSTM Scheme A} & \textbf{LSTM Scheme B} \\
+\hline
+Fold 1 & Subject 1 (\texttt{PM\_008}) & 17 (16C / 1I) & 82.35\% & 52.94\% & 94.12\% & 94.12\% \\
+Fold 2 & Subject 2 (\texttt{PM\_022}) & 10 (10C / 0I) & 50.00\% & 30.00\% & 60.00\% & 100.00\% \\
+Fold 3 & Subject 3 (\texttt{PM\_029}) & 10 (5C / 5I) & 90.00\% & 0.00\% & 60.00\% & 50.00\% \\
+Fold 4 & Subject 4 (\texttt{PM\_038}) & 10 (10C / 0I) & 60.00\% & 10.00\% & 20.00\% & 100.00\% \\
+Fold 5 & Subject 5 (\texttt{PM\_043}) & 10 (5C / 5I) & 100.00\% & 30.00\% & 70.00\% & 50.00\% \\
+Fold 6 & Subject 6 (\texttt{PM\_105}) & 10 (5C / 5I) & 100.00\% & 50.00\% & 30.00\% & 50.00\% \\
+Fold 7 & Subject 7 (\texttt{PM\_118}) & 10 (5C / 5I) & 70.00\% & 40.00\% & 60.00\% & 50.00\% \\
+Fold 8 & Subject 8 (\texttt{PM\_113}) & 10 (5C / 5I) & 90.00\% & 60.00\% & 40.00\% & 50.00\% \\
+Fold 9 & Subject 9 (\texttt{PM\_126}) & 11 (11C / 0I) & 90.91\% & 63.64\% & 72.73\% & 100.00\% \\
+\hline
+\end{tabular}
+\end{table}
+\end{landscape}
+
+\subsection{Table B.1b: Lunge Cohort LOSO Fold-by-Fold Results (7 Folds, N=61 Reps)}
+\label{sec:table-b-1b-lunge-cohort-loso-fold-by-fold-results-7-folds-n-61-reps}
+
+
+\begin{landscape}
+\begin{table}[htbp]
+\centering
+\small
+\caption{Lunge Cohort LOSO Fold-by-Fold Results (7 Folds, N=61 Reps)}
+\label{tab:loso-lunge-folds}
+\begin{tabular}{c p{3.5cm} p{3cm} c c c c}
+\hline
+\textbf{Fold} & \textbf{Held-Out Subject} & \textbf{Reps (C/I)} & \textbf{Peak-Flex Baseline} & \textbf{Shape Baseline} & \textbf{LSTM Scheme A} & \textbf{LSTM Scheme B} \\
+\hline
+Fold 1 & Subject 2 (\texttt{PM\_028}) & 9 (4C / 5I) & 77.78\% & 66.67\% & 44.44\% & 55.56\% \\
+Fold 2 & Subject 3 (\texttt{PM\_037}) & 10 (0C / 10I) & 40.00\% & 60.00\% & 40.00\% & 0.00\% \\
+Fold 3 & Subject 4 (\texttt{PM\_117b}) & 9 (5C / 4I) & 100.00\% & 44.44\% & 55.56\% & 44.44\% \\
+Fold 4 & Subject 5 (\texttt{PM\_042}) & 1 (0C / 1I) & 0.00\% & 0.00\% & 100.00\% & 100.00\% \\
+Fold 5 & Subject 6 (\texttt{PM\_104}) & 10 (5C / 5I) & 90.00\% & 60.00\% & 50.00\% & 50.00\% \\
+Fold 6 & Subject 7 (\texttt{PM\_117a}) & 10 (5C / 5I) & 90.00\% & 50.00\% & 60.00\% & 50.00\% \\
+Fold 7 & Subject 9 (\texttt{PM\_125}) & 12 (6C / 6I) & 91.67\% & 66.67\% & 66.67\% & 50.00\% \\
+\hline
+\end{tabular}
+\end{table}
+\end{landscape}
+
+
+
+\section{Observations}
+\label{sec:b-3-observations}
+
+The fold-by-fold breakdown demonstrates consistency across held-out subjects:
+\begin{enumerate}
+  \item \textbf{Peak Flexion Stability}: The single-feature peak flexion baseline maintained high classification performance ($50.00\%\text{--}100.00\%$ across individual fold test sets for squats; $40.00\%\text{--}100.00\%$ for lunges) across held-out subjects.
+  \item \textbf{LSTM Overfitting Ceiling}: The deep sequence network failed to achieve stable generalization across held-out subject splits, exhibiting high variance under Scheme A and collapsing to majority-class prediction under Scheme B.
+\end{enumerate}

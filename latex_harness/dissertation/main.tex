@@ -1,0 +1,75 @@
+% ============================================================
+% COM726 MSc Dissertation -- Shubham
+% "A Sensorless Markerless Screening Framework for Identifying
+%  Kinematic Patterns Associated with Elevated Injury Risk
+%  Across Multiple Athletic Exercises"
+%
+% Build:  make        (latexmk -pdf, runs bibtex automatically)
+% Clean:  make clean
+% ============================================================
+\documentclass[12pt, a4paper, oneside]{report}
+\input{preamble}
+
+\begin{document}
+
+% ---------------- FRONT MATTER (roman numerals) ----------------
+\pagenumbering{gobble}
+\input{frontmatter/titlepage}
+
+\pagenumbering{roman}
+\setcounter{page}{1}
+
+\input{frontmatter/declaration}
+\input{frontmatter/acknowledgements}
+\input{frontmatter/abstract}
+
+\tableofcontents
+\clearpage
+\listoffigures
+\clearpage
+\listoftables
+\clearpage
+\input{frontmatter/acronyms}
+
+% ---------------- BODY (arabic numerals) ----------------
+\clearpage
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+\input{chapters/ch01_introduction}
+\input{chapters/ch02}
+\addtocounter{chapter}{1}
+% Chapter 3 reserved -- deliberate gap per §1.5
+\input{chapters/ch04_squat}
+\input{chapters/ch05_lunge}
+\input{chapters/ch06_dropjump_validation}
+\addtocounter{chapter}{1}
+% Chapter 7 reserved -- deliberate gap per §1.5
+\input{chapters/ch08_uncertainty_framework}
+\input{chapters/ch09_baseline}
+\input{chapters/ch10_screening_layer}
+\input{chapters/ch11_digital_twin}
+\input{chapters/ch12_xai}
+\input{chapters/ch13_temporal_model}
+\input{chapters/ch14_discussion}
+\input{chapters/ch15_conclusion}
+
+% ---------------- REFERENCES ----------------
+\clearpage
+\chapter*{References}
+\addcontentsline{toc}{chapter}{References}
+\bibliography{references}
+
+% ---------------- APPENDICES ----------------
+\clearpage
+\appendix
+\renewcommand{\thechapter}{\Alph{chapter}}
+\input{appendices/appA_ethics}
+\input{appendices/appB_uncertainty_derivation}
+\input{appendices/appC_loso_folds}
+\input{appendices/appD_xai_parameters}
+\input{appendices/appE_bland_altman}
+\input{appendices/appF_data_provenance}
+\input{appendices/appG_github}
+
+\end{document}

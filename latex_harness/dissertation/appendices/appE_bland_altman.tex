@@ -1,0 +1,64 @@
+\chapter{Bland--Altman Interpretation Notes}
+\label{app:bland-altman}
+
+% SOURCE: appendix_D_bland_altman_interpretation.md
+% STATUS: converted from markdown
+% NOTE: [source:] tags stripped per ASSEMBLY_PLAN.md (harvested to appF)
+
+
+This appendix provides detailed biomarker-level interpretation for the Bland-Altman agreement analysis on the OpenCap drop-jump dataset ($n = 48$ trials across 8 subjects), supplementing Chapter 6 (Section 6.3).
+
+
+
+\section{Biomarker \protect\#1: Contact Flexion}
+\label{sec:d-1-biomarker-protect-1-contact-flexion}
+
+\begin{itemize}
+  \item \textbf{Metrics}: Video Mean = $13.51^\circ$, IK Mean = $20.20^\circ$, Bias = $-6.69^\circ$, 95\% LoA = $[-26.77^\circ, 13.39^\circ]$, Pearson $r = 0.3209$.
+  \item \textbf{Trustworthiness Verdict}: Accurate (low bias, moderate variance).
+  \item \textbf{Biomechanical Interpretation}: Initial contact occurs at shallow flexion ($\sim 20^\circ$). In this upright pose, 2D sagittal plane foreshortening is minimal compared to deep flexion, yielding a small systematic underestimation bias of $-6.69^\circ$. However, ground impact induces transient pose tracking jitter, causing moderate trial variance ($\text{LoA} \text{ width} = 40.16^\circ$).
+\end{itemize}
+
+
+
+\section{Biomarker \protect\#2: Peak Landing Flexion}
+\label{sec:d-2-biomarker-protect-2-peak-landing-flexion}
+
+\begin{itemize}
+  \item \textbf{Metrics}: Video Mean = $120.23^\circ$, IK Mean = $100.51^\circ$, Bias = $+19.72^\circ$ (peak-to-peak) / $+10.52^\circ$ (static timing-clean), 95\% LoA = $[7.73^\circ, 31.71^\circ]$, Pearson $r = 0.8238$.
+  \item \textbf{Trustworthiness Verdict}: Biased-systematic (constant overestimation, low variance).
+  \item \textbf{Biomechanical Interpretation}: Peak landing flexion exhibits a strong linear correlation ($r = 0.8238$) between video and 3D motion capture, demonstrating that monocular tracking reliably preserves rank order across subjects. The measurement exhibits a systematic positive bias ($+19.72^\circ$ uncorrected peak-to-peak; $+10.52^\circ$ timing-clean static frame) driven by out-of-plane projection foreshortening as the knee flexes deeply ($\sim 100^\circ$). Because error distribution is tightly bounded with low residual variance, this bias represents a predictable geometric artefact suitable for downstream calibration.
+\end{itemize}
+
+
+
+\section{Biomarker \protect\#3: Landing Range of Motion (ROM)}
+\label{sec:d-3-biomarker-protect-3-landing-range-of-motion-rom}
+
+\begin{itemize}
+  \item \textbf{Metrics}: Video Mean = $106.72^\circ$, IK Mean = $80.31^\circ$, Bias = $+26.41^\circ$, 95\% LoA = $[2.34^\circ, 50.48^\circ]$, Pearson $r = 0.4020$.
+  \item \textbf{Trustworthiness Verdict}: Biased-systematic (constant overestimation, high variance).
+  \item \textbf{Biomechanical Interpretation}: Landing ROM is calculated as $\text{ROM} = \text{PA1} - \text{IC1}$. Because peak flexion (PA1) is systematically overestimated ($+19.72^\circ$) while contact flexion (IC1) is systematically underestimated ($-6.69^\circ$), these opposing directional biases compound mathematically ($\Delta = +19.72^\circ - (-6.69^\circ) = +26.41^\circ$). This offset propagation increases measurement variance ($\text{LoA} \text{ width} = 48.14^\circ$), making raw uncalibrated monocular ROM estimates unreliable without baseline offset correction.
+\end{itemize}
+
+
+
+\section{Biomarker \protect\#6: Flexion Loading Rate}
+\label{sec:d-4-biomarker-protect-6-flexion-loading-rate}
+
+\begin{itemize}
+  \item \textbf{Metrics}: Video Mean = $286.14^\circ/\text{s}$, IK Mean = $272.84^\circ/\text{s}$, Bias = $+13.30^\circ/\text{s}$, 95\% LoA = $[-115.92^\circ/\text{s}, 142.51^\circ/\text{s}]$, Pearson $r = 0.6076$.
+  \item \textbf{Trustworthiness Verdict}: High-variance (moderate bias, extremely high variance).
+  \item \textbf{Biomechanical Interpretation}: Flexion loading rate quantifies average angular velocity during early landing absorption ($IC1 \rightarrow \text{early absorption}$). Although cohort mean velocity bias is small ($+13.30^\circ/\text{s}$), 95\% limits of agreement span $258.43^\circ/\text{s}$. High variance stems from sub-frame sampling differences between 60 FPS video and reference signals (100 Hz Mocap / 2000 Hz force plates), combined with numerical differentiation noise during rapid landing deceleration.
+\end{itemize}
+
+
+
+\section{Biomarker \protect\#5: Inter-Limb Asymmetry}
+\label{sec:d-5-biomarker-protect-5-inter-limb-asymmetry}
+
+\begin{itemize}
+  \item \textbf{Metrics}: IK Mean = $2.07^\circ$ (SD = $2.06^\circ$); Video measurement = N/A.
+  \item \textbf{Trustworthiness Verdict}: IK-only, not video-validated (far-leg contralateral occlusion).
+  \item \textbf{Biomechanical Interpretation}: Inter-limb asymmetry evaluates bilateral peak flexion differences. In single-camera sagittal video recordings, the ipsilateral (closer) limb maintains $\sim 100\%$ landmark tracking visibility, whereas the contralateral (farther) limb drops to $\sim 0\%$ visibility during deep landing absorption due to self-occlusion. Because monocular tracking cannot resolve occluded landmarks, asymmetry is demoted to a 3D Mocap IK reference metric and excluded from video-only evaluation rules.
+\end{itemize}

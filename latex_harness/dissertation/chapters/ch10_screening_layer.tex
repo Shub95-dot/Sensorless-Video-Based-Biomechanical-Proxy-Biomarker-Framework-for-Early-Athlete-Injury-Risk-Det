@@ -1,0 +1,156 @@
+\chapter{Rule-Based Screening Layer}
+\label{ch:screening}
+
+% SOURCE: results_screening_layer_v2.md
+% STATUS: converted from markdown
+% NOTE: [source:] tags stripped per ASSEMBLY_PLAN.md (harvested to appF)
+
+
+This chapter presents the design, implementation, and verification of the rule-based screening layer (Step 10 of the biomechanical processing pipeline). While lower pipeline layers track raw joint coordinate data and calculate kinematics, clinical application requires interpreting these measurements into structured screening decisions. This chapter details a screening layer that converts joint angle deviations into named screening flags representing known, literature-grounded kinematic compensation patterns.
+
+
+
+\section{Purpose and Core Deliverable Framing}
+\label{sec:10-1-purpose-and-core-deliverable-framing}
+
+
+The rule-based screening layer represents Step 10 of the primary pipeline architecture and serves as a core \textbf{Track A deliverable}. This distinguishes it from Track B architectural demonstrations (such as the digital twin sequence models), establishing it as the primary functional component of the screening system.
+
+The primary purpose of this layer is to act as the transparent decision-making foundation of the clinical screening tool. It ingests kinematics (joint angles, ranges of motion, and velocities) and outputs a binary screening status (\texttt{SCREENING\_POSITIVE} or \texttt{NOT\_FLAGGED}) along with the specific list of rules triggered. Because screening checks are structured as deterministic, explicit logical statements, this layer remains completely transparent. This transparency is essential because it forms the exact decision layer that the subsequent Counterfactual Explainable AI (XAI) component (Step 11) is designed to explain, providing clinical users with clear mathematical justifications for every screening outcome.
+
+
+
+\section{Critical Distinction: Screening vs. Tracking}
+\label{sec:10-2-critical-distinction-screening-vs-tracking}
+
+
+It is essential to distinguish this screening layer (Step 10) from the personalised tracking baselines (Chapters 9 and 11):
+\begin{itemize}
+  \item \textbf{Generic Tracking (Chapters 9 and 11)}: Evaluates a generic mathematical question: \textit{"Has this repetition shifted from the subject's reference by an amount exceeding measurement uncertainty?"}. This check is direction-agnostic and biomechanically blind; it simply flags any statistically significant signal change as a generic deviation.
+  \item \textbf{Named-Rule Screening (Chapter 10)}: Ingests raw deviations detected by the tracking engine and maps them to \textbf{Named Screening Rules} (\texttt{EXCESS\_DEPTH}, \texttt{EXCESS\_ROM}, and \texttt{EXCESS\_VELOCITY}) with direction-specific thresholds. It evaluates: \textit{"Does this deviation match a known kinematic pattern associated with elevated injury risk or technique compensation?"}.
+\end{itemize}
+
+Tracking asks if something changed; screening asks if that change represents a specific, predefined movement deviation.
+
+
+
+\section{Screening Modality Choice (Option B)}
+\label{sec:10-3-screening-modality-choice-option-b}
+
+
+Two primary modalities can evaluate joint kinematics in markerless pose estimation:
+\begin{enumerate}
+  \item \textbf{Option A (Fixed Population Thresholds)}: Gating joint values against absolute, cohort-wide normal values (e.g., flagging any squat where knee flexion exceeds $60^\circ$).
+  \item \textbf{Option B (Personalised-Deviation Screening)}: Gating deviations against the subject's own baseline mean plus the validated measurement noise floor.
+\end{enumerate}
+
+We selected \textbf{Option B (Personalised-Deviation Screening)} and rejected Option A. Monocular pose estimation is subject to systematic projection bias (overestimation or underestimation) caused by the angle between the subject's sagittal plane and the camera's optical axis. Because this perspective angle is constant within a single subject's testing session, the resulting projection bias is also constant. By calculating deviations relative to the subject's session baseline, this systematic projection bias is mathematically cancelled:
+\begin{equation}
+  \Delta_i = |x_{\text{test}} - \mu_{\text{base}}| = |(x_{\text{true}} + \text{bias}) - (\mu_{\text{true}} + \text{bias})| = |x_{\text{true}} - \mu_{\text{true}}|
+  \label{eq:disp1}
+\end{equation}
+
+This makes Option B highly robust to camera perspective offsets. In contrast, Option A would false-alarm or fail to detect deviations because perspective offsets vary unpredictably between subjects and camera setups, rendering universal absolute thresholds unviable for monocular video screening.
+
+
+
+\section{Rules Definition and Cohort-Level Grounding}
+\label{sec:10-4-rules-definition-and-cohort-level-grounding}
+
+
+Sagittal knee joint angles represent included angles between thigh and shank segments ($\approx 180^\circ$ = full extension; smaller angles = deeper flexion). Comparing correct and incorrect distributions in the \texttt{REHAB24-6} squat ($n=98$) and lunge ($n=61$) cohorts grounds the direction of each rule:
+
+\subsection{The Three Named Screening Rules}
+\label{sec:10-4-1-the-three-named-screening-rules}
+
+\begin{enumerate}
+  \item \textbf{Peak Knee Flexion (\texttt{EXCESS\_DEPTH})}:
+\end{enumerate}
+\textit{   }Squat Cohort*: Correct mean = $60.85^\circ \pm 12.72^\circ$; Incorrect mean = $41.14^\circ \pm 6.20^\circ$ ($d = +1.7306$).
+\textit{   }Lunge Cohort*: Correct mean = $89.66^\circ \pm 8.33^\circ$; Incorrect mean = $68.03^\circ \pm 15.11^\circ$ ($d = 1.6904$).
+\textit{   }Biomechanical Grounding*: Incorrect repetitions exhibit smaller joint angles, representing a shift toward excessive flexion depth (mean shifts: $-19.71^\circ$ for squats, $-21.63^\circ$ for lunges). The \textbf{EXCESS\_DEPTH} rule fires when knee flexion angle drops below baseline minus noise floor:
+\begin{equation}
+  x_{\text{peak}} < \mu_{\text{base}, \text{peak}} - NF_{\text{peak}}
+  \label{eq:disp2}
+\end{equation}
+\begin{enumerate}
+  \item \textbf{Range of Motion (\texttt{EXCESS\_ROM})}:
+\end{enumerate}
+\textit{   }Squat Cohort*: Correct mean = $111.19^\circ \pm 18.06^\circ$; Incorrect mean = $134.31^\circ \pm 7.23^\circ$ ($d = -1.4484$).
+\textit{   }Lunge Cohort*: Correct mean = $59.02^\circ \pm 20.94^\circ$; Incorrect mean = $90.30^\circ \pm 27.00^\circ$ ($d = -1.2653$).
+\textit{   }Biomechanical Grounding*: Excessive depth causes incorrect repetitions to cover greater joint excursion (mean shifts: $+23.13^\circ$ for squats, $+31.28^\circ$ for lunges). The \textbf{EXCESS\_ROM} rule fires when joint excursion exceeds baseline plus noise floor:
+\begin{equation}
+  x_{\text{rom}} > \mu_{\text{base}, \text{rom}} + NF_{\text{rom}}
+  \label{eq:disp3}
+\end{equation}
+\begin{enumerate}
+  \item \textbf{Descent Velocity (\texttt{EXCESS\_VELOCITY})}:
+\end{enumerate}
+\textit{   }Squat Cohort*: Correct mean = $66.94^\circ/\text{s} \pm 22.24^\circ/\text{s}$; Incorrect mean = $83.14^\circ/\text{s} \pm 16.22^\circ/\text{s}$ (shift: $+16.20^\circ/\text{s}$).
+\textit{   }Lunge Cohort*: Correct mean = $30.39^\circ/\text{s} \pm 8.26^\circ/\text{s}$; Incorrect mean = $52.64^\circ/\text{s} \pm 24.04^\circ/\text{s}$ (shift: $+22.25^\circ/\text{s}$).
+\textit{   }Biomechanical Grounding*: Incorrect repetitions exhibit faster eccentric descent. The \textbf{EXCESS\_VELOCITY} rule fires when descent speed exceeds baseline plus noise floor:
+\begin{equation}
+  x_{\text{velocity}} > \mu_{\text{base}, \text{velocity}} + NF_{\text{velocity}}
+  \label{eq:disp4}
+\end{equation}
+
+It is critical to emphasize that these thresholds are screening heuristics derived from empirical distributions, not validated clinical diagnostic cut-offs.
+
+\subsection{Applied Noise Floors}
+\label{sec:10-4-2-applied-noise-floors}
+
+Gating noise floors ($NF_i$) transferred from Chapter 8 ground-truth validation are:
+\begin{itemize}
+  \item $NF_{\text{peak}} = \mathbf{11.99^\circ}$
+  \item $NF_{\text{rom}} = \mathbf{23.17^\circ}$
+  \item $NF_{\text{velocity}} = \mathbf{40.86^\circ/\text{s}}$
+\end{itemize}
+
+
+
+\section{Applied Results}
+\label{sec:10-5-applied-results}
+
+
+The screening rules were executed on Squat Subject 8 (\texttt{PM\_113}) and Lunge Subject 6 (\texttt{PM\_104}) from \texttt{REHAB24-6}.
+
+\subsection{Squat Screening Results (Subject \texttt{PM\_113})}
+\label{sec:10-5-1-squat-screening-results-subject-texttt-pm-113}
+
+\begin{itemize}
+  \item \textbf{Baseline Means (Reps 1–2)}: Peak flexion = \textbf{$72.98^\circ$}, ROM = \textbf{$105.50^\circ$}, descent velocity = \textbf{$49.94^\circ/\text{s}$}.
+  \item \textbf{Gating Thresholds}: \texttt{EXCESS\_DEPTH} $< \mathbf{60.99^\circ}$ ($72.98^\circ - 11.99^\circ$); \texttt{EXCESS\_ROM} $> \mathbf{128.67^\circ}$ ($105.50^\circ + 23.17^\circ$); \texttt{EXCESS\_VELOCITY} $> \mathbf{90.80^\circ/\text{s}}$ ($49.94^\circ/\text{s} + 40.86^\circ/\text{s}$).
+  \item \textbf{Quiet-Test Reps (Reps 3–5)}: Correct repetitions stayed within noise limits, returning \textbf{\texttt{NOT\_FLAGGED}}.
+  \item \textbf{Firing-Test Reps (Reps 6–10)}: All five incorrect repetitions returned \textbf{\texttt{SCREENING\_POSITIVE}}:
+\end{itemize}
+\textit{   }Repetition 6*: Peak flexion $43.22^\circ$ (margin: \textbf{$17.77^\circ$}), ROM $136.50^\circ$ (margin: \textbf{$7.83^\circ$}), velocity $110.62^\circ/\text{s}$ (margin: \textbf{$19.82^\circ/\text{s}$}). Fired: \texttt{["EXCESS\_DEPTH", "EXCESS\_VELOCITY", "EXCESS\_ROM"]}.
+\textit{   }Repetitions 7–10*: Flexion margins ranged from \textbf{$11.24^\circ$ to $23.67^\circ$}; ROM margins ranged from \textbf{$1.18^\circ$ to $13.54^\circ$}. Fired: \texttt{["EXCESS\_DEPTH", "EXCESS\_ROM"]}.
+
+\subsection{Lunge Screening Results (Subject \texttt{PM\_104})}
+\label{sec:10-5-2-lunge-screening-results-subject-texttt-pm-104}
+
+\begin{itemize}
+  \item \textbf{Baseline Means (Reps 1–2)}: Peak flexion = \textbf{$84.66^\circ$}, ROM = \textbf{$76.78^\circ$}, velocity = \textbf{$32.68^\circ/\text{s}$}.
+  \item \textbf{Gating Thresholds}: \texttt{EXCESS\_DEPTH} $< \mathbf{72.68^\circ}$; \texttt{EXCESS\_ROM} $> \mathbf{99.95^\circ}$; \texttt{EXCESS\_VELOCITY} $> \mathbf{73.54^\circ/\text{s}}$.
+  \item \textbf{Quiet-Test Reps (Reps 3–5)}: Returned \textbf{\texttt{NOT\_FLAGGED}}.
+  \item \textbf{Firing-Test Reps (Reps 6–10)}: All incorrect reps returned \textbf{\texttt{SCREENING\_POSITIVE}}, triggering \texttt{["EXCESS\_DEPTH", "EXCESS\_ROM"]}. Peak flexion margins ranged from \textbf{$8.92^\circ$ to $19.99^\circ$}; ROM margins ranged from \textbf{$7.65^\circ$ to $21.85^\circ$}. Velocity stayed within noise floor ($73.54^\circ/\text{s}$), so it did not fire.
+\end{itemize}
+
+\subsection{Ground Truth Alignment Note}
+\label{sec:10-5-3-ground-truth-alignment-note}
+
+Alignment with dataset ground-truth labels (100\% agreement across test reps) represents a coincidental validation check using the dataset's labelling scheme. It does \textbf{not} indicate that the screening layer classifies "correctness" or issues form quality verdicts. The screening layer's operational role is strictly to detect and report kinematic deviations exceeding camera noise, not to judge performance quality.
+
+
+
+\section{Boundaries and What This Layer Does NOT Claim}
+\label{sec:10-6-boundaries-and-what-this-layer-does-not-claim}
+
+
+To maintain scientific integrity and align with screening scope across this dissertation:
+\begin{itemize}
+  \item \textbf{No Diagnostic Verdicts}: Screening flags (e.g., \texttt{SCREENING\_POSITIVE}) are kinematic classifications representing baseline shifts, not clinical or medical diagnoses.
+  \item \textbf{No Clinical Cut-Offs}: Thresholds (such as $\pm 11.99^\circ$) are camera-uncertainty heuristics derived from empirical distributions, not validated clinical diagnostic thresholds.
+  \item \textbf{Not a Trained ML Model}: The layer uses no machine learning weights or neural networks. It is a deterministic, rule-based logic gate, fully explainable by construction.
+  \item \textbf{No Injury Forecasting}: The layer detects active movement deviations; it does not forecast future injury likelihood or compute clinical risk scores.
+\end{itemize}

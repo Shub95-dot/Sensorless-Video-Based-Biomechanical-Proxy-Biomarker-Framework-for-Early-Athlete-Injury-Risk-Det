@@ -1,0 +1,777 @@
+﻿%% Appendix F: Data Provenance Index
+%% Auto-generated from [source: ...] tags in canonical chapter markdown files.
+%% DO NOT EDIT MANUALLY — regenerate using scratch/extract_sources.py
+
+\chapter{Data Provenance Index}
+\label{app:provenance}
+
+\section*{Preface}
+
+This appendix provides a complete index of all primary source files that underlie the empirical claims, numerical results, and design decisions reported in this dissertation. Every analytical chapter was authored by first drafting findings directly from structured output files---tabular \texttt{.csv} summaries, evaluation reports, design specification documents, and figure data provenance logs---and then synthesising those findings into prose. To facilitate transparent traceability, each claim in the draft source documents was tagged inline with a \texttt{[source: path]} annotation identifying the file from which the figure, statistic, or methodological detail was drawn. The index in Section F.1 collects every such tag, organised by chapter and section, so that a reader can locate the exact workspace artefact behind any reported result.
+
+To use this index, identify the chapter and section of the claim you wish to trace in Section~F.1 below, then locate the corresponding file path relative to the project root (\texttt{BIOMECHANICAL ANALYSIS OF INJURY/}). All paths are given as they appear in the project repository. Cross-chapter references (e.g.\ \textit{Section 8.4} cited within Chapter~14) point to content within this dissertation rather than to an external file; these are included for completeness to show which sections inform which synthesis passages.
+
+\section{Provenance Index by Chapter}
+\label{sec:provenance-index}
+
+%% -----------------------------------------------------------------------
+\subsection*{Chapter 1 --- Introduction}
+%% -----------------------------------------------------------------------
+
+\subsubsection*{§1.1 Framing and Scope}
+\begin{itemize}
+  \item \texttt{22\_dissertation\_writing/results\_introduction\_v1.md}
+  \item \texttt{\_working\_notes/writeup\_plan.md}
+\end{itemize}
+
+\subsubsection*{§1.2 Motivation and Clinical Context}
+\begin{itemize}
+  \item \texttt{22\_dissertation\_writing/results\_introduction\_v1.md}
+  \item \texttt{0\_documentation/project\_brief.md}
+\end{itemize}
+
+\subsubsection*{§1.3 Research Questions and Objectives}
+\begin{itemize}
+  \item \texttt{22\_dissertation\_writing/results\_introduction\_v1.md}
+\end{itemize}
+
+\subsubsection*{§1.4 System Architecture Overview}
+\begin{itemize}
+  \item \texttt{22\_dissertation\_writing/results\_introduction\_v1.md}
+\end{itemize}
+
+\subsubsection*{§1.5 Dissertation Structure}
+\begin{itemize}
+  \item \texttt{22\_dissertation\_writing/results\_introduction\_v1.md}
+  \item \texttt{\_working\_notes/writeup\_plan.md}
+\end{itemize}
+
+%% -----------------------------------------------------------------------
+\subsection*{Chapter 2 --- Methodology}
+%% -----------------------------------------------------------------------
+
+\subsubsection*{§2.1 Markerless Kinematic Extraction Pipeline}
+\begin{itemize}
+  \item \texttt{11\_scripts/phase3\_pose\_extraction.py}
+  \item \texttt{3\_metadata/squats\_temporal\_inclusion.csv}
+\end{itemize}
+
+\subsubsection*{§2.2 Pose-Quality Stratification and Failure Modes}
+\begin{itemize}
+  \item \texttt{11\_scripts/phase3b\_pose\_quality\_stratification.py}
+  \item \texttt{3\_metadata/quality\_review\_instructions.md}
+\end{itemize}
+
+\subsubsection*{§2.3 Drop-Jump Validation Against Optoelectronics}
+\begin{itemize}
+  \item \texttt{16\_opencap\_dropjump\_outputs/phase6\_final\_report.md}
+\end{itemize}
+
+\subsubsection*{§2.3.1 Deep-Flexion Constant Bias Isolation (Timing-Clean)}
+\begin{itemize}
+  \item \texttt{16\_opencap\_dropjump\_outputs/phase6\_final\_report.md}
+\end{itemize}
+
+\subsubsection*{§2.3.2 Robustness to Movement Conditions}
+\begin{itemize}
+  \item \texttt{16\_opencap\_dropjump\_outputs/phase6\_final\_report.md}
+\end{itemize}
+
+\subsubsection*{§2.3.3 Contralateral Occlusion Limitation}
+\begin{itemize}
+  \item \texttt{16\_opencap\_dropjump\_outputs/phase6\_final\_report.md}
+\end{itemize}
+
+\subsubsection*{§2.4 Uncertainty Aggregation and Variance Decomposition}
+\begin{itemize}
+  \item \texttt{17\_uncertainty\_framework\_outputs/framework\_design.md}
+\end{itemize}
+
+\subsubsection*{§2.4.1 Projection and Motion Decompositions}
+\begin{itemize}
+  \item \texttt{17\_uncertainty\_framework\_outputs/framework\_design.md}
+\end{itemize}
+
+\subsubsection*{§2.4.2 Inverse-Variance Weighting \& Cross-Exercise Transfer Weights}
+\begin{itemize}
+  \item \texttt{17\_uncertainty\_framework\_outputs/framework\_design.md}
+\end{itemize}
+
+\subsubsection*{§2.5.1 Baseline Initialization}
+\begin{itemize}
+  \item \texttt{18\_personalised\_baseline\_outputs/baseline\_design.md}
+\end{itemize}
+
+\subsubsection*{§2.5.2 Conditional Digital Twin Update Rule}
+\begin{itemize}
+  \item \texttt{19\_digital\_twin\_outputs/twin\_design.md}
+\end{itemize}
+
+\subsubsection*{§2.6.2 Personalised Screening Rules}
+\begin{itemize}
+  \item \texttt{20\_screening\_outputs/screening\_rules\_design.md}
+\end{itemize}
+
+\subsubsection*{§2.7.1 Faithfulness by Construction}
+\begin{itemize}
+  \item \texttt{21\_xai\_outputs/xai\_design.md}
+  \item \texttt{11\_scripts/phase11\_counterfactual\_xai.py}
+\end{itemize}
+
+\subsubsection*{§2.7.2 Templates \& Descriptive Guardrail}
+\begin{itemize}
+  \item \texttt{21\_xai\_outputs/xai\_design.md}
+\end{itemize}
+
+\subsubsection*{§2.7.3 Multi-Rule Coupling \& Minimal Kinematic Intervention (MKI)}
+\begin{itemize}
+  \item \texttt{21\_xai\_outputs/xai\_design.md}
+\end{itemize}
+
+\subsubsection*{§2.7.4 Confidence Buffers}
+\begin{itemize}
+  \item \texttt{21\_xai\_outputs/xai\_design.md}
+\end{itemize}
+
+\subsubsection*{§2.8.2 Effect Size Calculations}
+\begin{itemize}
+  \item \texttt{14\_rehab24\_outputs/metadata/phase5b\_effect\_sizes\_ci.csv}
+  \item \texttt{15\_rehab24\_lunge\_outputs/metadata/phase5c\_effect\_sizes\_ci.csv}
+\end{itemize}
+
+\subsubsection*{§2.8.3 Classification Performance Metrics}
+\begin{itemize}
+  \item \texttt{14\_rehab24\_outputs/metadata/phase5a\_integration\_summary.txt}
+  \item \texttt{15\_rehab24\_lunge\_outputs/metadata/phase5b\_integration\_summary.txt}
+  \item \texttt{23\_temporal\_model\_outputs/temporal\_model\_comparison.csv}
+\end{itemize}
+
+%% -----------------------------------------------------------------------
+\subsection*{Chapter 4 --- Bilateral Squat Analysis}
+%% -----------------------------------------------------------------------
+
+\subsubsection*{§4.1 Cohort and Methodological Setup}
+\begin{itemize}
+  \item \texttt{4\_pose\_outputs/temporal/squats\_biomarkers.csv}
+  \item \texttt{3\_metadata/squats\_temporal\_inclusion.csv}
+  \item \texttt{14\_rehab24\_outputs/metadata/phase5a\_integration\_summary.txt}
+\end{itemize}
+
+\subsubsection*{§4.1.1 Kinematic Coordinate Convention}
+\begin{itemize}
+  \item \texttt{22\_dissertation\_writing/results\_dropjump\_validation\_v1.md}
+  \item \texttt{17\_uncertainty\_framework\_outputs/framework\_design.md}
+\end{itemize}
+
+\subsubsection*{§4.1.2 Knee-Flexion Biomarkers}
+\begin{itemize}
+  \item \texttt{14\_rehab24\_outputs/metadata/phase5a\_integration\_summary.txt}
+\end{itemize}
+
+\subsubsection*{§4.2 Headline Screening Findings (Form Discrimination)}
+\begin{itemize}
+  \item \texttt{14\_rehab24\_outputs/metadata/phase5a\_integration\_summary.txt}
+\end{itemize}
+
+\subsubsection*{Table 4.1: Correct vs.\ Incorrect Squat Kinematic Comparison ($n = 98$ reps)}
+\begin{itemize}
+  \item \texttt{14\_rehab24\_outputs/metadata/phase5b\_effect\_sizes\_ci.csv}
+  \item \texttt{14\_rehab24\_outputs/metadata/phase5a\_integration\_summary.txt}
+\end{itemize}
+
+\subsubsection*{§4.2.1 Flexion Depth and Joint Excursion}
+\begin{itemize}
+  \item \texttt{14\_rehab24\_outputs/metadata/phase5b\_effect\_sizes\_ci.csv}
+  \item \texttt{20\_screening\_outputs/screening\_rules\_design.md}
+\end{itemize}
+
+\subsubsection*{§4.2.2 Descent-Phase Temporal Localization}
+\begin{itemize}
+  \item \texttt{14\_rehab24\_outputs/metadata/phase5a\_integration\_summary.txt}
+  \item \texttt{14\_rehab24\_outputs/metadata/phase5b\_effect\_sizes\_ci.csv}
+\end{itemize}
+
+\subsubsection*{§4.2.3 Non-Discriminative Ascent Phase}
+\begin{itemize}
+  \item \texttt{14\_rehab24\_outputs/metadata/phase5b\_effect\_sizes\_ci.csv}
+\end{itemize}
+
+\subsubsection*{§4.2.4 Movement Smoothness (Jerk Proxy)}
+\begin{itemize}
+  \item \texttt{14\_rehab24\_outputs/metadata/phase5b\_effect\_sizes\_ci.csv}
+\end{itemize}
+
+\subsubsection*{§4.3 Cross-Cohort Consistency and Generalisation}
+\begin{itemize}
+  \item \texttt{4\_pose\_outputs/temporal/squats\_biomarkers.csv}
+  \item \texttt{14\_rehab24\_outputs/metadata/phase5a\_integration\_summary.txt}
+\end{itemize}
+
+\subsubsection*{§4.3.2 Methodological Role of Generalisation}
+\begin{itemize}
+  \item \texttt{22\_dissertation\_writing/results\_dropjump\_validation\_v1.md}
+\end{itemize}
+
+\subsubsection*{§4.5 Limitations}
+\begin{itemize}
+  \item \texttt{22\_dissertation\_writing/results\_dropjump\_validation\_v1.md}
+\end{itemize}
+
+\subsubsection*{§4.6 Figures and Provenance}
+\begin{itemize}
+  \item \texttt{14\_rehab24\_outputs/figures\_publication/figure\_data\_provenance.csv}
+\end{itemize}
+
+%% -----------------------------------------------------------------------
+\subsection*{Chapter 5 --- Unilateral Lunge Analysis}
+%% -----------------------------------------------------------------------
+
+\subsubsection*{§5.1 Cohort and Methodological Setup}
+\begin{itemize}
+  \item \texttt{15\_rehab24\_lunge\_outputs/metadata/phase5b\_integration\_summary.txt}
+\end{itemize}
+
+\subsubsection*{§5.1.1 Pose-Pipeline Failure Modes and Exclusions}
+\begin{itemize}
+  \item \texttt{15\_rehab24\_lunge\_outputs/metadata/phase5b\_integration\_summary.txt}
+  \item \texttt{15\_rehab24\_lunge\_outputs/metadata/rehab24\_lunge\_sagittal\_manifest.csv}
+\end{itemize}
+
+\subsubsection*{§5.1.2 Coordinate Convention}
+\begin{itemize}
+  \item \texttt{22\_dissertation\_writing/results\_squat\_v1.md}
+\end{itemize}
+
+\subsubsection*{§5.2 Headline Screening Findings (Form Discrimination)}
+\begin{itemize}
+  \item \texttt{15\_rehab24\_lunge\_outputs/metadata/phase5b\_integration\_summary.txt}
+\end{itemize}
+
+\subsubsection*{Table 5.1: Correct vs.\ Incorrect Lunge Kinematic Comparison ($n = 61$ reps)}
+\begin{itemize}
+  \item \texttt{15\_rehab24\_lunge\_outputs/metadata/phase5c\_effect\_sizes\_ci.csv}
+\end{itemize}
+
+\subsubsection*{§5.2.1 Flexion Depth and Joint Excursion}
+\begin{itemize}
+  \item \texttt{15\_rehab24\_lunge\_outputs/metadata/phase5c\_effect\_sizes\_ci.csv}
+  \item \texttt{22\_dissertation\_writing/results\_squat\_v1.md}
+\end{itemize}
+
+\subsubsection*{§5.2.2 Trajectory Case-Study Verification}
+\begin{itemize}
+  \item \texttt{15\_rehab24\_lunge\_outputs/biomarkers\_per\_rep/rehab24\_lunge\_per\_rep\_biomarkers.csv}
+  \item \texttt{15\_rehab24\_lunge\_outputs/figures\_publication/figure\_data\_provenance.csv}
+  \item \texttt{15\_rehab24\_lunge\_outputs/metadata/phase5c\_per\_subject\_shifts.csv}
+\end{itemize}
+
+\subsubsection*{§5.2.3 Descent Velocity and Jerk}
+\begin{itemize}
+  \item \texttt{15\_rehab24\_lunge\_outputs/metadata/phase5b\_integration\_summary.txt}
+  \item \texttt{15\_rehab24\_lunge\_outputs/metadata/phase5c\_effect\_sizes\_ci.csv}
+\end{itemize}
+
+\subsubsection*{§5.3.1 Ascent Velocity Discrimination in Lunges}
+\begin{itemize}
+  \item \texttt{22\_dissertation\_writing/results\_squat\_v1.md}
+  \item \texttt{15\_rehab24\_lunge\_outputs/metadata/phase5c\_effect\_sizes\_ci.csv}
+\end{itemize}
+
+\subsubsection*{§5.3.2 Explicit Contrast with Squat Kinematics and Biomechanical Explanation}
+\begin{itemize}
+  \item \texttt{14\_rehab24\_outputs/metadata/phase5b\_effect\_sizes\_ci.csv}
+\end{itemize}
+
+\subsubsection*{§5.3.3 Statistical Nulls and Rigor Guardrails}
+\begin{itemize}
+  \item \texttt{15\_rehab24\_lunge\_outputs/metadata/phase5c\_effect\_sizes\_ci.csv}
+\end{itemize}
+
+%% -----------------------------------------------------------------------
+\subsection*{Chapter 6 --- Drop-Jump Validation}
+%% -----------------------------------------------------------------------
+
+\subsubsection*{§6.1 Cohort, Apparatus, and Setup}
+\begin{itemize}
+  \item \texttt{16\_opencap\_dropjump\_outputs/phase6\_final\_report.md}
+  \item \texttt{16\_opencap\_dropjump\_outputs/bland\_altman\_data.csv}
+\end{itemize}
+
+\subsubsection*{§6.2 Bland--Altman Agreement Analysis}
+\begin{itemize}
+  \item \texttt{16\_opencap\_dropjump\_outputs/phase6\_final\_report.md}
+  \item \texttt{16\_opencap\_dropjump\_outputs/bland\_altman\_data.csv}
+\end{itemize}
+
+\subsubsection*{§6.3 Systematic Bias Characterisation}
+\begin{itemize}
+  \item \texttt{16\_opencap\_dropjump\_outputs/phase6\_final\_report.md}
+\end{itemize}
+
+\subsubsection*{§6.5 Lag and Software-Definition Tests}
+\begin{itemize}
+  \item \texttt{16\_opencap\_dropjump\_outputs/phase6\_final\_report.md}
+\end{itemize}
+
+\subsubsection*{§6.6 Failure Mode Taxonomy}
+\begin{itemize}
+  \item \texttt{16\_opencap\_dropjump\_outputs/phase6\_final\_report.md}
+\end{itemize}
+
+%% -----------------------------------------------------------------------
+\subsection*{Chapter 8 --- Uncertainty Framework}
+%% -----------------------------------------------------------------------
+
+\subsubsection*{§8.1 Variance Decomposition Model}
+\begin{itemize}
+  \item \texttt{17\_uncertainty\_framework\_outputs/framework\_design.md}
+\end{itemize}
+
+\subsubsection*{§8.2 Projection Variance Estimation}
+\begin{itemize}
+  \item \texttt{17\_uncertainty\_framework\_outputs/framework\_design.md}
+  \item \texttt{16\_opencap\_dropjump\_outputs/phase6\_final\_report.md}
+\end{itemize}
+
+\subsubsection*{§8.3 Motion Variance Placeholder}
+\begin{itemize}
+  \item \texttt{17\_uncertainty\_framework\_outputs/framework\_design.md}
+\end{itemize}
+
+\subsubsection*{§8.4 Inverse-Variance Transfer Weights}
+\begin{itemize}
+  \item \texttt{17\_uncertainty\_framework\_outputs/framework\_design.md}
+\end{itemize}
+
+%% -----------------------------------------------------------------------
+\subsection*{Chapter 9 --- Personalised Baseline}
+%% -----------------------------------------------------------------------
+
+\subsubsection*{§9.1 Baseline Initialisation Protocol}
+\begin{itemize}
+  \item \texttt{18\_personalised\_baseline\_outputs/baseline\_design.md}
+  \item \texttt{22\_dissertation\_writing/results\_baseline\_v1.md}
+\end{itemize}
+
+\subsubsection*{§9.2 Uncertainty-Gated Update Rule}
+\begin{itemize}
+  \item \texttt{18\_personalised\_baseline\_outputs/baseline\_design.md}
+\end{itemize}
+
+\subsubsection*{§9.3 Worked Example}
+\begin{itemize}
+  \item \texttt{18\_personalised\_baseline\_outputs/baseline\_design.md}
+  \item \texttt{14\_rehab24\_outputs/metadata/phase5a\_integration\_summary.txt}
+\end{itemize}
+
+%% -----------------------------------------------------------------------
+\subsection*{Chapter 10 --- Screening Layer}
+%% -----------------------------------------------------------------------
+
+\subsubsection*{§10.1 Rule Architecture}
+\begin{itemize}
+  \item \texttt{20\_screening\_outputs/screening\_rules\_design.md}
+  \item \texttt{22\_dissertation\_writing/results\_baseline\_v1.md}
+\end{itemize}
+
+\subsubsection*{§10.2 Threshold Derivation}
+\begin{itemize}
+  \item \texttt{20\_screening\_outputs/screening\_rules\_design.md}
+\end{itemize}
+
+\subsubsection*{§10.3 Bias Cancellation Property}
+\begin{itemize}
+  \item \texttt{20\_screening\_outputs/screening\_rules\_design.md}
+  \item \texttt{22\_dissertation\_writing/results\_dropjump\_validation\_v1.md}
+\end{itemize}
+
+\subsubsection*{§10.4 Worked Example Results}
+\begin{itemize}
+  \item \texttt{20\_screening\_outputs/worked\_example\_screening.csv}
+  \item \texttt{20\_screening\_outputs/screening\_rules\_design.md}
+\end{itemize}
+
+%% -----------------------------------------------------------------------
+\subsection*{Chapter 11 --- Digital Twin}
+%% -----------------------------------------------------------------------
+
+\subsubsection*{§11.1 Twin Architecture}
+\begin{itemize}
+  \item \texttt{19\_digital\_twin\_outputs/twin\_design.md}
+  \item \texttt{22\_dissertation\_writing/results\_baseline\_v1.md}
+\end{itemize}
+
+\subsubsection*{§11.2 Session Update Mechanics}
+\begin{itemize}
+  \item \texttt{19\_digital\_twin\_outputs/twin\_design.md}
+  \item \texttt{22\_dissertation\_writing/results\_uncertainty\_framework\_v1.md}
+\end{itemize}
+
+\subsubsection*{§11.3 Worked Example (Subject \texttt{PM\_113} and \texttt{PM\_104})}
+\begin{itemize}
+  \item \texttt{19\_digital\_twin\_outputs/worked\_example\_twin.csv}
+  \item \texttt{19\_digital\_twin\_outputs/twin\_design.md}
+\end{itemize}
+
+\subsubsection*{§11.4 Per-Biomarker Update Independence}
+\begin{itemize}
+  \item \texttt{19\_digital\_twin\_outputs/worked\_example\_twin.csv}
+\end{itemize}
+
+\subsubsection*{§11.5 Explainable Exclusion and Epistemic Humility}
+\begin{itemize}
+  \item \texttt{19\_digital\_twin\_outputs/worked\_example\_twin.csv}
+\end{itemize}
+
+\subsubsection*{§11.6 Transient-vs-Sustained Adaptation (Future Work)}
+\begin{itemize}
+  \item \texttt{19\_digital\_twin\_outputs/twin\_design.md}
+\end{itemize}
+
+\subsubsection*{§11.7 What This Framework Does NOT Claim}
+\begin{itemize}
+  \item \texttt{19\_digital\_twin\_outputs/twin\_design.md}
+\end{itemize}
+
+\subsubsection*{§11.8 Figures and Provenance}
+\begin{itemize}
+  \item \texttt{19\_digital\_twin\_outputs/twin\_tracking.png}
+\end{itemize}
+
+%% -----------------------------------------------------------------------
+\subsection*{Chapter 12 --- Explainable AI (XAI)}
+%% -----------------------------------------------------------------------
+
+\subsubsection*{§12.1 Purpose and Step~11 Novelty Framing}
+\begin{itemize}
+  \item \texttt{21\_xai\_outputs/xai\_design.md}
+\end{itemize}
+
+\subsubsection*{§12.2 Research Origin and SHAP/LIME Deprecation}
+\begin{itemize}
+  \item \texttt{21\_xai\_outputs/xai\_design.md}
+\end{itemize}
+
+\subsubsection*{§12.3 Faithfulness by Construction}
+\begin{itemize}
+  \item \texttt{21\_xai\_outputs/xai\_design.md}
+\end{itemize}
+
+\subsubsection*{§12.4 Counterfactual Templates and Wording Direction}
+\begin{itemize}
+  \item \texttt{21\_xai\_outputs/xai\_design.md}
+\end{itemize}
+
+\subsubsection*{§12.5 Minimal Kinematic Intervention (MKI)}
+\begin{itemize}
+  \item \texttt{21\_xai\_outputs/xai\_design.md}
+\end{itemize}
+
+\subsubsection*{§12.6 Uncertainty-Aware Confidence Grading}
+\begin{itemize}
+  \item \texttt{21\_xai\_outputs/xai\_design.md}
+\end{itemize}
+
+\subsubsection*{§12.7 Applied Explanations Results}
+\begin{itemize}
+  \item \texttt{21\_xai\_outputs/worked\_example\_explanations.json}
+\end{itemize}
+
+\subsubsection*{§12.7.1 Squat Worked Example: Subject \texttt{PM\_113} Repetition~6}
+\begin{itemize}
+  \item \texttt{21\_xai\_outputs/worked\_example\_explanations.json}
+  \item \texttt{22\_dissertation\_writing/results\_screening\_layer\_v1.md}
+\end{itemize}
+
+\subsubsection*{§12.7.2 Lunge Worked Example: Subject \texttt{PM\_104} Repetition~6}
+\begin{itemize}
+  \item \texttt{21\_xai\_outputs/worked\_example\_explanations.json}
+\end{itemize}
+
+%% -----------------------------------------------------------------------
+\subsection*{Chapter 13 --- Temporal Model}
+%% -----------------------------------------------------------------------
+
+\subsubsection*{§13.1 Purpose and Research Question}
+\begin{itemize}
+  \item \texttt{23\_temporal\_model\_outputs/temporal\_model\_design.md}
+  \item \texttt{22\_dissertation\_writing/results\_baseline\_v1.md}
+  \item \texttt{22\_dissertation\_writing/results\_digital\_twin\_v1.md}
+\end{itemize}
+
+\subsubsection*{§13.2 Experimental Design and Evaluation Rigour}
+\begin{itemize}
+  \item \texttt{23\_temporal\_model\_outputs/temporal\_model\_design.md}
+\end{itemize}
+
+\subsubsection*{§13.2.1 Leave-One-Subject-Out (LOSO) Validation}
+\begin{itemize}
+  \item \texttt{23\_temporal\_model\_outputs/temporal\_model\_evaluation\_report.md}
+\end{itemize}
+
+\subsubsection*{§13.2.2 Temporal Standardization \& Anti-Leakage Normalization}
+\begin{itemize}
+  \item \texttt{23\_temporal\_model\_outputs/temporal\_model\_design.md}
+\end{itemize}
+
+\subsubsection*{§13.2.3 Models Compared and Pre-Registered Outcomes}
+\begin{itemize}
+  \item \texttt{23\_temporal\_model\_outputs/temporal\_model\_design.md}
+\end{itemize}
+
+\subsubsection*{§13.3 Results}
+\begin{itemize}
+  \item \texttt{23\_temporal\_model\_outputs/temporal\_model\_comparison.csv}
+\end{itemize}
+
+\subsubsection*{§13.3.1 Performance Analysis}
+\begin{itemize}
+  \item \texttt{23\_temporal\_model\_outputs/temporal\_model\_comparison.csv}
+  \item \texttt{23\_temporal\_model\_outputs/temporal\_model\_evaluation\_report.md}
+\end{itemize}
+
+\subsubsection*{§13.4 Interpretation and Overfitting Diagnostics}
+\begin{itemize}
+  \item \texttt{23\_temporal\_model\_outputs/temporal\_model\_design.md}
+\end{itemize}
+
+\subsubsection*{§13.4.1 Overfitting Diagnosis on Small Cohorts}
+\begin{itemize}
+  \item \texttt{23\_temporal\_model\_outputs/temporal\_model\_evaluation\_report.md}
+\end{itemize}
+
+\subsubsection*{§13.4.2 Convergence with Chapter~8 Uncertainty Weights}
+\begin{itemize}
+  \item \texttt{22\_dissertation\_writing/results\_uncertainty\_framework\_v1.md}
+\end{itemize}
+
+\subsubsection*{§13.5 Self-Supervised Pretraining Future Work}
+\begin{itemize}
+  \item \texttt{\_working\_notes/dissertation\_writeup\_index.md}
+\end{itemize}
+
+\subsubsection*{§13.6.1 Non-Claims}
+\begin{itemize}
+  \item \texttt{\_working\_notes/dissertation\_writeup\_index.md}
+\end{itemize}
+
+%% -----------------------------------------------------------------------
+\subsection*{Chapter 14 --- Discussion}
+%% -----------------------------------------------------------------------
+
+\subsubsection*{§14.1.1 Contribution~1: Cross-Exercise Integration under a Unified Pipeline}
+\begin{itemize}
+  \item \textit{Internal cross-reference:} Chapter~4 / Chapter~5 / Chapter~6
+  \item \textit{Internal cross-reference:} Section~4.1.1 / Section~5.1.2 / Section~6.6.4
+  \item \textit{Internal cross-reference:} Section~4.2 / Section~5.3
+\end{itemize}
+
+\subsubsection*{§14.1.2 Contribution~2: Failure-Mode-Aware Pose Extraction}
+\begin{itemize}
+  \item \textit{Internal cross-reference:} Section~5.5 / Section~6.6
+\end{itemize}
+
+\subsubsection*{§14.1.3 Contribution~3: The Continuous Validation-to-Screening Uncertainty Transfer Chain}
+\begin{itemize}
+  \item \textit{Internal cross-reference:} Section~6.1 / Section~6.3
+  \item \textit{Internal cross-reference:} Section~8.2 / Section~8.3
+  \item \textit{Internal cross-reference:} Section~8.4
+  \item \textit{Internal cross-reference:} Section~9.3 / Section~11.2
+  \item \textit{Internal cross-reference:} Section~13.2.1
+  \item \textit{Internal cross-reference:} Section~13.3
+\end{itemize}
+
+\subsubsection*{§14.1.4 Contribution~4: Counterfactual XAI on Deterministic Rules}
+\begin{itemize}
+  \item \textit{Internal cross-reference:} Section~10.1 / Section~12.1
+  \item \textit{Internal cross-reference:} Section~12.2
+  \item \textit{Internal cross-reference:} Section~12.3
+  \item \textit{Internal cross-reference:} Section~12.4 / Section~12.5
+\end{itemize}
+
+\subsubsection*{§14.2.1 Occlusion Failure (Sagittal Self-Occlusion)}
+\begin{itemize}
+  \item \textit{Internal cross-reference:} Section~5.1.1
+  \item \textit{Internal cross-reference:} Section~6.6.2
+\end{itemize}
+
+\subsubsection*{§14.2.2 Recording-Limit Failure (Data Truncation)}
+\begin{itemize}
+  \item \textit{Internal cross-reference:} Section~6.6.1
+\end{itemize}
+
+\subsubsection*{§14.2.3 Projection-Bias Failure (Spatial Foreshortening)}
+\begin{itemize}
+  \item \textit{Internal cross-reference:} Section~6.2.1 / Section~6.3
+  \item \textit{Internal cross-reference:} Section~6.5
+  \item \textit{Internal cross-reference:} Section~10.3
+\end{itemize}
+
+\subsubsection*{§14.2.4 Data-Scale / Model-Mismatch Failure (Overfitting)}
+\begin{itemize}
+  \item \textit{Internal cross-reference:} Section~13.3
+\end{itemize}
+
+\subsubsection*{§14.3.1 Descent-Localized vs.\ Ascent-Discriminative Kinematics}
+\begin{itemize}
+  \item \textit{Internal cross-reference:} Section~4.2
+  \item \textit{Internal cross-reference:} Section~5.2 / Section~5.3.1
+\end{itemize}
+
+\subsubsection*{§14.3.2 Biomechanical Mechanism of Divergence}
+\begin{itemize}
+  \item \textit{Internal cross-reference:} Section~5.3.2
+\end{itemize}
+
+\subsubsection*{§14.4 Limitations of the Thesis as a Whole}
+\begin{itemize}
+  \item \textit{Internal cross-reference:} Section~4.1.1 / Section~5.1.1 / Section~6.1
+  \item \textit{Internal cross-reference:} Section~13.3
+  \item \textit{Internal cross-reference:} Section~14.2.1
+  \item \textit{Internal cross-reference:} Section~14.1.1
+\end{itemize}
+
+\subsubsection*{§14.5 Consolidated Future Work}
+\begin{itemize}
+  \item \textit{Internal cross-reference:} Section~8.4.1
+  \item \textit{Internal cross-reference:} Section~11.3
+  \item \textit{Internal cross-reference:} Section~13.5
+\end{itemize}
+
+\subsubsection*{§14.6 Closing Statement}
+\begin{itemize}
+  \item \texttt{\_working\_notes/writeup\_plan.md} (line~554)
+\end{itemize}
+
+%% -----------------------------------------------------------------------
+\subsection*{Chapter 15 --- Conclusion}
+%% -----------------------------------------------------------------------
+
+\subsubsection*{§15.1 Restatement of the Thesis Claim}
+\begin{itemize}
+  \item \textit{Internal cross-reference:} Chapter~4 / Chapter~5 / Chapter~6
+  \item \textit{Internal cross-reference:} Section~8.4 / Section~9.2 / Section~11.2 / Section~12.3
+  \item \textit{Internal cross-reference:} Section~1.1 / Section~14.4
+\end{itemize}
+
+\subsubsection*{§15.2 Summary of Delivered Contributions}
+\begin{itemize}
+  \item \textit{Internal cross-reference:} Section~14.1.1
+  \item \textit{Internal cross-reference:} Section~8.4
+  \item \textit{Internal cross-reference:} Section~12.3
+\end{itemize}
+
+\subsubsection*{§15.3 Honest Scope Statement and Consolidated Future Work}
+\begin{itemize}
+  \item \textit{Internal cross-reference:} Section~14.5
+\end{itemize}
+
+%% -----------------------------------------------------------------------
+\subsection*{Chapter appB --- Uncertainty Propagation Derivation}
+%% -----------------------------------------------------------------------
+
+\subsubsection*{§(preamble)}
+\begin{itemize}
+  \item \texttt{17\_uncertainty\_framework\_outputs/framework\_design.md}
+\end{itemize}
+
+\subsubsection*{§A.1. Limits of Agreement to Statistical Variance Conversion}
+\begin{itemize}
+  \item \texttt{16\_opencap\_dropjump\_outputs/metadata/phase6\_agreement\_final.csv}
+  \item \texttt{17\_uncertainty\_framework\_outputs/framework\_design.md}
+\end{itemize}
+
+\subsubsection*{§A.2. Projection/Motion Error Decomposition Algebra}
+\begin{itemize}
+  \item \texttt{17\_uncertainty\_framework\_outputs/framework\_design.md}
+\end{itemize}
+
+\subsubsection*{§A.3.1. Drop-Jump Total Validation Weights}
+\begin{itemize}
+  \item \texttt{17\_uncertainty\_framework\_outputs/framework\_design.md}
+\end{itemize}
+
+\subsubsection*{§A.3.2. Cross-Exercise Transferable Projection Weights}
+\begin{itemize}
+  \item \texttt{17\_uncertainty\_framework\_outputs/framework\_design.md}
+\end{itemize}
+
+\subsubsection*{§A.4. Sensitivity Analysis of Assumed Variance Splits}
+\begin{itemize}
+  \item \texttt{17\_uncertainty\_framework\_outputs/framework\_design.md}
+\end{itemize}
+
+\subsubsection*{§Table A.1: Sensitivity Sweep of Assumed Variance Splits Across 9 Configurations}
+\begin{itemize}
+  \item \texttt{17\_uncertainty\_framework\_outputs/framework\_design.md}
+\end{itemize}
+
+%% -----------------------------------------------------------------------
+\subsection*{Chapter appC --- Leave-One-Subject-Out Fold Results}
+%% -----------------------------------------------------------------------
+
+\subsubsection*{§B.1. LOSO Protocol Summary}
+\begin{itemize}
+  \item \texttt{23\_temporal\_model\_outputs/temporal\_model\_evaluation\_report.md}
+\end{itemize}
+
+\subsubsection*{§B.3. Observations}
+\begin{itemize}
+  \item \texttt{23\_temporal\_model\_outputs/temporal\_model\_evaluation\_report.md}
+\end{itemize}
+
+%% -----------------------------------------------------------------------
+\subsection*{Chapter appD --- XAI Verification Table}
+%% -----------------------------------------------------------------------
+
+\subsubsection*{§C.1. Verification Overview}
+\begin{itemize}
+  \item \texttt{20\_screening\_outputs/worked\_example\_screening.csv / 21\_xai\_outputs/worked\_example\_explanations.json}
+  \item \texttt{21\_xai\_outputs/xai\_design.md}
+\end{itemize}
+
+\subsubsection*{§Table C.1: Step 10 Screening vs. Step 11 XAI Parameter Cross-Check (Repetition 6)}
+\begin{itemize}
+  \item \texttt{worked\_example\_screening.csv}
+  \item \texttt{worked\_example\_explanations.json}
+  \item \texttt{21\_xai\_outputs/worked\_example\_explanations.json}
+\end{itemize}
+
+%% -----------------------------------------------------------------------
+\subsection*{Chapter appE --- Bland--Altman Interpretation Notes}
+%% -----------------------------------------------------------------------
+
+\subsubsection*{§(preamble)}
+\begin{itemize}
+  \item \texttt{16\_opencap\_dropjump\_outputs/phase6\_final\_report.md}
+\end{itemize}
+
+\subsubsection*{§D.1. Biomarker \protect\#1: Contact Flexion}
+\begin{itemize}
+  \item \texttt{16\_opencap\_dropjump\_outputs/phase6\_final\_report.md}
+\end{itemize}
+
+\subsubsection*{§D.2. Biomarker \protect\#2: Peak Landing Flexion}
+\begin{itemize}
+  \item \texttt{16\_opencap\_dropjump\_outputs/phase6\_final\_report.md}
+\end{itemize}
+
+\subsubsection*{§D.3. Biomarker \protect\#3: Landing Range of Motion (ROM)}
+\begin{itemize}
+  \item \texttt{16\_opencap\_dropjump\_outputs/phase6\_final\_report.md}
+  \item \texttt{16\_opencap\_dropjump\_outputs/metadata/phase6\_stage0\_report.md}
+\end{itemize}
+
+\subsubsection*{§D.4. Biomarker \protect\#6: Flexion Loading Rate}
+\begin{itemize}
+  \item \texttt{16\_opencap\_dropjump\_outputs/phase6\_final\_report.md}
+  \item \texttt{16\_opencap\_dropjump\_outputs/metadata/phase6\_stage0\_report.md}
+\end{itemize}
+
+\subsubsection*{§D.5. Biomarker \protect\#5: Inter-Limb Asymmetry}
+\begin{itemize}
+  \item \texttt{16\_opencap\_dropjump\_outputs/phase6\_final\_report.md}
+  \item \texttt{16\_opencap\_dropjump\_outputs/metadata/phase6\_stage0\_report.md}
+\end{itemize}
+
+

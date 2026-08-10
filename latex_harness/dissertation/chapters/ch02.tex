@@ -1,0 +1,262 @@
+\chapter{Methodology}
+\label{ch:methods}
+
+% SOURCE: methods_v3.md
+% STATUS: converted from markdown
+% NOTE: [source:] tags stripped per ASSEMBLY_PLAN.md (harvested to appF)
+
+This chapter describes the research design, data pipelines, validation methodologies, and analytical frameworks developed to implement the markerless kinematic screening and explainable baseline tracking systems. The methodology is structured in three core layers: a physical pose estimation and validation layer (Track~A Core), an uncertainty-weighting framework (Track~B Transfer), and a personalised progression and explainable screening layer (Track~A XAI). The framework is designed and validated strictly as a kinematic screening system to characterize biomechanical execution deviations from baseline states; it does not classify, predict, or diagnose physical injury risk, nor does it require longitudinal injury-outcome data.
+
+
+% ================================================================
+\section{Markerless Kinematic Extraction Pipeline}
+\label{sec:pipeline}
+
+\subsection{Pose Estimation and Camera Model}
+\label{sec:pose-estimation}
+
+The pipeline processes monocular video sequences recorded at cohort-specific frame rates: 30\,fps for the REHAB24-6 squat and lunge cohorts and 60\,fps for the OpenCap drop-jump validation cohort. Penn Action squat sequences are processed from extracted JPEG frame stacks at the dataset-native extraction rate \citep{Zhang_Penn_Action_2013}. 2D markerless pose estimation is executed using the MediaPipe Pose tracking engine (Heavy variant), computing the spatial coordinates of 33~keypoints.
+
+\begin{quote}
+\textbf{Convention Note:} Squats and lunges use the \textbf{included angle} convention ($\approx 180^\circ$ = standing extension, smaller angle = deeper flexion), whereas the drop-jump validation uses the \textbf{clinical flexion} convention ($0^\circ$ = full extension, larger angle = deeper flexion). Raw joint angle values are not directly comparable; the uncertainty framework transfers validated \textit{error magnitudes} (LoA widths) rather than raw joint angles.
+\end{quote}
+
+For squats and lunges, the sagittal knee angle ($\theta$) is computed from hip, knee, and ankle MediaPipe landmarks using the 2D dot-product included-angle trigonometric model:
+\begin{equation}
+\theta = \arccos \left( \frac{\mathbf{u} \cdot \mathbf{v}}{\|\mathbf{u}\| \|\mathbf{v}\|} \right)
+\label{eq:knee-angle}
+\end{equation}
+where $\mathbf{u}$ represents the thigh segment (knee-to-hip) and $\mathbf{v}$ represents the shank segment (knee-to-ankle).
+
+\subsection{Trajectory Smoothing and Outlier Filtering}
+\label{sec:smoothing}
+
+Raw coordinates are filtered in three steps to reduce high-frequency jitter and tracking spikes:
+\begin{enumerate}
+  \item \textbf{Outlier Gating:} Joint angles are constrained a priori to $[40.0^\circ,\; 185.0^\circ]$; values outside are flagged as tracking failures.
+  \item \textbf{Smoothing Cascades:} Input trajectories are smoothed via a 5-frame centred median filter followed by a second-order Savitzky--Golay filter (window length~7) \citep{Savitzky_Golay_1964}, isolating voluntary motion while preserving peak morphology.
+  \item \textbf{Pose Quality Stratification:} Subjects with tracking spike rates ${>}\,5.0\%$ are flagged for manual review.
+\end{enumerate}
+
+\subsection{Repetition Segmentation and Phase Detection}
+\label{sec:segmentation}
+
+Trajectories are segmented into repetitions based on angular velocity numerical differentiation. Descent begins at a negative velocity zero-crossing and repetition ends when ascent velocity returns to zero. Minor postural changes are ignored using a minimum joint excursion depth gate, and each valid rep is split into descent (start to peak flexion) and ascent (peak to end) phases.
+
+
+% ================================================================
+\section{Cohort Assembly and Experimental Datasets}
+\label{sec:cohorts}
+
+Pipeline evaluation utilizes three cohorts:
+
+\subsection{The OpenCap Drop-Jump Validation Cohort}
+\label{sec:opencap-cohort}
+
+To establish ground-truth tracking accuracy under high-speed, dynamic impact landing conditions, we utilize the OpenCap Drop-Jump dataset (8~subjects, 48~trials, 60\,fps).
+\begin{itemize}
+  \item \textbf{Marker-Based Reference:} Captured via synchronized 10-camera 3D optoelectronic motion capture and two force plates \citep{OpenCap_2022}.
+  \item \textbf{Markerless Reference:} Recorded via sagittal camera and processed using the MediaPipe Heavy pipeline.
+\end{itemize}
+This high-speed task establishes upper-bound measurement uncertainty limits for the monocular pipeline.
+
+\subsection{The REHAB24-6 Cohort}
+\label{sec:rehab24-cohort}
+
+The primary cohort for baseline tracking, rule screening, and XAI validation is the \texttt{REHAB24-6} dataset (30\,fps):
+\begin{itemize}
+  \item \textbf{Squats:} 9~subjects, 98~repetitions (72~correct, 26~incorrect/deviated form featuring excess depth or rapid descent).
+  \item \textbf{Lunges:} 8~subjects, 88~repetitions. Filtering leaves 61~reps from 7~usable subjects (25~correct, 36~incorrect). Two subjects were excluded due to self-occlusion/tracking failures: Subject~5 (PM\_042, 12/13 reps failed) and Subject~8 (PM\_112, 12/12 reps failed).
+\end{itemize}
+Throughout this dissertation, the terms `correct' and `incorrect' refer specifically to the supervised repetition labels supplied by the REHAB24-6 dataset annotators, which encode clinical judgment about movement quality at the time of dataset creation. These labels serve as analytical and validation anchors for pipeline evaluation. The screening framework itself does not generate clinical diagnostic judgments; it flags kinematic patterns that deviate from personalised baselines, with clinical interpretation left to qualified practitioners.
+
+\subsection{The Penn Action Exploratory Cohort}
+\label{sec:penn-cohort}
+
+An exploratory cohort of 10 single-repetition Penn Action squat sequences \citep{Zhang_Penn_Action_2013} --- sourced from the Penn Action dataset (Zhang, Zhu \& Derpanis, ICCV 2013), sequence IDs 1659--1889, squat class, filtered from 230 raw sequences to 10~included subjects via a documented gold/bronze/excluded quality audit --- evaluates qualitative monocular tracking failure modes under unconstrained in-the-wild conditions (varying camera angles, lighting, and resolution).
+
+
+% ================================================================
+\section{OpenCap Drop-Jump Ground Truth Validation}
+\label{sec:dropjump-validation}
+
+We validate knee flexion measurements against 3D optoelectronic ground truth across the 48~drop-jump trials using Bland--Altman 95\% Limits of Agreement ($\text{Bias} \pm 1.96 \cdot \text{SD}$) \citep{Bland_Altman_1986}:
+\begin{enumerate}
+  \item \textbf{Peak landing flexion:} Mean bias $+19.72^\circ$ (95\% LoA: $[7.73^\circ,\; 31.71^\circ]$, Pearson $r = 0.8238$).
+  \item \textbf{Contact flexion:} Mean bias $-6.69^\circ$ (95\% LoA: $[-26.77^\circ,\; 13.39^\circ]$, Pearson $r = 0.3209$).
+  \item \textbf{Landing range of motion (ROM):} Mean bias $+26.41^\circ$ (95\% LoA: $[2.34^\circ,\; 50.48^\circ]$, Pearson $r = 0.4020$).
+  \item \textbf{Loading rate:} Mean bias $+13.30^\circ/\text{s}$ (95\% LoA: $[-115.92^\circ/\text{s},\; 142.51^\circ/\text{s}]$, Pearson $r = 0.6076$).
+\end{enumerate}
+
+\subsection{Deep-Flexion Constant Bias Isolation (Timing-Clean)}
+\label{sec:bias-isolation}
+
+Static camera projection error is isolated from dynamic lag by analyzing joint angles at peak landing absorption ($n = 96$ static points, joint velocity $\approx 0$). The peak flexion bias is $+10.52^\circ$ (95\% LoA: $[-5.54^\circ,\; 26.58^\circ]$). Error magnitude correlation vs depth is not statistically significant (Pearson $r = -0.1568$, $p = 0.1271$; Spearman $\rho = -0.1905$, $p = 0.0631$) in the $70^\circ\text{--}120^\circ$ landing range, confirming that deep flexion tracking error behaves as a \textbf{constant systematic positive bias} rather than a depth-dependent slope.
+
+\subsection{Robustness to Movement Conditions}
+\label{sec:robustness}
+
+Peak flexion bias is virtually identical between symmetric landings ($+10.36^\circ$, SD: $6.89^\circ$, $n=48$ points) and asymmetric landings ($+10.68^\circ$, SD: $9.39^\circ$, $n=48$ points). This demonstrates that tracking errors are driven by monocular camera placement and projection geometry rather than movement loading symmetry.
+
+\subsection{Contralateral Occlusion Limitation}
+\label{sec:occlusion}
+
+Contralateral self-occlusion prevents monocular video validation of inter-limb asymmetry (Biomarker~\#5); it is demoted to a 3D reference (mocap mean: $2.07^\circ$, SD: $2.06^\circ$) and excluded from monocular screening rules.
+
+
+% ================================================================
+\section{Uncertainty Aggregation and Variance Decomposition}
+\label{sec:uncertainty}
+
+To link validation results to screening rules, drop-jump Limits of Agreement widths are converted into standard deviations and total variances via $SD_i = (LoA_{i,\text{upper}} - LoA_{i,\text{lower}})/3.92$ and $\sigma^2_{i,\text{total}} = (SD_i)^2$:
+\begin{itemize}
+  \item \texttt{contact\_flexion} total variance: $\mathbf{104.9867}$ ($SD = 10.2463^\circ$)
+  \item \texttt{peak\_landing\_flexion} total variance: $\mathbf{37.4132}$ ($SD = 6.1166^\circ$)
+  \item \texttt{landing\_rom} total variance: $\mathbf{150.8291}$ ($SD = 12.2813^\circ$)
+  \item \texttt{loading\_rate} total variance: $\mathbf{4346.2534}$ ($SD = 65.9261^\circ/\text{s}$)
+\end{itemize}
+
+\subsection{Projection and Motion Decompositions}
+\label{sec:variance-decomp}
+
+We partition total variance into projection error ($\sigma^2_{i, \text{proj}}$) and dynamic motion error ($\sigma^2_{i, \text{mot}}$) via $\sigma^2_{i, \text{total}} = \sigma^2_{i, \text{proj}} + \sigma^2_{i, \text{mot}}$:
+\begin{enumerate}
+  \item \textbf{Peak Flexion:} Static landmark alignment yields a 100.0\% projection, 0.0\% motion split ($\sigma^2_{\text{proj}} = 37.4132$, $\sigma^2_{\text{mot}} = 0.0000$).
+  \item \textbf{Contact Flexion:} A 90\% projection, 10\% motion split is assigned due to low entry velocity ($\sigma^2_{\text{proj}} = 94.4880$, $\sigma^2_{\text{mot}} = 10.4987$).
+  \item \textbf{Loading Rate:} A 10\% projection, 90\% motion split is assigned due to extreme sensitivity to sub-frame timing lag ($\sigma^2_{\text{proj}} = 434.6253$, $\sigma^2_{\text{mot}} = 3911.6281$).
+  \item \textbf{Range of Motion (ROM):} Propagating contact and peak variance endpoints yields a 92.62\% projection, 7.38\% motion split ($\sigma^2_{\text{proj}} = 139.7047$, $\sigma^2_{\text{mot}} = 11.1244$).
+\end{enumerate}
+
+\subsection{Inverse-Variance Weighting and Cross-Exercise Transfer Weights}
+\label{sec:transfer-weights}
+
+Because motion-timing errors ($\sigma^2_{\text{mot}}$) are negligible in slow squats and lunges, transfer weighting uses only projection variance ($\sigma^2_{i, \text{proj}}$). Inverse-variance weights ($w_i = 1/\sigma^2_{i, \text{proj}}$) are normalized to:
+\begin{itemize}
+  \item \textbf{Peak Flexion:} $\mathbf{57.15\%}$ ($w \approx 0.0267$)
+  \item \textbf{Start/Contact Flexion:} $\mathbf{22.63\%}$ ($w \approx 0.0106$)
+  \item \textbf{Range of Motion (ROM):} $\mathbf{15.30\%}$ ($w \approx 0.0072$)
+  \item \textbf{Joint Velocity:} $\mathbf{4.92\%}$ ($w \approx 0.0023$)
+\end{itemize}
+
+A 9-configuration sensitivity sweep proves weight stability: across all permutations, Peak Flexion dominates ($50.01\%\text{--}58.59\%$) and velocity is heavily down-weighted ($2.30\%\text{--}9.38\%$), confirming that assumed splits do not corrupt framework decisions.
+
+
+% ================================================================
+\section{Personalised Baseline and Digital Twin Demonstrations}
+\label{sec:baseline-twin}
+
+We track changes relative to the individual's baseline.
+
+\subsection{Baseline Initialization}
+\label{sec:baseline-init}
+
+A per-subject baseline mean ($\mu_{\text{base}, i}$) is calculated from correct repetitions~1 and~2:
+\begin{equation}
+\mu_{\text{base}, i} = \frac{1}{2} (x_{1, i} + x_{2, i})
+\label{eq:baseline-mean}
+\end{equation}
+Baseline standard error is recorded for descriptive context but omitted from decision rules due to small-sample instability.
+
+\subsection{Conditional Digital Twin Update Rule}
+\label{sec:twin-update}
+
+The digital twin updates the reference mean dynamically across a sequence of repetitions. To prevent baseline contamination from abnormal movements, updates use a conditional update rule:
+\begin{itemize}
+  \item Calculate absolute deviation: $\Delta_i = |x_{t+1, i} - \mu_{t, i}|$.
+  \item Compare to the validated 95\% Noise Floor ($NF_i$):
+  \begin{itemize}
+    \item \textbf{If $\Delta_i \le NF_i$ (Within-Noise):} $\mu_{t+1, i} = (N_{t, i} \cdot \mu_{t, i} + x_{t+1, i})/(N_{t, i} + 1)$ and $N_{t+1, i} = N_{t, i} + 1$.
+    \item \textbf{If $\Delta_i > NF_i$ (Deviation Detected):} Lock reference: $\mu_{t+1, i} = \mu_{t, i}$ and $N_{t+1, i} = N_{t, i}$.
+  \end{itemize}
+\end{itemize}
+Exclusions are counted and logged to prevent update drift while tracking baseline transitions.
+
+
+% ================================================================
+\section{Rule-Based Kinematic Screening Layer}
+\label{sec:screening-layer}
+
+\subsection{Modality Choice: Personalised-Deviation Screening (Option~B)}
+\label{sec:modality-choice}
+
+We select Option~B (Personalised-Deviation Screening), flagging a repetition only if it deviates from the subject's own baseline mean ($\mu_{\text{base}, i}$) beyond the validated noise floor ($NF_i$). This controls for individual anatomy and systematic camera perspective offsets, rejecting fixed population thresholds (Option~A).
+
+\subsection{Personalised Screening Rules}
+\label{sec:screening-rules}
+
+The noise floors ($NF_i$) are set at 95\% confidence intervals ($1.96 \cdot SD_{\text{proj}, i}$):
+\begin{itemize}
+  \item $NF_{\text{peak}} = \pm 11.9885^\circ$
+  \item $NF_{\text{rom}} = \pm 23.1666^\circ$
+  \item $NF_{\text{velocity}} = \pm 40.8615^\circ/\text{s}$
+\end{itemize}
+
+Three screening rules are defined:
+\begin{enumerate}
+  \item \textbf{\texttt{EXCESS\_DEPTH}:} $x_{\text{peak}} < \mu_{\text{base}, \text{peak}} - 11.9885^\circ$ (included-angle convention: smaller values indicate deeper flexion).
+  \item \textbf{\texttt{EXCESS\_ROM}:} $x_{\text{rom}} > \mu_{\text{base}, \text{rom}} + 23.1666^\circ$.
+  \item \textbf{\texttt{EXCESS\_VELOCITY}:} $x_{\text{velocity}} > \mu_{\text{base}, \text{velocity}} + 40.8615^\circ/\text{s}$.
+\end{enumerate}
+
+Violations trigger \texttt{SCREENING\_POSITIVE} and record active rules and numeric deviation margins.
+
+
+% ================================================================
+\section{Counterfactual Explainable AI (XAI)}
+\label{sec:xai}
+
+\subsection{Faithfulness by Construction}
+\label{sec:faithfulness}
+
+Unlike post-hoc local approximations (e.g., SHAP or LIME) that introduce local fit errors, our explanations are \textbf{faithful by construction} because the rules \textit{are} the decision boundaries. The margins ($M_i$) are calculated directly:
+\begin{itemize}
+  \item $M_{\text{depth}} = (\mu_{\text{base}, \text{peak}} - 11.9885) - x_{\text{peak}}$
+  \item $M_{\text{rom}} = x_{\text{rom}} - (\mu_{\text{base}, \text{rom}} + 23.1666)$
+  \item $M_{\text{velocity}} = x_{\text{velocity}} - (\mu_{\text{base}, \text{velocity}} + 40.8615)$
+\end{itemize}
+
+\subsection{Templates and Descriptive Guardrail}
+\label{sec:templates}
+
+Templates describe the mathematical state required to clear flags (e.g., for \texttt{EXCESS\_DEPTH}: ``Had the peak flexion angle been at least $T_{\text{depth}}^\circ$ (representing a shallower bend of $M_{\text{depth}}^\circ$ less depth), the \texttt{EXCESS\_DEPTH} flag would not have fired.''). This avoids prescriptive coaching advice.
+
+\subsection{Multi-Rule Coupling and Minimal Kinematic Intervention (MKI)}
+\label{sec:mki}
+
+If both \texttt{EXCESS\_DEPTH} and \texttt{EXCESS\_ROM} fire, we resolve physical coupling by assuming range of motion scales directly with peak flexion depth (constant standing start point). The MKI calculates the maximum flexion adjustment:
+\begin{equation}
+\Delta \theta_{\text{MKI}} = \max(M_{\text{depth}}, M_{\text{rom}})
+\label{eq:mki}
+\end{equation}
+This is reported as a set of descriptive conditions; an independent rule violation (e.g., \texttt{EXCESS\_VELOCITY}) is appended as a separate condition (e.g., requiring descent velocity to be $M_{\text{velocity}}^\circ/\text{s}$ slower).
+
+\subsection{Confidence Buffers}
+\label{sec:confidence-buffers}
+
+Explanations evaluate the margin $M_i$ against a confidence boundary $0.5 \cdot NF_i$; deviations within this buffer are marked \texttt{LOW CONFIDENCE (Near Noise Floor)}.
+
+
+% ================================================================
+\section{Statistical Analysis Methods}
+\label{sec:statistics}
+
+\subsection{Cluster-Aware Bootstrapping}
+\label{sec:bootstrapping}
+
+To calculate robust confidence intervals when subjects perform multiple repetitions, we implement \textbf{cluster-aware bootstrapping} \citep{Field_Welsh_2007}, which resamples subjects with replacement (including all their reps) rather than individual repetitions, preserving the intra-subject correlation.
+
+\subsection{Effect Size Calculations}
+\label{sec:effect-size}
+
+Cohen's~$d$ \citep{Cohens_d_1988} is computed as:
+\begin{equation}
+  d = \frac{\bar{X}_1 - \bar{X}_2}{SD_{\text{pooled}}}, \qquad
+  SD_{\text{pooled}} = \sqrt{\frac{(n_1-1)s_1^2 + (n_2-1)s_2^2}{n_1+n_2-2}}
+  \label{eq:cohens-d}
+\end{equation}
+Squat peak flexion yields $d = 1.7306$ ($n=72$ correct, $26$ incorrect). Lunge peak flexion yields $d = 1.6904$ ($n=25$ correct, $36$ incorrect).
+
+\subsection{Classification Performance Metrics}
+\label{sec:classification-metrics}
+
+Classification model performance in this dissertation is reported as balanced accuracy (the unweighted mean of per-class recall, equivalent to the mean of sensitivity and specificity), not raw accuracy. This choice is motivated by class imbalance in both exercise cohorts: the REHAB24-6 squat cohort contains 72~correct and 26~incorrect repetitions (73.47\% correct-class prevalence), and the lunge cohort contains 25~correct and 36~incorrect repetitions (40.98\% correct-class prevalence). Under these imbalances, a trivial majority-class classifier would achieve 73.47\% raw accuracy on squats without learning any discriminative signal, making raw accuracy an unreliable indicator of true model performance. Balanced accuracy corrects for this by weighting each class equally, so a majority-class classifier scores 50.00\% regardless of imbalance. This distinction is empirically visible in \Cref{ch:temporal}, where the LSTM under Scheme~B produces 73.47\% raw accuracy but 50.00\% balanced accuracy on squats --- the latter correctly revealing that the model has collapsed to majority-class prediction.

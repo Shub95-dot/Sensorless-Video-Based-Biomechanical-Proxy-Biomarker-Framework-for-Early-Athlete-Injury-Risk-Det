@@ -1,0 +1,115 @@
+\chapter{Uncertainty Propagation Derivation}
+\label{app:uncertainty-deriv}
+
+% SOURCE: appendix_A_uncertainty_derivation.md
+% STATUS: converted from markdown
+% NOTE: [source:] tags stripped per ASSEMBLY_PLAN.md (harvested to appF)
+
+
+This appendix details the mathematical derivation, variance decomposition algebra, inverse-variance weighting formulas, and sensitivity sweep evaluations for the uncertainty-weighted screening framework, supplementing Chapter 8.
+
+
+
+\section{Limits of Agreement to Statistical Variance Conversion}
+\label{sec:a-1-limits-of-agreement-to-statistical-variance-conversion}
+
+
+Measurement uncertainty bounds were established in Chapter 6 from ground-truth Drop-Jump validation ($n = 48$ trials across 8 subjects). Assuming normally distributed errors, 95\% Limits of Agreement (LoA) span $2 \times 1.96 = 3.92$ standard deviations (SDs):
+
+\begin{equation}
+  \text{SD} = \frac{\text{LoA}_{\text{upper}} - \text{LoA}_{\text{lower}}}{3.92}, \quad \sigma^2_{\text{total}} = \text{SD}^2
+  \label{eq:disp1}
+\end{equation}
+
+Applying this conversion to validated biomarkers yields:
+
+\begin{enumerate}
+  \item \textbf{Contact Flexion (\protect\#1)}: 95\% LoA $[-26.7742^\circ, 13.3913^\circ]$ (Width: $40.1655^\circ$, Bias: $-6.6914^\circ$) $\implies \text{SD} = 10.2463^\circ, \sigma^2_{\text{total}} = 104.9867$.
+  \item \textbf{Peak Landing Flexion (\protect\#2)}: 95\% LoA $[7.7285^\circ, 31.7057^\circ]$ (Width: $23.9772^\circ$, Bias: $+19.7171^\circ$) $\implies \text{SD} = 6.1166^\circ, \sigma^2_{\text{total}} = 37.4132$.
+  \item \textbf{Landing ROM (\protect\#3)}: 95\% LoA $[2.3373^\circ, 50.4798^\circ]$ (Width: $48.1425^\circ$, Bias: $+26.4086^\circ$) $\implies \text{SD} = 12.2813^\circ, \sigma^2_{\text{total}} = 150.8291$.
+  \item \textbf{Flexion Loading Rate (\protect\#6)}: 95\% LoA $[-115.9179^\circ/\text{s}, 142.5125^\circ/\text{s}]$ (Width: $258.4304^\circ/\text{s}$, Bias: $+13.2973^\circ/\text{s}$) $\implies \text{SD} = 65.9261^\circ/\text{s}, \sigma^2_{\text{total}} = 4346.2534$.
+\end{enumerate}
+
+
+
+\section{Projection/Motion Error Decomposition Algebra}
+\label{sec:a-2-projection-motion-error-decomposition-algebra}
+
+
+Total measurement variance is modeled as the sum of camera projection error ($\sigma^2_{\text{proj}}$) and motion timing error ($\sigma^2_{\text{mot}}$):
+
+\begin{equation}
+  \sigma^2_{\text{total}} = \sigma^2_{\text{proj}} + \sigma^2_{\text{mot}}
+  \label{eq:disp2}
+\end{equation}
+
+Per-biomarker splits proceed as follows:
+
+\begin{itemize}
+  \item \textbf{Peak Flexion (\protect\#2)}: Measured at peak absorption ($\omega \approx 0$). Static peak timing lag is zero $\implies \sigma^2_{\text{mot}} = 0.0000$ ($0.0\%$), $\sigma^2_{\text{proj}} = 37.4132$ ($100.0\%$).
+  \item \textbf{Contact Flexion (\protect\#1)}: Measured at initial contact. Assumed $90/10$ split $\implies \sigma^2_{\text{proj}} = 94.4880$ ($90.0\%$), $\sigma^2_{\text{mot}} = 10.4987$ ($10.0\%$).
+  \item \textbf{Flexion Loading Rate (\protect\#6)}: Rapid velocity metric. Assumed $10/90$ split $\implies \sigma^2_{\text{proj}} = 434.6253$ ($10.0\%$), $\sigma^2_{\text{mot}} = 3911.6281$ ($90.0\%$).
+  \item \textbf{Landing ROM (\protect\#3)}: Propagated from peak (\protect\#2) and contact (\protect\#1) endpoints:
+\begin{equation}
+  \sigma^2_{\text{proj, ROM}} = 37.4132 + 94.4880 = 131.9012, \quad \sigma^2_{\text{mot, ROM}} = 0.0000 + 10.4987 = 10.4987
+  \label{eq:disp3}
+\end{equation}
+\end{itemize}
+Scaling total $142.4000$ to observed $150.8291$ maintains the $92.62\% / 7.38\%$ split: $\sigma^2_{\text{proj}} = 139.7047, \sigma^2_{\text{mot}} = 11.1244$.
+
+
+
+\section{Inverse-Variance Weighting Derivation}
+\label{sec:a-3-inverse-variance-weighting-derivation}
+
+
+Measurement weight $w_i$ and normalized weight $\bar{w}_i$ are given by \citep{Borenstein_2013}:
+
+\begin{equation}
+  w_i = \frac{1}{\sigma_i^2}, \quad \bar{w}_i = \frac{w_i}{\sum_{j=1}^K w_j}
+  \label{eq:disp4}
+\end{equation}
+
+\subsection{Drop-Jump Total Validation Weights}
+\label{sec:a-3-1-drop-jump-total-validation-weights}
+
+Raw weights from total variances $\sigma^2_{\text{total}}$ ($w_{\#1} = 0.009525, w_{\#2} = 0.026729, w_{\#3} = 0.006630, w_{\#6} = 0.000230$, sum $= 0.043114$) yield normalized weights: Peak Flexion \textbf{62.00\%}, Contact Flexion \textbf{22.09\%}, Landing ROM \textbf{15.38\%}, Loading Rate \textbf{0.53\%}.
+
+\subsection{Cross-Exercise Transferable Projection Weights}
+\label{sec:a-3-2-cross-exercise-transferable-projection-weights}
+
+Discarding motion variance $\sigma^2_{\text{mot}}$ for slow exercises, raw projection weights $w_{\text{proj}, i} = 1 / \sigma^2_{\text{proj}, i}$ ($w_{\text{proj}, \#1} = 0.010583, w_{\text{proj}, \#2} = 0.026729, w_{\text{proj}, \#3} = 0.007158, w_{\text{proj}, \#6} = 0.002301$, sum $= 0.046771$) yield normalized transfer weights: Peak Flexion \textbf{57.15\%}, Start Flexion \textbf{22.63\%}, ROM \textbf{15.30\%}, Joint Velocity \textbf{4.92\%}.
+
+
+
+\section{Sensitivity Analysis of Assumed Variance Splits}
+\label{sec:a-4-sensitivity-analysis-of-assumed-variance-splits}
+
+
+A $3 \times 3$ grid sweep across 9 configurations evaluated framework stability. Table A.1 summarizes the sensitivity results.
+
+\begin{landscape}
+\begin{table}[htbp]
+\centering
+\small
+\caption{Sensitivity Sweep of Assumed Variance Splits Across 9 Configurations}
+\label{tab:sensitivity-sweep}
+\begin{tabular}{c c c c c c c c}
+\hline
+\textbf{Config} & \textbf{Contact Split (Proj/Mot)} & \textbf{Loading Rate Split (Proj/Mot)} & \textbf{Peak Weight} & \textbf{Start Weight} & \textbf{ROM Weight} & \textbf{Velocity Weight} & \textbf{Hierarchy Stable?} \\
+\hline
+\textbf{Baseline} & \textbf{90 / 10} & \textbf{10 / 90} & \textbf{57.15\%} & \textbf{22.63\%} & \textbf{15.30\%} & \textbf{4.92\%} & \textbf{YES} \\
+C1 & 90 / 10 & 20 / 80 & 54.80\% & 21.70\% & 14.67\% & 8.83\% & YES \\
+C2 & 90 / 10 & 5 / 95 & 58.40\% & 23.13\% & 15.63\% & 2.58\% & YES \\
+C3 & 80 / 20 & 10 / 90 & 55.70\% & 24.64\% & 14.73\% & 4.93\% & YES \\
+C4 & 80 / 20 & 20 / 80 & 53.47\% & 23.65\% & 14.14\% & 8.74\% & YES \\
+C5 & 80 / 20 & 5 / 95 & 56.89\% & 25.17\% & 15.05\% & 2.89\% & YES \\
+C6 & 70 / 30 & 10 / 90 & 54.02\% & 26.97\% & 14.10\% & 4.91\% & YES \\
+C7 & 70 / 30 & 20 / 80 & 51.93\% & 25.93\% & 13.55\% & 8.59\% & YES \\
+C8 & 70 / 30 & 5 / 95 & 55.14\% & 27.53\% & 14.39\% & 2.94\% & YES \\
+\hline
+\end{tabular}
+\end{table}
+\end{landscape}
+
+Across all configurations, the weighting hierarchy remains invariant: Peak Flexion ($51.93\%\text{--}58.40\%$) > Start Flexion ($21.70\%\text{--}27.53\%$) > ROM ($13.55\%\text{--}15.63\%$) > Joint Velocity ($2.58\%\text{--}8.83\%$). Maximum weight variation is under $8.6\%$, confirming robustness to parameter choices.

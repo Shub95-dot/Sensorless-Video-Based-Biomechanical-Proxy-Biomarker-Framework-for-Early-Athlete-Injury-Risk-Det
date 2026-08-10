@@ -43,3 +43,16 @@ desktop.ini
 # --- Large model files (download separately) ---
 # Uncomment the line below if you also want to exclude model weights:
 # 12_models/*.task
+
+# --- LaTeX Build Artifacts ---
+*.aux
+*.toc
+*.lof
+*.lot
+*.bbl
+*.blg
+*.out
+*.synctex.gz
+*.fdb_latexmk
+*.fls
+

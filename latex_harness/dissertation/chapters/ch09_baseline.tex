@@ -1,0 +1,147 @@
+\chapter{Personalised Session-to-Session Baselines}
+\label{ch:baseline}
+
+% SOURCE: results_baseline_v2.md
+% STATUS: converted from markdown
+% NOTE: [source:] tags stripped per ASSEMBLY_PLAN.md (harvested to appF)
+
+
+This chapter presents the design and empirical demonstration of an individualised kinematic progression-tracking framework. Group-level cohort analyses (Chapters 4 and 5) evaluate differences across populations, but clinical rehabilitation and performance tracking require monitoring an individual relative to their own baseline template. We describe an architecture that constructs a personalised baseline from a subject's initial correct repetitions and gates subsequent trials against the monocular pipeline's validated measurement-noise floor derived in Chapter 8.
+
+
+
+\section{Purpose and Design Motivation}
+\label{sec:9-1-purpose-and-design-motivation}
+
+
+Group-level cohort analyses demonstrate population-wide execution differences. However, clinical therapy and athletic coaching are fundamentally individualised. Every athlete possesses unique anatomical constraints, prior injury histories, and movement habits that shift their baseline joint kinematics. Consequently, group-averaged templates are poor references for longitudinal tracking, as an individual's normal movement variation may fall outside cohort means without indicating movement pathology.
+
+This framework shifts the unit of analysis from the cohort to the individual. By building a baseline from early correct trials, the framework monitors subsequent performance relative to the individual's "normal" template. Crucially, a shift is flagged as a real kinematic change only if it exceeds the monocular camera's validated measurement-noise floor (derived in Chapter 8), preventing false alarms from normal execution variability or camera perspective offsets.
+
+\subsection{Pseudo-Timepoint Axis and Scope}
+\label{sec:9-1-1-pseudo-timepoint-axis-and-scope}
+
+Because public physical therapy datasets (including REHAB24-6) are collected during a single laboratory session, we employ \textbf{within-session repetition order} as a \textbf{pseudo-time axis}: the first repetitions represent the baseline reference period, while subsequent repetitions represent observation points over pseudo-time. This pseudo-time axis demonstrates the gating architecture; the methodology generalizes directly to multi-session longitudinal tracking across days or weeks (future work).
+
+
+
+\section{Baseline Construction and Gating Rules}
+\label{sec:9-2-baseline-construction-and-gating-rules}
+
+
+The framework operates in two sequential stages: baseline building and test sequence gating.
+
+\subsection{Personalized Baseline Building}
+\label{sec:9-2-1-personalized-baseline-building}
+
+The baseline is constructed from a subject's first \textbf{2 correct repetitions} (Reps 1 and 2). Selecting early correct repetitions establishes a clean reference template prior to the onset of movement fatigue or instructed form deviations:
+\begin{itemize}
+  \item \textbf{Baseline Mean Reference ($\mu_{\text{base}, i}$)}: Mean of biomarker $i$ computed across baseline repetitions:
+\begin{equation}
+  \mu_{\text{base}, i} = \frac{1}{2} (x_{1, i} + x_{2, i})
+  \label{eq:disp1}
+\end{equation}
+  \item \textbf{Baseline Standard Deviation ($SD_{\text{base}, i}$) [Descriptive Only]}: Reported solely as descriptive context for early-session consistency (). It is \textbf{not} used in gating because $n = 2$ is statistically unstable and would induce false flags.
+\begin{equation}
+  SD_{\text{base}, i} = \sqrt{\frac{1}{1} \sum_{j=1}^2 (x_{j, i} - \mu_{\text{base}, i})^2}
+  \label{eq:auto2}
+\end{equation}
+\end{itemize}
+
+\subsection{Deviation Gating Logic}
+\label{sec:9-2-2-deviation-gating-logic}
+
+Subsequent repetitions (Reps 3 to 10) form the \textbf{test sequence}. The absolute deviation ($\Delta_i = |x_{\text{test}, i} - \mu_{\text{base}, i}|$) is gated against the \textbf{95\% Noise Floor ($NF_i = 1.96 \times SD_{\text{proj}, i}$)} transferred from drop-jump ground-truth validation (Chapter 8):
+\begin{itemize}
+  \item \textbf{\texttt{DEVIATION DETECTED}} ($\Delta_i > NF_i$): Shift exceeds single-camera measurement precision, indicating a genuine kinematic change relative to baseline.
+  \item \textbf{\texttt{WITHIN-NOISE}} ($\Delta_i \le NF_i$): Shift is smaller than or equal to measurement precision, remaining indistinguishable from monocular tracking noise.
+\end{itemize}
+
+\subsection{Applied Gating Thresholds}
+\label{sec:9-2-3-applied-gating-thresholds}
+
+The 95\% noise floors used for evaluation are:
+\begin{enumerate}
+  \item \textbf{Start Flexion (\texttt{start\_flexion})}: $NF = \mathbf{\pm 19.0522^\circ}$ ($SD_{\text{proj}} = 9.7205^\circ$)
+  \item \textbf{Peak Flexion (\texttt{peak\_flexion})}: $NF = \mathbf{\pm 11.9885^\circ}$ ($SD_{\text{proj}} = 6.1166^\circ$)
+  \item \textbf{Range of Motion (\texttt{rom})}: $NF = \mathbf{\pm 23.1666^\circ}$ ($SD_{\text{proj}} = 11.8197^\circ$)
+  \item \textbf{Joint Descent Velocity (\texttt{descent\_velocity})}: $NF = \mathbf{\pm 40.8615^\circ/\text{s}}$ ($SD_{\text{proj}} = 20.8477^\circ/\text{s}$)
+\end{enumerate}
+
+
+
+\section{Results -- Both-Sides Demonstration}
+\label{sec:9-3-results-both-sides-demonstration}
+
+
+Demonstrating both the "quiet side" (correct reps do not false-alarm) and the "firing side" (incorrect reps do fire) proves the noise floor acts as a selective filter rather than a permissive threshold. Evaluating correct repetitions establishes measurement specificity by verifying that normal variability remains within uncertainty bounds, while evaluating incorrect repetitions establishes tracking sensitivity by confirming that true kinematic shifts exceed the gating floor. Two clean subjects from REHAB24-6 with 10 continuous repetitions (Reps 1–5 correct, Reps 6–10 incorrect) were evaluated: Squat Subject 8 (\texttt{PM\_113}, $0.0\%$ spike rate) and Lunge Subject 6 (\texttt{PM\_104}, $0.0\%$ tracking failure).
+
+\subsection{Squat Demonstration (Subject \texttt{PM\_113})}
+\label{sec:9-3-1-squat-demonstration-subject-texttt-pm-113}
+
+Subject \texttt{PM\_113} performed 5 correct squats followed by 5 restricted-depth squats:
+\begin{itemize}
+  \item \textbf{Baseline (Reps 1–2)}: Mean peak knee flexion was \textbf{$72.98^\circ \pm 6.21^\circ$}; mean ROM was \textbf{$105.50^\circ \pm 5.96^\circ$}.
+  \item \textbf{Quiet Sequence (Reps 3–5)}: Maximum peak flexion deviation was \textbf{$9.26^\circ$} (Rep 5, value: $63.72^\circ$), and maximum ROM deviation was \textbf{$8.90^\circ$} (Rep 5, value: $114.40^\circ$). Staying below noise floors ($\pm 11.99^\circ$ and $\pm 23.17^\circ$), all three reps were classified as \texttt{WITHIN-NOISE}.
+  \item \textbf{Firing Sequence (Reps 6–10)}: Restricted-depth reps reduced peak flexion angles, yielding baseline deviations from \textbf{$23.23^\circ$ to $35.66^\circ$} (Rep 10 peak flexion: $37.32^\circ$, delta: $35.66^\circ$). Exceeding the $\pm 11.99^\circ$ floor, all five reps were flagged as \texttt{DEVIATION DETECTED}. ROM deviations similarly fired ($24.34^\circ\text{--}36.70^\circ > \pm 23.17^\circ$).
+\end{itemize}
+
+\subsection{Lunge Demonstration (Subject \texttt{PM\_104})}
+\label{sec:9-3-2-lunge-demonstration-subject-texttt-pm-104}
+
+Subject \texttt{PM\_104} performed 5 correct lunges followed by 5 restricted-depth lunges:
+\begin{itemize}
+  \item \textbf{Baseline (Reps 1–2)}: Mean peak flexion was \textbf{$84.66^\circ \pm 4.57^\circ$}; mean ROM was \textbf{$76.78^\circ \pm 3.19^\circ$}.
+  \item \textbf{Quiet Sequence (Reps 3–5)}: Peak flexion stayed close to baseline (max deviation \textbf{$6.77^\circ$} on Rep 5, value: $91.43^\circ$), remaining \texttt{WITHIN-NOISE}.
+  \item \textbf{Firing Sequence (Reps 6–10)}: Shallower lunges dropped peak flexion to $52.69^\circ\text{--}63.75^\circ$, producing baseline deviations of \textbf{$20.91^\circ$ to $31.98^\circ$}. Exceeding the $\pm 11.99^\circ$ floor, all five reps were flagged as \texttt{DEVIATION DETECTED}. ROM deviations similarly fired ($30.81^\circ\text{--}45.01^\circ > \pm 23.17^\circ$).
+\end{itemize}
+
+
+
+\section{Empirical Validation of Chapter 8 Uncertainty Weights}
+\label{sec:9-4-empirical-validation-of-chapter-8-uncertainty-weights}
+
+
+The empirical results confirm the uncertainty-weighting scheme developed in Chapter 8, which assigned peak flexion a high confidence weight (\textbf{$57.15\%$}) and joint descent velocity a low confidence weight (\textbf{$4.92\%$}).
+
+This weighting manifests in their noise floors: peak flexion has a tight noise floor ($\pm 11.99^\circ$), whereas descent velocity has a wide noise floor ($\pm 40.86^\circ/\text{s}$). During testing, this created distinct gating behaviors:
+\begin{itemize}
+  \item \textbf{Peak Flexion}: Primary driver of deviation detection, flagging all restricted-depth reps while remaining quiet on correct reps.
+  \item \textbf{Joint Velocity}: Remained quiet across test sequences; for Lunge Subject \texttt{PM\_104}, all 10 reps stayed within the $\pm 40.86^\circ/\text{s}$ floor.
+  \item \textbf{Velocity Spike Exception}: Velocity only fired on \textbf{Rep 6} of Squat Subject \texttt{PM\_113}, where descent velocity reached \textbf{$110.62^\circ/\text{s}$} (baseline: $49.94^\circ/\text{s}$, delta: \textbf{$60.68^\circ/\text{s} > \pm 40.86^\circ/\text{s}$}).
+\end{itemize}
+
+This confirms that low-confidence biomarkers contribute minimally to flagging due to large measurement uncertainty rather than active noise suppression, validating the Chapter 8 weighting architecture.
+
+
+
+\section{Personalised-Not-Group Distinction \& Guardrails}
+\label{sec:9-5-personalised-not-group-distinction-guardrails}
+
+
+In Chapters 4 and 5, repetitions were pooled across subjects to evaluate cohort-level group differences. Here, each subject's data is compared strictly against their own baseline mean ($\mu_{\text{base}}$) established at the start of their session. A \texttt{DEVIATION DETECTED} flag denotes a kinematic shift exceeding single-camera measurement precision, not a cohort-level quality verdict or clinical diagnosis. This distinction separates qualitative pass/fail evaluation from quantitative baseline delta tracking, ensuring the system functions as a neutral measurement layer.
+
+
+
+\section{Limitations and Non-Claims}
+\label{sec:9-6-limitations-and-non-claims}
+
+
+\begin{enumerate}
+  \item \textbf{Pseudo-Time Axis}: Utilizing within-session repetition order validates gating logic, but multi-session longitudinal tracking across days or weeks remains unvalidated future work.
+  \item \textbf{Sensitivity Threshold Constraint}: Deviations below the monocular camera's noise floor (e.g., shifts $< \pm 11.99^\circ$ for peak flexion) are indistinguishable from tracking noise.
+  \item \textbf{Non-Claims}: The framework does not claim multi-session longitudinal clinical tracking, injury prediction, risk scoring, or rep pass/fail grading. It serves as a software architectural demonstration of baseline-building and uncertainty-gating logic.
+\end{enumerate}
+
+
+
+\section{Figures and Provenance}
+\label{sec:9-7-figures}
+The following publication-ready figure supports this chapter.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.95\textwidth]{fig9_1_baseline.png}
+  \caption{Personalised Kinematic Progression Tracking with Uncertainty Gating. Each subject's running baseline mean and uncertainty-gated update windows are shown for peak flexion across sequential sessions.}
+  \label{fig:baseline-tracking}
+\end{figure}

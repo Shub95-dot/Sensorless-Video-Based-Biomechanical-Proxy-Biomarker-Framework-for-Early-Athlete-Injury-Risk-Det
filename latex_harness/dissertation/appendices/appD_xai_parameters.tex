@@ -1,0 +1,50 @@
+\chapter{XAI Verification Table}
+\label{app:xai-verify}
+
+% SOURCE: appendix_C_xai_verification_table.md
+% STATUS: converted from markdown
+% NOTE: [source:] tags stripped per ASSEMBLY_PLAN.md (harvested to appF)
+
+
+This appendix provides the exhaustive parameter cross-check table evaluating the mathematical agreement between the Step 10 Rule-Based Screening Layer (\texttt{worked\_example\_screening.csv}) and the Step 11 Counterfactual Explainable AI (XAI) engine (\texttt{worked\_example\_explanations.json}).
+
+
+
+\section{Verification Overview}
+\label{sec:c-1-verification-overview}
+
+
+To empirically verify the \textbf{faithfulness by construction} claim (Chapter 12, Section 12.3), every parameter ingested and rendered by the counterfactual explanation engine was cross-checked against the raw kinematics and deviation margins exported from the screening logic.
+
+Because the XAI engine calculates counterfactual margins directly from the screening layer's exact algebraic decision boundaries ($M_{\text{depth}} = T_{\text{depth}} - x_{\text{peak}}$, $M_{\text{rom}} = x_{\text{rom}} - T_{\text{rom}}$, $M_{\text{velocity}} = x_{\text{velocity}} - T_{\text{velocity}}$), the rendered margins exhibit \textbf{zero approximation error}.
+
+
+
+\section{Verification Cross-Check Table}
+\label{sec:c-2-verification-cross-check-table}
+
+
+Table C.1 presents the side-by-side parameter verification for Repetition 6 of Squat Subject 8 (\texttt{PM\_113}) and Lunge Subject 6 (\texttt{PM\_104}).
+
+\begin{landscape}
+\begin{table}[htbp]
+\centering
+\small
+\caption{Step 10 Screening vs.\ Step 11 XAI Parameter Cross-Check (Repetition 6)}
+\label{tab:xai-parameter-cross-check}
+\begin{tabular}{l l c c c c c}
+\hline
+\textbf{Subject (Trial)} & \textbf{Biomarker / Rule} & \textbf{Step 10 Screening Value} & \textbf{Step 11 Explanation Value} & \textbf{Calculated Margin (Step 10)} & \textbf{Rendered Margin (Step 11)} & \textbf{Faithfulness Agreement} \\
+\hline
+\textbf{PM\_113 (Squat)} & Peak Flexion & $43.2178^\circ$ & $43.22^\circ$ & $17.7703^\circ$ & $17.77^\circ$ & \textbf{Exact Match} \\
+ & ROM & $136.4995^\circ$ & $136.50^\circ$ & $7.8325^\circ$ & $7.83^\circ$ & \textbf{Exact Match} \\
+ & Descent Velocity & $110.6160^\circ/\text{s}$ & $110.62^\circ/\text{s}$ & $19.8195^\circ/\text{s}$ & $19.82^\circ/\text{s}$ & \textbf{Exact Match} \\
+\textbf{PM\_104 (Lunge)} & Peak Flexion & $59.1212^\circ$ & $59.12^\circ$ & $13.5540^\circ$ & $13.55^\circ$ & \textbf{Exact Match} \\
+ & ROM & $117.2779^\circ$ & $117.28^\circ$ & $17.3306^\circ$ & $17.33^\circ$ & \textbf{Exact Match} \\
+ & Descent Velocity & $59.9580^\circ/\text{s}$ & N/A (Not Fired) & $0.0000^\circ/\text{s}$ & N/A (Not Fired) & \textbf{Exact Match} \\
+\hline
+\end{tabular}
+\end{table}
+\end{landscape}
+
+The cross-check demonstrates a mathematically exact match across all tracked parameters and derived margins, confirming that the counterfactual explanation layer operates with 100\% faithfulness to the underlying screening boundaries, with variations limited strictly to formatting display rounding.

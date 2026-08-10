@@ -1,0 +1,109 @@
+% ============================================================
+% preamble.tex  --  COM726 Dissertation, Shubham
+% Typography chosen to match the Solent COM726 exemplar:
+%   A4, Trebuchet MS body / Calibri Light headings.
+% Trebuchet and Calibri are not freely licensed for LaTeX, so this
+% harness uses metric-compatible substitutes by default:
+%   Carlito  ~ Calibri
+%   Caladea  ~ Cambria
+% If you build locally on Windows with XeLaTeX, uncomment the
+% SYSTEM FONTS block to use the genuine fonts.
+% ============================================================
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+% lmodern is absent on some minimal TeX Live installs; load only if present.
+% lmodern is absent on some minimal TeX Live installs. Without a scalable
+% font, microtype's font expansion is a fatal error, so gate both together.
+\IfFileExists{lmodern.sty}
+  {\usepackage{lmodern}\usepackage{microtype}}
+  {\usepackage[expansion=false]{microtype}}
+
+% ---------- SYSTEM FONTS (XeLaTeX / LuaLaTeX on Windows) ----------
+% \usepackage{fontspec}
+% \setmainfont{Trebuchet MS}
+% \newfontfamily\headingfont{Calibri Light}
+% ------------------------------------------------------------------
+
+% ---------- Page geometry ----------
+\usepackage[a4paper,
+            top=2.5cm, bottom=2.5cm,
+            left=3.0cm, right=2.5cm,   % extra left margin for binding
+            headheight=15pt]{geometry}
+
+% ---------- Spacing ----------
+\usepackage{setspace}
+\onehalfspacing
+\setlength{\parskip}{0.6em}
+\setlength{\parindent}{0pt}
+
+% ---------- Core packages ----------
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{amsmath,amssymb}
+\usepackage{siunitx}
+\usepackage[ruled,vlined]{algorithm2e}
+\usepackage{csquotes}
+\usepackage{xcolor}
+
+% Solent exemplar uses a blue for headings
+\definecolor{solentblue}{HTML}{1F4E79}
+
+% ---------- Captions ----------
+\usepackage[font=small, labelfont=bf, justification=centering]{caption}
+
+% ---------- Headers / footers ----------
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\fancypagestyle{plain}{\fancyhf{}\fancyfoot[C]{\thepage}\renewcommand{\headrulewidth}{0pt}}
+
+% ---------- Section styling ----------
+\usepackage{titlesec}
+\titleformat{\chapter}[hang]
+  {\normalfont\Large\bfseries\color{solentblue}}{\thechapter.}{0.6em}{}
+\titlespacing*{\chapter}{0pt}{0pt}{1.2em}
+\titleformat{\section}
+  {\normalfont\large\bfseries\color{solentblue}}{\thesection}{0.6em}{}
+\titleformat{\subsection}
+  {\normalfont\normalsize\bfseries\color{solentblue}}{\thesubsection}{0.6em}{}
+
+% ---------- Contents / lists ----------
+\usepackage{tocloft}
+\renewcommand{\cftchapfont}{\bfseries}
+\setcounter{tocdepth}{3}
+\setcounter{secnumdepth}{3}
+
+% ============================================================
+% BIBLIOGRAPHY BLOCK -- swap here, nothing else changes.
+%
+% Option A (DEFAULT, builds anywhere): natbib + plainnat
+% Option B (better Harvard, needs `harvard` bundle): natbib + agsm
+% Option C (strictest Harvard, needs biblatex + biber):
+%     \usepackage[style=authoryear, backend=biber, natbib=true,
+%                 maxcitenames=2, uniquelist=false]{biblatex}
+%     \addbibresource{references.bib}
+%   ...and in main.tex replace \bibliography{references} with
+%     \printbibliography[title={References}]
+% ============================================================
+\usepackage[round,authoryear]{natbib}
+\bibliographystyle{plainnat}   % <-- change to agsm for Harvard
+\renewcommand{\bibsection}{}   % chapter heading supplied manually
+
+% ---------- URL line-breaking and full-page landscape ----------
+\usepackage{xurl}          % allows long URLs/paths to break at / _ - etc.
+\usepackage{pdflscape}     % provides \begin{landscape}...\end{landscape} for true rotated PDF pages
+\usepackage{rotating}      % provides sidewaystable / sidewaysfigure (legacy support)
+
+% ---------- Hyperlinks (load late) ----------
+\usepackage[hidelinks, breaklinks=true]{hyperref}
+\usepackage{cleveref}
+
+% ---------- Project-specific shorthands ----------
+\newcommand{\degsym}{\ensuremath{^\circ}}
+\newcommand{\loa}{limits of agreement}

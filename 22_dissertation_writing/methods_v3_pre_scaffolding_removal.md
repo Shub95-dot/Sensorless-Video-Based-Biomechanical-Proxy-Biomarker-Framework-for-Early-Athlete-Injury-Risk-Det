@@ -1,3 +1,6 @@
+# Methodology Chapter Draft (v3)
+## Part 1 — Research Design and Pipeline Architecture
+
 This chapter describes the research design, data pipelines, validation methodologies, and analytical frameworks developed to implement the markerless kinematic screening and explainable baseline tracking systems. The methodology is structured in three core layers: a physical pose estimation and validation layer (Track A Core), an uncertainty-weighting framework (Track B Transfer), and a personalised progression and explainable screening layer (Track A XAI). The framework is designed and validated strictly as a kinematic screening system to characterize biomechanical execution deviations from baseline states; it does not classify, predict, or diagnose physical injury risk, nor does it require longitudinal injury-outcome data.
 
 ---

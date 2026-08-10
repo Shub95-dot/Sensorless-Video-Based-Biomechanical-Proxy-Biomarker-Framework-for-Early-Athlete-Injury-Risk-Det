@@ -1,0 +1,184 @@
+\chapter{Bilateral Squat Kinematic Screening}
+\label{ch:squat}
+
+% SOURCE: results_squat_v2.md
+% STATUS: converted from markdown
+% NOTE: [source:] tags stripped per ASSEMBLY_PLAN.md (harvested to appF)
+
+
+This chapter presents the markerless kinematic screening results for the squat exercise. We evaluate form discrimination between correct and incorrect repetitions, cross-cohort pipeline reproducibility, and the clinical interpretation of the kinematic signatures identified. Statistical methods (Cohen's $d$, cluster-aware bootstrapping) are described in full in Chapter 2.
+
+
+
+\section{Cohort and Methodological Setup}
+\label{sec:4-1-cohort-and-methodological-setup}
+
+
+Squats were analyzed across two distinct cohorts:
+
+\begin{enumerate}
+  \item \textbf{Penn Action Cohort (In-the-Wild)}: $n = 10$ subjects, each performing a single squat repetition under unconstrained, real-world conditions (varying camera perspectives, backgrounds, and clothing) \citep{Zhang_Penn_Action_2013}. Sequences were drawn from the Penn Action dataset (Zhang, Zhu \& Derpanis, ICCV 2013), filtered from 230 raw squat sequences (IDs 1659–1889) to 10 included subjects via a gold/bronze/excluded quality audit. This cohort served as a test of pipeline generalization and descriptive baseline consistency.
+  \item \textbf{REHAB24-6 Cohort (Controlled Laboratory)}: $n = 9$ subjects, $98$ processed repetitions ($72$ correct, $26$ incorrect), recorded in a controlled laboratory setting with correctness labeled by expert clinical observers based on form deviations (excessive squat depth and rapid loading).
+\end{enumerate}
+
+\subsection{Kinematic Coordinate Convention}
+\label{sec:4-1-1-kinematic-coordinate-convention}
+
+Squats in this chapter use the \textbf{included-angle convention} ($\approx 180^\circ$ = full standing extension; smaller values = deeper flexion), defined as:
+\begin{equation}
+  \theta_{\text{included}} = 180.0^\circ - \theta_{\text{clinical\_flexion}}
+  \label{eq:disp1}
+\end{equation}
+This differs from the clinical flexion convention used in the drop-jump validation (Chapter 6). Raw angular values are not directly comparable across chapters; the uncertainty framework (Chapter 8) transfers validated projection error variances ($\sigma^2_{\text{proj}}$) rather than raw coordinates.
+
+\subsection{Knee-Flexion Biomarkers}
+\label{sec:4-1-2-knee-flexion-biomarkers}
+
+For each squat repetition, the following knee-flexion biomarkers were extracted from the smoothed sagittal-view trajectory:
+\begin{enumerate}
+  \item \textbf{Peak Flexion Angle ($^\circ$)}: The minimum included knee angle reached during the repetition, representing the deepest point of the squat.
+  \item \textbf{Range of Motion (ROM, $^\circ$)}: The angular excursion computed as the difference between the peak extension angle at standing and the peak flexion angle at the squat bottom.
+  \item \textbf{Descent Duration (frames)}: The frame count of the eccentric descent phase (from movement initiation to peak flexion).
+  \item \textbf{Ascent Duration (frames)}: The frame count of the concentric ascent phase (from peak flexion to return to standing).
+  \item \textbf{Peak/Mean Descent Velocity ($^\circ$/frame)}: The maximum and average rate of change of the included angle during the descent phase.
+  \item \textbf{Peak/Mean Ascent Velocity ($^\circ$/frame)}: The maximum and average rate of change of the included angle during the ascent phase.
+  \item \textbf{Jerk Proxy Standard Deviation}: The standard deviation of the third time-derivative of the knee flexion trajectory, serving as a proxy for movement roughness and neuromuscular control.
+\end{enumerate}
+
+
+
+\section{Headline Screening Findings (Form Discrimination)}
+\label{sec:4-2-headline-screening-findings-form-discrimination}
+
+
+Statistical comparison between correct ($n = 72$) and incorrect ($n = 26$) squat repetitions in the REHAB24-6 cohort demonstrated that incorrect form was characterized by \textbf{excessive knee flexion depth, a faster descent phase, and a rougher (jerkier) movement profile}. Table 4.1 summarizes group means, standard deviations, Cohen's $d$ effect sizes, and bootstrapped 95\% confidence intervals (CIs).
+
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Correct vs. Incorrect Squat Kinematic Comparison ($n = 98$ reps)}
+\label{tab:table-4-1-correct-vs-incorrect-squat-kinematic-comparison-reps}
+\begin{tabular}{p{4.2cm} c c c c p{4.0cm}}
+\hline
+\textbf{Biomarker} & \textbf{Correct Mean} ($n=72$) & \textbf{Incorrect Mean} ($n=26$) & \textbf{Cohen's $d$} & \textbf{95\% CI} & \textbf{Verdict} \\
+\hline
+\textbf{Peak Flexion ($^\circ$)} & $60.85^\circ \pm 12.72^\circ$ & $41.14^\circ \pm 6.20^\circ$ & $+1.7306$ & $[1.2438, 2.4726]$ & \textbf{Highly Discriminative} \\
+\textbf{ROM ($^\circ$)} & $111.19^\circ \pm 18.06^\circ$ & $134.31^\circ \pm 7.23^\circ$ & $-1.4484$ & $[-2.2198, -1.0052]$ & \textbf{Highly Discriminative} \\
+\textbf{Peak Descent Velocity ($^\circ$/fr)} & $-5.85^\circ \pm 1.75^\circ$ & $-7.24^\circ \pm 1.52^\circ$ & $+0.8216$ & $[0.1385, 1.7403]$ & \textbf{Discriminative} \\
+\textbf{Mean Descent Velocity ($^\circ$/fr)} & $-2.23^\circ \pm 0.74^\circ$ & $-2.77^\circ \pm 0.54^\circ$ & $+0.7768$ & $[0.1855, 1.5539]$ & \textbf{Discriminative} \\
+\textbf{Jerk Proxy SD} & $0.75 \pm 0.19$ & $0.85 \pm 0.15$ & $-0.5319$ & $[-1.3246, -0.0325]$ & \textbf{Discriminative} \\
+\textbf{Peak Ascent Velocity ($^\circ$/fr)} & $6.86^\circ \pm 2.22^\circ$ & $7.91^\circ \pm 1.54^\circ$ & $-0.5049$ & $[-1.4838, 0.0848]$ & \textbf{Non-Discriminative} (CI crosses zero) \\
+\textbf{Mean Ascent Velocity ($^\circ$/fr)} & $2.33^\circ \pm 0.88^\circ$ & $2.73^\circ \pm 0.46^\circ$ & $-0.4996$ & $[-1.7017, 0.1301]$ & \textbf{Non-Discriminative} (CI crosses zero) \\
+\textbf{Descent Duration (frames)} & $49.60 \pm 13.98$ & $47.50 \pm 9.51$ & $+0.1657$ & N/A & \textbf{Non-Discriminative} \\
+\textbf{Ascent Duration (frames)} & $50.85 \pm 14.01$ & $47.96 \pm 6.51$ & $+0.2289$ & N/A & \textbf{Non-Discriminative} \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Flexion Depth and Joint Excursion}
+\label{sec:4-2-1-flexion-depth-and-joint-excursion}
+
+Incorrect repetitions reached a mean peak included angle of $\mathbf{41.14^\circ \pm 6.20^\circ}$, compared to $\mathbf{60.85^\circ \pm 12.72^\circ}$ for correct repetitions — a large effect ($d = 1.7306$, 95\% CI: $[1.2438, 2.4726]$). The deeper descent position directly enlarged joint excursion: incorrect squats had a mean ROM of $\mathbf{134.31^\circ \pm 7.23^\circ}$ versus $\mathbf{111.19^\circ \pm 18.06^\circ}$ for correct repetitions ($d = -1.4484$, 95\% CI: $[-2.2198, -1.0052]$). The negative Cohen's $d$ for ROM is directionally consistent with the included-angle convention: because incorrect squats achieved a deeper bottom position (smaller peak included angle), the total joint excursion from standing to the bottom was substantially larger, with the correct group mean ($111.19^\circ$) being smaller than the incorrect group mean ($134.31^\circ$). This relationship directly triggers the \texttt{EXCESS\_ROM} screening rule.
+
+\subsection{Descent-Phase Temporal Localization}
+\label{sec:4-2-2-descent-phase-temporal-localization}
+
+A key finding is that form discrimination is heavily localized to the eccentric descent phase. Peak descent velocity was $-7.24^\circ/\text{frame} \pm 1.52^\circ/\text{frame}$ for incorrect versus $-5.85^\circ/\text{frame} \pm 1.75^\circ/\text{frame}$ for correct repetitions ($d = 0.8216$, 95\% CI: $[0.1385, 1.7403]$); mean descent velocity showed a comparable pattern ($-2.77^\circ/\text{frame} \pm 0.54^\circ/\text{frame}$ vs. $-2.23^\circ/\text{frame} \pm 0.74^\circ/\text{frame}$; $d = 0.7768$, 95\% CI: $[0.1855, 1.5539]$). Velocity values are negative because the included angle decreases during descent. The positive Cohen's $d$ values ($0.8216$ and $0.7768$) reflect that the correct group's velocity was algebraically larger (i.e., closer to zero, representing a physically slower descent) than the incorrect group's velocity, which was more negative, representing a faster physical descent speed.
+
+\subsection{Non-Discriminative Ascent Phase}
+\label{sec:4-2-3-non-discriminative-ascent-phase}
+
+In direct contrast to the descent phase, the concentric ascent phase did not reliably discriminate between form groups. Both ascent metrics produced bootstrapped CIs spanning zero — peak ascent: $d = -0.5049$ ($[-1.4838, 0.0848]$); mean ascent: $d = -0.4996$ ($[-1.7017, 0.1301]$) — confirming the ascent is statistically non-discriminative for squats. This is an important cross-exercise contrast: as shown in Chapter 5, the lunge ascent phase is highly discriminative due to the concentric propulsion requirements of spring-back recovery, whereas squat ascent kinematics do not systematically differentiate movement quality.
+
+\subsection{Movement Smoothness (Jerk Proxy)}
+\label{sec:4-2-4-movement-smoothness-jerk-proxy}
+
+Incorrect repetitions exhibited a higher jerk proxy SD ($0.85 \pm 0.15$) than correct repetitions ($0.75 \pm 0.19$), with a moderate effect ($d = -0.5319$, 95\% CI: $[-1.3246, -0.0325]$). The negative $d$ sign indicates that correct repetitions were smoother; the elevated jerk in incorrect executions reflects reduced eccentric motor control and increased trajectory wobble or instability during the descent phase. Consequently, this jerk proxy serves as a robust marker for evaluating the quality of neuromotor regulation during demanding eccentric loading.
+
+
+
+\section{Cross-Cohort Consistency and Generalisation}
+\label{sec:4-3-cross-cohort-consistency-and-generalisation}
+
+
+Descriptive kinematics from the controlled REHAB24-6 cohort were compared to the in-the-wild Penn Action cohort \citep{Zhang_Penn_Action_2013}, with both producing overlapping, biomechanically plausible ranges for knee joint angles across diverse lighting, clothing, and camera conditions:
+\begin{itemize}
+  \item \textbf{Penn Action} ($n = 10$ subjects, single-rep): mean peak flexion $78.84^\circ \pm 30.76^\circ$, mean ROM $99.27^\circ \pm 31.12^\circ$, jerk proxy $1.42 \pm 0.65$.
+  \item \textbf{REHAB24-6} ($n = 98$ reps): mean peak flexion $55.62^\circ \pm 14.31^\circ$, mean ROM $117.32^\circ \pm 18.91^\circ$, jerk proxy $0.78 \pm 0.18$.
+\end{itemize}
+
+\subsection{Cohort-Level Biomechanical Differences}
+\label{sec:4-3-1-cohort-level-biomechanical-differences}
+
+REHAB24-6 shows systematically deeper peak flexion ($55.62^\circ$ vs. $78.84^\circ$) and larger ROM ($117.32^\circ$ vs. $99.27^\circ$), reflecting laboratory instructions to perform deep squats and deliberately introduce form errors. Penn Action sequences represent unconstrained real-world execution, where squat depth is typically self-selected and more restricted. The elevated Penn Action jerk proxy ($1.42 \pm 0.65$ vs. $0.78 \pm 0.18$) reflects increased tracking noise from compressed in-the-wild video footage rather than poorer neuromuscular control.
+
+\subsection{Methodological Role of Generalisation}
+\label{sec:4-3-2-methodological-role-of-generalisation}
+
+This cross-cohort comparison is a \textbf{reproducibility finding}: the pipeline generates biologically plausible kinematics across widely differing recording environments and confirms that the extraction pipeline is not artificially tuned to laboratory conditions. Cohort consistency does not, however, establish tracking accuracy. Absolute accuracy is quantified in Chapter 6, where single-camera values are compared directly against optoelectronic and force-plate ground truth.
+
+
+
+\section{Discussion and Clinical Screening Guardrails}
+\label{sec:4-4-discussion-and-clinical-screening-guardrails}
+
+
+The kinematic signature identified in the REHAB24-6 cohort — characterized by deeper knee flexion, a faster eccentric descent phase, and an elevated jerk proxy — carries important biomechanical implications for injury risk screening.
+
+\subsection{Clinical Risk Interpretation}
+\label{sec:4-4-1-clinical-risk-interpretation}
+
+The identified signature — deep knee flexion, rapid eccentric descent, and elevated jerk — reflects an eccentric control deficit in which the subject relies on passive osteoligamentous structures rather than active musculature to arrest momentum at the squat bottom. Rapid descent increases patellofemoral joint reaction forces and tibiofemoral shear stress \citep{Powers_2003}; deep flexion past parallel ($\theta_{\text{included}} < 60^\circ$) under dynamic loading amplifies patellofemoral compressive stress \citep{Wallace_2002}; and elevated jerk reflects neuromuscular instability and compensatory movement adjustments \citep{Farrokhi_2008}.
+
+\subsection{Screening-not-Prediction Framing}
+\label{sec:4-4-2-screening-not-prediction-framing}
+
+This framework is a \textbf{kinematic screening layer} that identifies deviations from a subject's own movement baseline — it does not diagnose clinical pathology or predict statistical injury probability. The framework flags kinematic patterns that are biomechanically associated with elevated risk per published literature; inferring clinical injury outcomes requires longitudinal data with prospective injury endpoints, which lies outside the scope of this study.
+
+
+
+\section{Limitations}
+\label{sec:4-5-limitations}
+
+
+\begin{enumerate}
+  \item \textbf{Small Incorrect Sample Size}: Only $n = 26$ incorrect repetitions limits the statistical power of the bootstrapped CIs, particularly for the moderate-effect biomarkers (descent velocities, jerk proxy).
+  \item \textbf{Sagittal-Plane Restriction}: Monocular tracking cannot resolve out-of-plane kinematics. Critical injury-associated movements — knee valgus (coronal plane projection) and tibial rotation (transverse plane) — are invisible to a single sagittal camera and cannot be captured in this framework.
+  \item \textbf{Error Heterogeneity}: The "incorrect" label pooled multiple deviation types (excessive depth, rapid descent, knee-wobble). Separating specific error sub-types requires a larger, multi-class cohort.
+  \item \textbf{Reproducibility-vs-Accuracy}: Cross-cohort generalisation does not validate tracking accuracy. The single-camera pipeline's systematic overestimation bias at deep flexion ($+10.52^\circ$ timing-clean, $+19.72^\circ$ peak-to-peak) must be applied when evaluating absolute joint angles.
+\end{enumerate}
+
+
+
+\section{Figures and Provenance}
+\label{sec:4-6-figures}
+The following publication-ready figures support this chapter.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.92\textwidth]{fig4_1_correct_vs_incorrect.png}
+  \caption{Knee Flexion Angle Distributions --- Correct vs.\ Incorrect. Histograms of peak flexion and ROM for correct ($n=72$) and incorrect ($n=26$) squat repetitions, illustrating the deep-flexion shift in incorrect executions.}
+  \label{fig:squat-distributions}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.92\textwidth]{fig4_2_effect_sizes.png}
+  \caption{Forest Plot of Cohen's $d$ Effect Sizes and 95\% Confidence Intervals for all squat biomarkers. Discriminative descent metrics and non-discriminative ascent metrics are clearly separated.}
+  \label{fig:squat-effect-sizes}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.92\textwidth]{fig4_3_cross_cohort.png}
+  \caption{Cross-Cohort Kinematic Distribution Comparison. Overlay of Penn Action ($n=10$ subjects) \citep{Zhang_Penn_Action_2013} and REHAB24-6 ($n=98$ reps) joint angle distributions, demonstrating biomechanical range generalisation.}
+  \label{fig:squat-cross-cohort}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.92\textwidth]{fig4_4_trajectories.png}
+  \caption{Representative Correct vs.\ Incorrect Knee Flexion Trajectories. Time-series overlay of a correct (Subject 1, rep 2, 121 frames) and incorrect (Subject 1, rep 17, 91 frames) squat repetition, illustrating the rapid eccentric descent and excessive depth in the incorrect execution.}
+  \label{fig:squat-trajectories}
+\end{figure}
