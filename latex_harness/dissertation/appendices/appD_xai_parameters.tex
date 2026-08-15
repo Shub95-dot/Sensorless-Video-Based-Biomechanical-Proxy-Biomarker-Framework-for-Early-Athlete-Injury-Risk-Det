@@ -24,27 +24,27 @@ Because the XAI engine calculates counterfactual margins directly from the scree
 \label{sec:c-2-verification-cross-check-table}
 
 
-Table C.1 presents the side-by-side parameter verification for Repetition 6 of Squat Subject 8 (\texttt{PM\_113}) and Lunge Subject 6 (\texttt{PM\_104}).
+Table D.1 presents the side-by-side parameter verification for Repetition 6 of Squat Subject 8 (\texttt{PM\_113}) and Lunge Subject 6 (\texttt{PM\_104}).
 
-\begin{landscape}
 \begin{table}[htbp]
 \centering
-\small
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.2}
 \caption{Step 10 Screening vs.\ Step 11 XAI Parameter Cross-Check (Repetition 6)}
 \label{tab:xai-parameter-cross-check}
-\begin{tabular}{l l c c c c c}
+\begin{tabular}{@{}p{2.1cm} p{2.1cm} >{\centering\arraybackslash}p{2.0cm} >{\centering\arraybackslash}p{2.0cm} >{\centering\arraybackslash}p{2.0cm} >{\centering\arraybackslash}p{2.0cm} >{\centering\arraybackslash}p{2.1cm}@{}}
 \hline
 \textbf{Subject (Trial)} & \textbf{Biomarker / Rule} & \textbf{Step 10 Screening Value} & \textbf{Step 11 Explanation Value} & \textbf{Calculated Margin (Step 10)} & \textbf{Rendered Margin (Step 11)} & \textbf{Faithfulness Agreement} \\
 \hline
-\textbf{PM\_113 (Squat)} & Peak Flexion & $43.2178^\circ$ & $43.22^\circ$ & $17.7703^\circ$ & $17.77^\circ$ & \textbf{Exact Match} \\
- & ROM & $136.4995^\circ$ & $136.50^\circ$ & $7.8325^\circ$ & $7.83^\circ$ & \textbf{Exact Match} \\
- & Descent Velocity & $110.6160^\circ/\text{s}$ & $110.62^\circ/\text{s}$ & $19.8195^\circ/\text{s}$ & $19.82^\circ/\text{s}$ & \textbf{Exact Match} \\
-\textbf{PM\_104 (Lunge)} & Peak Flexion & $59.1212^\circ$ & $59.12^\circ$ & $13.5540^\circ$ & $13.55^\circ$ & \textbf{Exact Match} \\
- & ROM & $117.2779^\circ$ & $117.28^\circ$ & $17.3306^\circ$ & $17.33^\circ$ & \textbf{Exact Match} \\
- & Descent Velocity & $59.9580^\circ/\text{s}$ & N/A (Not Fired) & $0.0000^\circ/\text{s}$ & N/A (Not Fired) & \textbf{Exact Match} \\
+PM\_113 (Squat) & Peak Flexion & $43.2178^\circ$ & $43.22^\circ$ & $17.7703^\circ$ & $17.77^\circ$ & Exact Match \\
+ & ROM & $136.4995^\circ$ & $136.50^\circ$ & $7.8325^\circ$ & $7.83^\circ$ & Exact Match \\
+ & Descent Vel. & $110.6160^\circ/\text{s}$ & $110.62^\circ/\text{s}$ & $19.8195^\circ/\text{s}$ & $19.82^\circ/\text{s}$ & Exact Match \\
+PM\_104 (Lunge) & Peak Flexion & $59.1212^\circ$ & $59.12^\circ$ & $13.5540^\circ$ & $13.55^\circ$ & Exact Match \\
+ & ROM & $117.2779^\circ$ & $117.28^\circ$ & $17.3306^\circ$ & $17.33^\circ$ & Exact Match \\
+ & Descent Vel. & $59.9580^\circ/\text{s}$ & N/A (Not Fired) & $0.0000^\circ/\text{s}$ & N/A (Not Fired) & Exact Match \\
 \hline
 \end{tabular}
 \end{table}
-\end{landscape}
 
 The cross-check demonstrates a mathematically exact match across all tracked parameters and derived margins, confirming that the counterfactual explanation layer operates with 100\% faithfulness to the underlying screening boundaries, with variations limited strictly to formatting display rounding.

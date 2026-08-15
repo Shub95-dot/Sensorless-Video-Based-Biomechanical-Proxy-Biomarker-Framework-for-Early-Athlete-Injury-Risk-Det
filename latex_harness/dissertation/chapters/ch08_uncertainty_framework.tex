@@ -34,7 +34,7 @@ To prevent misinterpretation, we establish strict scope boundaries for this fram
 \label{sec:8-2-uncertainty-source-and-variance-conversion}
 
 
-The source of truth for measurement uncertainty is the drop-jump cohort validation agreement table ([phase6\_agreement\_final.csv](file:///c:/Users/shiro/OneDrive/Desktop/Python\%20files/BIOMECHANICAL\%20ANALYSIS\%20OF\%20INJURY/16\_opencap\_dropjump\_outputs/metadata/phase6\_agreement\_final.csv)), validating $n = 48$ drop-jump trials across $9$ subjects.
+The source of truth for measurement uncertainty is the drop-jump cohort validation agreement table (\texttt{phase6\_agreement\_final.csv}), validating $n = 48$ drop-jump trials across $8$ subjects.
 
 \subsection{Converted Biomarker Variances}
 \label{sec:8-2-1-converted-biomarker-variances}
@@ -172,24 +172,24 @@ These bounds represent the markerless system's validated physical measurement pr
 Table 8.1 presents raw video measurements alongside validated uncertainty bounds and normalized weights:
 
 
-\begin{landscape}
 \begin{table}[htbp]
 \centering
-\small
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.2}
 \caption{Worked Example Repetitions for Squat and Lunge Modalities}
 \label{tab:table-8-1-worked-example-repetitions-for-squat-and-lunge-modalities}
-\begin{tabular}{l c c c c c c c}
+\begin{tabular}{@{}p{1.3cm} >{\centering\arraybackslash}p{1.4cm} >{\centering\arraybackslash}p{0.8cm} >{\centering\arraybackslash}p{1.4cm} >{\centering\arraybackslash}p{2.2cm} >{\centering\arraybackslash}p{2.2cm} >{\centering\arraybackslash}p{2.2cm} >{\centering\arraybackslash}p{2.3cm}@{}}
 \hline
 \textbf{Exercise} & \textbf{Video ID} & \textbf{Rep} & \textbf{Form} & \textbf{Start Flexion} ($^\circ$) & \textbf{Peak Flexion} ($^\circ$) & \textbf{ROM} ($^\circ$) & \textbf{Velocity} ($^\circ$/s) \\
 \hline
-\textbf{Squat} & \texttt{PM\_008} & 2 & Correct & $0.82^\circ \pm 19.05^\circ$ & $62.16^\circ \pm 11.99^\circ$ & $117.02^\circ \pm 23.17^\circ$ & $58.51^\circ/\text{s} \pm 40.86^\circ/\text{s}$ \\
-\textbf{Squat} & \texttt{PM\_008} & 17 & Incorrect & $2.23^\circ \pm 19.05^\circ$ & $50.03^\circ \pm 11.99^\circ$ & $127.73^\circ \pm 23.17^\circ$ & $105.18^\circ/\text{s} \pm 40.86^\circ/\text{s}$ \\
-\textbf{Lunge} & \texttt{PM\_021} & 2 & Correct & $21.42^\circ \pm 19.05^\circ$ & $83.53^\circ \pm 11.99^\circ$ & $75.05^\circ \pm 23.17^\circ$ & $27.12^\circ/\text{s} \pm 40.86^\circ/\text{s}$ \\
-\textbf{Lunge} & \texttt{PM\_021} & 7 & Incorrect & $18.51^\circ \pm 19.05^\circ$ & $54.65^\circ \pm 11.99^\circ$ & $106.84^\circ \pm 23.17^\circ$ & $69.57^\circ/\text{s} \pm 40.86^\circ/\text{s}$ \\
+Squat & \texttt{PM\_008} & 2 & Correct & $0.82^\circ \pm 19.05^\circ$ & $62.16^\circ \pm 11.99^\circ$ & $117.02^\circ \pm 23.17^\circ$ & $58.51^\circ/\text{s} \pm 40.86^\circ/\text{s}$ \\
+Squat & \texttt{PM\_008} & 17 & Incorrect & $2.23^\circ \pm 19.05^\circ$ & $50.03^\circ \pm 11.99^\circ$ & $127.73^\circ \pm 23.17^\circ$ & $105.18^\circ/\text{s} \pm 40.86^\circ/\text{s}$ \\
+Lunge & \texttt{PM\_021} & 2 & Correct & $21.42^\circ \pm 19.05^\circ$ & $83.53^\circ \pm 11.99^\circ$ & $75.05^\circ \pm 23.17^\circ$ & $27.12^\circ/\text{s} \pm 40.86^\circ/\text{s}$ \\
+Lunge & \texttt{PM\_021} & 7 & Incorrect & $18.51^\circ \pm 19.05^\circ$ & $54.65^\circ \pm 11.99^\circ$ & $106.84^\circ \pm 23.17^\circ$ & $69.57^\circ/\text{s} \pm 40.86^\circ/\text{s}$ \\
 \hline
 \end{tabular}
 \end{table}
-\end{landscape}
 
 This demonstration highlights how the framework down-weights joint velocity ($4.92\%$) relative to peak flexion depth ($57.15\%$). Peak depth deviations are characterized with high confidence (narrower CI of $\pm 11.99^\circ$), whereas velocity deviations carry wider relative uncertainty ($\pm 40.86^\circ/\text{s}$).
 Figure 8.1 illustrates the worked example of the uncertainty-weighted biomarker framework across the four biomarkers.
@@ -211,7 +211,7 @@ Figure 8.1 illustrates the worked example of the uncertainty-weighted biomarker 
 The theoretical prediction of peak flexion dominance ($57.15\%$ weight) is independently confirmed by two subsequent empirical chapters:
 \begin{enumerate}
   \item \textbf{Personalised Longitudinal Baselines (Chapter 9)}: Repetition-level screening gating demonstrated that screening triggers are overwhelmingly driven by peak flexion deviations beyond the tight $\pm 11.99^\circ$ noise floor, while velocity remains quiet due to its broad $\pm 40.86^\circ/\text{s}$ floor.
-  \item \textbf{Temporal Sequence Models (Chapter 10)}: Leave-One-Subject-Out (LOSO) cross-validation established that peak flexion alone achieves optimal classification performance ($81.36\%$ squat / $81.50\%$ lunge balanced accuracy), outperforming complex trajectory shape models.
+  \item \textbf{Temporal Sequence Models (Chapter 13)}: Leave-One-Subject-Out (LOSO) cross-validation established that peak flexion alone achieves optimal classification performance ($81.36\%$ squat / $81.50\%$ lunge balanced accuracy), outperforming complex trajectory shape models.
 \end{enumerate}
 
 

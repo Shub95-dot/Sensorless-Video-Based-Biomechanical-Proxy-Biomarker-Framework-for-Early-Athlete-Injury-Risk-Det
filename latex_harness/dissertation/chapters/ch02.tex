@@ -5,7 +5,14 @@
 % STATUS: converted from markdown
 % NOTE: [source:] tags stripped per ASSEMBLY_PLAN.md (harvested to appF)
 
-This chapter describes the research design, data pipelines, validation methodologies, and analytical frameworks developed to implement the markerless kinematic screening and explainable baseline tracking systems. The methodology is structured in three core layers: a physical pose estimation and validation layer (Track~A Core), an uncertainty-weighting framework (Track~B Transfer), and a personalised progression and explainable screening layer (Track~A XAI). The framework is designed and validated strictly as a kinematic screening system to characterize biomechanical execution deviations from baseline states; it does not classify, predict, or diagnose physical injury risk, nor does it require longitudinal injury-outcome data.
+This chapter describes the research design, data pipelines, validation methodologies, and analytical frameworks developed to implement the markerless kinematic screening and explainable baseline tracking systems. The methodology is structured in three core layers: a physical pose estimation and validation layer (Track~A Core), an uncertainty-weighting framework (Track~B Transfer), and a personalised progression and explainable screening layer (Track~A XAI). The framework is designed and validated strictly as a kinematic screening system to characterize biomechanical execution deviations from baseline states; it does not classify, predict, or diagnose physical injury risk, nor does it require longitudinal injury-outcome data. Figure 2.1 summarises the end-to-end workflow.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.95\textwidth]{fig2_1_workflow.png}
+  \caption{End-to-End Kinematic Screening Workflow. Consumer-grade monocular video is processed through six stages: data acquisition across three cohorts, preprocessing and pose-quality filtering, kinematic biomarker extraction, the deterministic screening architecture with its secondary comparator branch, validation against optoelectronic ground truth, and screening outputs. The framework performs kinematic screening and does not predict clinical injury.}
+  \label{fig:workflow-overview}
+\end{figure}
 
 
 % ================================================================

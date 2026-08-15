@@ -86,19 +86,20 @@ Discarding motion variance $\sigma^2_{\text{mot}}$ for slow exercises, raw proje
 \label{sec:a-4-sensitivity-analysis-of-assumed-variance-splits}
 
 
-A $3 \times 3$ grid sweep across 9 configurations evaluated framework stability. Table A.1 summarizes the sensitivity results.
+A $3 \times 3$ grid sweep across 9 configurations evaluated framework stability. Table B.1 summarizes the sensitivity results.
 
-\begin{landscape}
 \begin{table}[htbp]
 \centering
-\small
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.2}
 \caption{Sensitivity Sweep of Assumed Variance Splits Across 9 Configurations}
 \label{tab:sensitivity-sweep}
-\begin{tabular}{c c c c c c c c}
+\begin{tabular}{@{}p{1.2cm} >{\centering\arraybackslash}p{2.0cm} >{\centering\arraybackslash}p{2.2cm} >{\centering\arraybackslash}p{1.6cm} >{\centering\arraybackslash}p{1.6cm} >{\centering\arraybackslash}p{1.6cm} >{\centering\arraybackslash}p{1.6cm} >{\centering\arraybackslash}p{1.6cm}@{}}
 \hline
-\textbf{Config} & \textbf{Contact Split (Proj/Mot)} & \textbf{Loading Rate Split (Proj/Mot)} & \textbf{Peak Weight} & \textbf{Start Weight} & \textbf{ROM Weight} & \textbf{Velocity Weight} & \textbf{Hierarchy Stable?} \\
+\textbf{Config} & \textbf{Contact Split (Proj/Mot)} & \textbf{Loading Rate Split (Proj/Mot)} & \textbf{Peak Weight} & \textbf{Start Weight} & \textbf{ROM Weight} & \textbf{Vel. Weight} & \textbf{Hierarchy Stable?} \\
 \hline
-\textbf{Baseline} & \textbf{90 / 10} & \textbf{10 / 90} & \textbf{57.15\%} & \textbf{22.63\%} & \textbf{15.30\%} & \textbf{4.92\%} & \textbf{YES} \\
+Baseline & 90 / 10 & 10 / 90 & 57.15\% & 22.63\% & 15.30\% & 4.92\% & YES \\
 C1 & 90 / 10 & 20 / 80 & 54.80\% & 21.70\% & 14.67\% & 8.83\% & YES \\
 C2 & 90 / 10 & 5 / 95 & 58.40\% & 23.13\% & 15.63\% & 2.58\% & YES \\
 C3 & 80 / 20 & 10 / 90 & 55.70\% & 24.64\% & 14.73\% & 4.93\% & YES \\
@@ -110,6 +111,5 @@ C8 & 70 / 30 & 5 / 95 & 55.14\% & 27.53\% & 14.39\% & 2.94\% & YES \\
 \hline
 \end{tabular}
 \end{table}
-\end{landscape}
 
 Across all configurations, the weighting hierarchy remains invariant: Peak Flexion ($51.93\%\text{--}58.40\%$) > Start Flexion ($21.70\%\text{--}27.53\%$) > ROM ($13.55\%\text{--}15.63\%$) > Joint Velocity ($2.58\%\text{--}8.83\%$). Maximum weight variation is under $8.6\%$, confirming robustness to parameter choices.

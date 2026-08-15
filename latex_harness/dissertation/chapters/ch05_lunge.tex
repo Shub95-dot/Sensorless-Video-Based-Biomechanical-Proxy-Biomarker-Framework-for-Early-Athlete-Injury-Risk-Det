@@ -48,22 +48,24 @@ Incorrect lunge form was characterized by \textbf{excessive knee flexion depth, 
 
 \begin{table}[htbp]
 \centering
-\small
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.2}
 \caption{Correct vs. Incorrect Lunge Kinematic Comparison ($n = 61$ reps)}
 \label{tab:table-5-1-correct-vs-incorrect-lunge-kinematic-comparison-reps}
-\begin{tabular}{p{4.2cm} c c c c p{4.0cm}}
+\begin{tabular}{@{}p{3.1cm} >{\centering\arraybackslash}p{2.2cm} >{\centering\arraybackslash}p{2.2cm} >{\centering\arraybackslash}p{1.0cm} >{\centering\arraybackslash}p{2.3cm} p{3.4cm}@{}}
 \hline
 \textbf{Biomarker} & \textbf{Correct Mean} ($n=25$) & \textbf{Incorrect Mean} ($n=36$) & \textbf{Cohen's $d$} & \textbf{95\% CI} & \textbf{Verdict} \\
 \hline
-\textbf{Peak Flexion ($^\circ$)} & $89.66^\circ \pm 8.33^\circ$ & $68.03^\circ \pm 15.11^\circ$ & $+1.6904$ & $[0.8317, 3.4525]$ & \textbf{Highly Discriminative} \\
-\textbf{ROM ($^\circ$)} & $59.02^\circ \pm 20.94^\circ$ & $90.30^\circ \pm 27.00^\circ$ & $-1.2653$ & $[-2.8682, -0.5852]$ & \textbf{Highly Discriminative} \\
-\textbf{Peak Descent Velocity ($^\circ$/fr)} & $-2.87^\circ \pm 0.80^\circ$ & $-5.31^\circ \pm 2.68^\circ$ & $+1.1453$ & $[0.7512, 2.0354]$ & \textbf{Highly Discriminative} \\
-\textbf{Mean Descent Velocity ($^\circ$/fr)} & $-1.01^\circ \pm 0.28^\circ$ & $-1.75^\circ \pm 0.80^\circ$ & $+1.1563$ & $[0.2863, 2.6316]$ & \textbf{Highly Discriminative} \\
-\textbf{Jerk Proxy SD} & $0.46 \pm 0.11$ & $1.07 \pm 0.78$ & $-1.0070$ & $[-1.3663, -0.6526]$ & \textbf{Highly Discriminative} \\
-\textbf{Peak Ascent Velocity ($^\circ$/fr)} & $3.85^\circ \pm 1.57^\circ$ & $6.95^\circ \pm 3.93^\circ$ & $-0.9721$ & $[-1.6403, -0.6554]$ & \textbf{Discriminative} \\
-\textbf{Mean Ascent Velocity ($^\circ$/fr)} & $1.26^\circ \pm 0.47^\circ$ & $1.87^\circ \pm 0.91^\circ$ & $-0.7962$ & $[-2.0731, -0.0807]$ & \textbf{Discriminative (Marginal)} \\
-\textbf{Peak Extension ($^\circ$)} & $148.68^\circ \pm 18.09^\circ$ & $158.33^\circ \pm 20.25^\circ$ & $-0.4972$ & $[-1.7633, 0.1533]$ & \textbf{Non-Discriminative} (CI crosses zero) \\
-\textbf{Tempo Ratio} & $0.88 \pm 0.28$ & $1.04 \pm 0.47$ & $-0.3796$ & $[-0.7240, 0.1386]$ & \textbf{Non-Discriminative (Precise Null)} \\
+Peak Flexion ($^\circ$) & $89.66^\circ \pm 8.33^\circ$ & $68.03^\circ \pm 15.11^\circ$ & $+1.6904$ & $[0.8317, 3.4525]$ & Highly Discriminative \\
+ROM ($^\circ$) & $59.02^\circ \pm 20.94^\circ$ & $90.30^\circ \pm 27.00^\circ$ & $-1.2653$ & $[-2.8682, -0.5852]$ & Highly Discriminative \\
+Peak Descent Vel. ($^\circ$/fr) & $-2.87^\circ \pm 0.80^\circ$ & $-5.31^\circ \pm 2.68^\circ$ & $+1.1453$ & $[0.7512, 2.0354]$ & Highly Discriminative \\
+Mean Descent Vel. ($^\circ$/fr) & $-1.01^\circ \pm 0.28^\circ$ & $-1.75^\circ \pm 0.80^\circ$ & $+1.1563$ & $[0.2863, 2.6316]$ & Highly Discriminative \\
+Jerk Proxy SD & $0.46 \pm 0.11$ & $1.07 \pm 0.78$ & $-1.0070$ & $[-1.3663, -0.6526]$ & Highly Discriminative \\
+Peak Ascent Vel. ($^\circ$/fr) & $3.85^\circ \pm 1.57^\circ$ & $6.95^\circ \pm 3.93^\circ$ & $-0.9721$ & $[-1.6403, -0.6554]$ & Discriminative \\
+Mean Ascent Vel. ($^\circ$/fr) & $1.26^\circ \pm 0.47^\circ$ & $1.87^\circ \pm 0.91^\circ$ & $-0.7962$ & $[-2.0731, -0.0807]$ & Discriminative (Marginal) \\
+Peak Extension ($^\circ$) & $148.68^\circ \pm 18.09^\circ$ & $158.33^\circ \pm 20.25^\circ$ & $-0.4972$ & $[-1.7633, 0.1533]$ & Non-Discriminative (CI crosses zero) \\
+Tempo Ratio & $0.88 \pm 0.28$ & $1.04 \pm 0.47$ & $-0.3796$ & $[-0.7240, 0.1386]$ & Non-Discriminative (Precise Null) \\
 \hline
 \end{tabular}
 \end{table}
@@ -150,7 +152,7 @@ The following publication-ready figures support this chapter.
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.92\textwidth]{fig5_1_correct_vs_incorrect.png}
-  \caption{Knee Flexion Angle Distributions --- Correct vs.\ Incorrect Lunges. Histograms of peak flexion and ROM for correct ($n=36$) and incorrect ($n=25$) lunge repetitions across the REHAB24-6 cohort.}
+  \caption{Lunge Biomarker Form Discrimination --- Correct vs.\ Incorrect. Multi-panel comparison of peak flexion, ROM, descent/ascent velocity, jerk proxy SD, and related biomarkers for correct ($n = 25$) and incorrect ($n = 36$) lunge repetitions across the REHAB24-6 cohort.}
   \label{fig:lunge-distributions}
 \end{figure}
 
@@ -164,7 +166,7 @@ The following publication-ready figures support this chapter.
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.92\textwidth]{fig5_3_cross_exercise.png}
-  \caption{Cross-Exercise Kinematic Distribution Comparison. Overlay of squat and lunge joint angle distributions, demonstrating task-specific kinematic signatures and exercise-level generalisation.}
+  \caption{Cross-Exercise Biomarker Effect-Size Comparison. Squat and lunge Cohen's $d$ effect sizes and 95\% confidence intervals, highlighting task-specific kinematic signatures and exercise-level generalisation.}
   \label{fig:lunge-cross-exercise}
 \end{figure}
 

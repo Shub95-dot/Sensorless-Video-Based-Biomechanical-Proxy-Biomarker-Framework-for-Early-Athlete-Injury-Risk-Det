@@ -56,22 +56,24 @@ Statistical comparison between correct ($n = 72$) and incorrect ($n = 26$) squat
 
 \begin{table}[htbp]
 \centering
-\small
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.2}
 \caption{Correct vs. Incorrect Squat Kinematic Comparison ($n = 98$ reps)}
 \label{tab:table-4-1-correct-vs-incorrect-squat-kinematic-comparison-reps}
-\begin{tabular}{p{4.2cm} c c c c p{4.0cm}}
+\begin{tabular}{@{}p{3.1cm} >{\centering\arraybackslash}p{2.2cm} >{\centering\arraybackslash}p{2.2cm} >{\centering\arraybackslash}p{1.0cm} >{\centering\arraybackslash}p{2.3cm} p{3.4cm}@{}}
 \hline
 \textbf{Biomarker} & \textbf{Correct Mean} ($n=72$) & \textbf{Incorrect Mean} ($n=26$) & \textbf{Cohen's $d$} & \textbf{95\% CI} & \textbf{Verdict} \\
 \hline
-\textbf{Peak Flexion ($^\circ$)} & $60.85^\circ \pm 12.72^\circ$ & $41.14^\circ \pm 6.20^\circ$ & $+1.7306$ & $[1.2438, 2.4726]$ & \textbf{Highly Discriminative} \\
-\textbf{ROM ($^\circ$)} & $111.19^\circ \pm 18.06^\circ$ & $134.31^\circ \pm 7.23^\circ$ & $-1.4484$ & $[-2.2198, -1.0052]$ & \textbf{Highly Discriminative} \\
-\textbf{Peak Descent Velocity ($^\circ$/fr)} & $-5.85^\circ \pm 1.75^\circ$ & $-7.24^\circ \pm 1.52^\circ$ & $+0.8216$ & $[0.1385, 1.7403]$ & \textbf{Discriminative} \\
-\textbf{Mean Descent Velocity ($^\circ$/fr)} & $-2.23^\circ \pm 0.74^\circ$ & $-2.77^\circ \pm 0.54^\circ$ & $+0.7768$ & $[0.1855, 1.5539]$ & \textbf{Discriminative} \\
-\textbf{Jerk Proxy SD} & $0.75 \pm 0.19$ & $0.85 \pm 0.15$ & $-0.5319$ & $[-1.3246, -0.0325]$ & \textbf{Discriminative} \\
-\textbf{Peak Ascent Velocity ($^\circ$/fr)} & $6.86^\circ \pm 2.22^\circ$ & $7.91^\circ \pm 1.54^\circ$ & $-0.5049$ & $[-1.4838, 0.0848]$ & \textbf{Non-Discriminative} (CI crosses zero) \\
-\textbf{Mean Ascent Velocity ($^\circ$/fr)} & $2.33^\circ \pm 0.88^\circ$ & $2.73^\circ \pm 0.46^\circ$ & $-0.4996$ & $[-1.7017, 0.1301]$ & \textbf{Non-Discriminative} (CI crosses zero) \\
-\textbf{Descent Duration (frames)} & $49.60 \pm 13.98$ & $47.50 \pm 9.51$ & $+0.1657$ & N/A & \textbf{Non-Discriminative} \\
-\textbf{Ascent Duration (frames)} & $50.85 \pm 14.01$ & $47.96 \pm 6.51$ & $+0.2289$ & N/A & \textbf{Non-Discriminative} \\
+Peak Flexion ($^\circ$) & $60.85^\circ \pm 12.72^\circ$ & $41.14^\circ \pm 6.20^\circ$ & $+1.7306$ & $[1.2438, 2.4726]$ & Highly Discriminative \\
+ROM ($^\circ$) & $111.19^\circ \pm 18.06^\circ$ & $134.31^\circ \pm 7.23^\circ$ & $-1.4484$ & $[-2.2198, -1.0052]$ & Highly Discriminative \\
+Peak Descent Vel. ($^\circ$/fr) & $-5.85^\circ \pm 1.75^\circ$ & $-7.24^\circ \pm 1.52^\circ$ & $+0.8216$ & $[0.1385, 1.7403]$ & Discriminative \\
+Mean Descent Vel. ($^\circ$/fr) & $-2.23^\circ \pm 0.74^\circ$ & $-2.77^\circ \pm 0.54^\circ$ & $+0.7768$ & $[0.1855, 1.5539]$ & Discriminative \\
+Jerk Proxy SD & $0.75 \pm 0.19$ & $0.85 \pm 0.15$ & $-0.5319$ & $[-1.3246, -0.0325]$ & Discriminative \\
+Peak Ascent Vel. ($^\circ$/fr) & $6.86^\circ \pm 2.22^\circ$ & $7.91^\circ \pm 1.54^\circ$ & $-0.5049$ & $[-1.4838, 0.0848]$ & Non-Discriminative (CI crosses zero) \\
+Mean Ascent Vel. ($^\circ$/fr) & $2.33^\circ \pm 0.88^\circ$ & $2.73^\circ \pm 0.46^\circ$ & $-0.4996$ & $[-1.7017, 0.1301]$ & Non-Discriminative (CI crosses zero) \\
+Descent Duration (frames) & $49.60 \pm 13.98$ & $47.50 \pm 9.51$ & $+0.1657$ & N/A & Non-Discriminative \\
+Ascent Duration (frames) & $50.85 \pm 14.01$ & $47.96 \pm 6.51$ & $+0.2289$ & N/A & Non-Discriminative \\
 \hline
 \end{tabular}
 \end{table}
@@ -158,7 +160,7 @@ The following publication-ready figures support this chapter.
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.92\textwidth]{fig4_1_correct_vs_incorrect.png}
-  \caption{Knee Flexion Angle Distributions --- Correct vs.\ Incorrect. Histograms of peak flexion and ROM for correct ($n=72$) and incorrect ($n=26$) squat repetitions, illustrating the deep-flexion shift in incorrect executions.}
+  \caption{Squat Biomarker Form Discrimination --- Correct vs.\ Incorrect. Multi-panel comparison of peak flexion, ROM, descent velocity, jerk proxy SD, and related biomarkers for correct ($n = 72$) and incorrect ($n = 26$) squat repetitions.}
   \label{fig:squat-distributions}
 \end{figure}
 

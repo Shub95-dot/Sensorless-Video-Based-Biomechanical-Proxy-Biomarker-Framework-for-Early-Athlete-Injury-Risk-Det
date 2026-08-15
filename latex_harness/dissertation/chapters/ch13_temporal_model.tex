@@ -14,7 +14,7 @@ This chapter presents the design, evaluation, and interpretation of temporal seq
 \label{sec:13-1-purpose-and-research-question}
 
 
-The core research question evaluated in this chapter is: \textbf{Does modeling the within-repetition frame-by-frame joint-angle trajectory shape distinguish correct from incorrect repetitions beyond what is captured by static endpoint biomarkers?}.
+The core research question evaluated in this chapter is: \textbf{Does modeling the within-repetition frame-by-frame joint-angle trajectory shape distinguish correct from incorrect repetitions beyond what is captured by static endpoint biomarkers?}
 
 We distinguish this analysis along two structural axes:
 \begin{itemize}
@@ -68,34 +68,36 @@ Crucially, three outcome scenarios were \textbf{pre-registered prior to training
 \label{sec:13-3-results}
 
 
-Global LOSO classification metrics are presented in Table 13.1. Per-fold results were consistent with this aggregate pattern across all held-out subjects; the full fold-by-fold table is presented in Appendix B.
+Global LOSO classification metrics are presented in Table 13.1. Per-fold results were consistent with this aggregate pattern across all held-out subjects; the full fold-by-fold table is presented in Appendix C.
 
 
 \begin{table}[htbp]
 \centering
-\small
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.2}
 \caption{Global Sequence Model Performance Metrics (LOSO CV)}
 \label{tab:table-13-1-global-sequence-model-performance-metrics-loso-cv}
-\begin{tabular}{p{2.6cm} p{3.4cm} l c c c c}
+\begin{tabular}{@{}p{1.4cm} p{2.7cm} >{\centering\arraybackslash}p{1.4cm} >{\centering\arraybackslash}p{1.8cm} >{\centering\arraybackslash}p{2.0cm} >{\centering\arraybackslash}p{1.6cm} >{\centering\arraybackslash}p{1.6cm}@{}}
 \hline
 \textbf{Exercise} & \textbf{Normalization} & \textbf{Model} & \textbf{Accuracy} & \textbf{Balanced Acc} & \textbf{F1-Score} & \textbf{AUC-ROC} \\
 \hline
-\textbf{Squat} ($N=98$) & Scheme\_A (Offset Sub) & \textbf{naive} & $73.47\%$ & $50.00\%$ & $0.8471$ & $0.5000$ \\
- &  & \textbf{peak} & \textbf{$81.63\%$} & \textbf{$81.36\%$} & \textbf{$0.8676$} & \textbf{$0.9038$} \\
- &  & \textbf{shape} & $38.78\%$ & $33.76\%$ & $0.5161$ & $0.3531$ \\
- &  & \textbf{lstm} & $59.18\%$ & $53.79\%$ & $0.7015$ & $0.4931$ \\
- & Scheme\_B (Min-Max) & \textbf{naive} & $73.47\%$ & $50.00\%$ & $0.8471$ & $0.5000$ \\
- &  & \textbf{peak} & \textbf{$81.63\%$} & \textbf{$81.36\%$} & \textbf{$0.8676$} & \textbf{$0.9038$} \\
- &  & \textbf{shape} & $38.78\%$ & $33.76\%$ & $0.5161$ & $0.3531$ \\
- &  & \textbf{lstm} & $73.47\%$ & $50.00\%$ & $0.8471$ & $0.6050$ \\
-\textbf{Lunge} ($N=61$) & Scheme\_A (Offset Sub) & \textbf{naive} & $59.02\%$ & $50.00\%$ & $0.0000$ & $0.5000$ \\
- &  & \textbf{peak} & \textbf{$80.33\%$} & \textbf{$81.50\%$} & \textbf{$0.7857$} & \textbf{$0.8289$} \\
- &  & \textbf{shape} & $57.38\%$ & $58.39\%$ & $0.5517$ & $0.5889$ \\
- &  & \textbf{lstm} & $54.10\%$ & $53.78\%$ & $0.4815$ & $0.5378$ \\
- & Scheme\_B (Min-Max) & \textbf{naive} & $59.02\%$ & $50.00\%$ & $0.0000$ & $0.5000$ \\
- &  & \textbf{peak} & \textbf{$80.33\%$} & \textbf{$81.50\%$} & \textbf{$0.7857$} & \textbf{$0.8289$} \\
- &  & \textbf{shape} & $57.38\%$ & $58.39\%$ & $0.5517$ & $0.5889$ \\
- &  & \textbf{lstm} & $42.62\%$ & $39.17\%$ & $0.2222$ & $0.4144$ \\
+Squat ($N=98$) & Scheme\_A (Offset Sub) & naive & $73.47\%$ & $50.00\%$ & $0.8471$ & $0.5000$ \\
+ &  & peak & $81.63\%$ & $81.36\%$ & $0.8676$ & $0.9038$ \\
+ &  & shape & $38.78\%$ & $33.76\%$ & $0.5161$ & $0.3531$ \\
+ &  & lstm & $59.18\%$ & $53.79\%$ & $0.7015$ & $0.4931$ \\
+ & Scheme\_B (Min-Max) & naive & $73.47\%$ & $50.00\%$ & $0.8471$ & $0.5000$ \\
+ &  & peak & $81.63\%$ & $81.36\%$ & $0.8676$ & $0.9038$ \\
+ &  & shape & $38.78\%$ & $33.76\%$ & $0.5161$ & $0.3531$ \\
+ &  & lstm & $73.47\%$ & $50.00\%$ & $0.8471$ & $0.6050$ \\
+Lunge ($N=61$) & Scheme\_A (Offset Sub) & naive & $59.02\%$ & $50.00\%$ & $0.0000$ & $0.5000$ \\
+ &  & peak & $80.33\%$ & $81.50\%$ & $0.7857$ & $0.8289$ \\
+ &  & shape & $57.38\%$ & $58.39\%$ & $0.5517$ & $0.5889$ \\
+ &  & lstm & $54.10\%$ & $53.78\%$ & $0.4815$ & $0.5378$ \\
+ & Scheme\_B (Min-Max) & naive & $59.02\%$ & $50.00\%$ & $0.0000$ & $0.5000$ \\
+ &  & peak & $80.33\%$ & $81.50\%$ & $0.7857$ & $0.8289$ \\
+ &  & shape & $57.38\%$ & $58.39\%$ & $0.5517$ & $0.5889$ \\
+ &  & lstm & $42.62\%$ & $39.17\%$ & $0.2222$ & $0.4144$ \\
 \hline
 \end{tabular}
 \end{table}

@@ -30,17 +30,18 @@ In each fold, all repetitions of a single held-out subject formed the test set, 
 
 Fold-level LSTM accuracy varies substantially ($20.00\%\text{--}100.00\%$ for squats; $0.00\%\text{--}100.00\%$ for lunges), reflecting instability characteristic of deep sequence models trained on 7–9-subject cohorts. This variance is itself evidence for the endpoint-dominance interpretation reported in Chapter 13: where the peak-flexion baseline maintains consistent per-fold performance, LSTM fold outcomes are dominated by held-out-subject identity rather than form patterns. The globally-pooled aggregates reported in Chapter 13 Table 13.1 weight each fold by test-set rep count and represent the mathematically rigorous summary.
 
-\subsection{Table B.1a: Squat Cohort LOSO Fold-by-Fold Results (9 Folds, N=98 Reps)}
+\subsection{Table C.1: Squat Cohort LOSO Fold-by-Fold Results (9 Folds, N=98 Reps)}
 \label{sec:table-b-1a-squat-cohort-loso-fold-by-fold-results-9-folds-n-98-reps}
 
 
-\begin{landscape}
 \begin{table}[htbp]
 \centering
-\small
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.2}
 \caption{Squat Cohort LOSO Fold-by-Fold Results (9 Folds, N=98 Reps)}
 \label{tab:loso-squat-folds}
-\begin{tabular}{c p{3.5cm} p{3cm} c c c c}
+\begin{tabular}{@{} >{\centering\arraybackslash}p{1.1cm} p{3.0cm} >{\centering\arraybackslash}p{1.8cm} >{\centering\arraybackslash}p{2.0cm} >{\centering\arraybackslash}p{1.8cm} >{\centering\arraybackslash}p{1.8cm} >{\centering\arraybackslash}p{1.8cm}@{}}
 \hline
 \textbf{Fold} & \textbf{Held-Out Subject} & \textbf{Reps (C/I)} & \textbf{Peak-Flex Baseline} & \textbf{Shape Baseline} & \textbf{LSTM Scheme A} & \textbf{LSTM Scheme B} \\
 \hline
@@ -56,19 +57,19 @@ Fold 9 & Subject 9 (\texttt{PM\_126}) & 11 (11C / 0I) & 90.91\% & 63.64\% & 72.7
 \hline
 \end{tabular}
 \end{table}
-\end{landscape}
 
-\subsection{Table B.1b: Lunge Cohort LOSO Fold-by-Fold Results (7 Folds, N=61 Reps)}
+\subsection{Table C.2: Lunge Cohort LOSO Fold-by-Fold Results (7 Folds, N=61 Reps)}
 \label{sec:table-b-1b-lunge-cohort-loso-fold-by-fold-results-7-folds-n-61-reps}
 
 
-\begin{landscape}
 \begin{table}[htbp]
 \centering
-\small
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.2}
 \caption{Lunge Cohort LOSO Fold-by-Fold Results (7 Folds, N=61 Reps)}
 \label{tab:loso-lunge-folds}
-\begin{tabular}{c p{3.5cm} p{3cm} c c c c}
+\begin{tabular}{@{} >{\centering\arraybackslash}p{1.1cm} p{3.0cm} >{\centering\arraybackslash}p{1.8cm} >{\centering\arraybackslash}p{2.0cm} >{\centering\arraybackslash}p{1.8cm} >{\centering\arraybackslash}p{1.8cm} >{\centering\arraybackslash}p{1.8cm}@{}}
 \hline
 \textbf{Fold} & \textbf{Held-Out Subject} & \textbf{Reps (C/I)} & \textbf{Peak-Flex Baseline} & \textbf{Shape Baseline} & \textbf{LSTM Scheme A} & \textbf{LSTM Scheme B} \\
 \hline
@@ -82,7 +83,6 @@ Fold 7 & Subject 9 (\texttt{PM\_125}) & 12 (6C / 6I) & 91.67\% & 66.67\% & 66.67
 \hline
 \end{tabular}
 \end{table}
-\end{landscape}
 
 
 
