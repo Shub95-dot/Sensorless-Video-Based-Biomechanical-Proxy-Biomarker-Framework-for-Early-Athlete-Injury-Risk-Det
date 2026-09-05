@@ -6,10 +6,11 @@ Sensorless Kinematic Screening Dashboard
 Main Streamlit application. Wraps the existing kinematic screening pipeline
 with an academic, clean UI for viva demonstration.
 Produces two distinct outputs after every run:
-1. Technical Screening Output (for clinicians, biomechanists, examiners)
-2. Layman-Friendly Final Result Page (for athletes, coaches, general audience)
+1. Technical Screening Output (for physiotherapists, examiners, biomechanists)
+2. Final Report Summary (Public-Facing Interpretation)
 
-NO raw HTML, code, or table markup. Built strictly with native Streamlit components.
+NO raw code, HTML, or table markup. Built strictly with native Streamlit components.
+NO emojis.
 
 Author  : Shubham Shirodkar
 Project : MSc AI/Data Science Dissertation, Southampton Solent University
@@ -37,7 +38,7 @@ from ui_components import (
     render_screening_card,
     render_xai_text,
     render_uncertainty_chart,
-    render_layman_page,
+    render_final_report_summary,
 )
 
 # ---------------------------------------------------------------------------
@@ -45,7 +46,7 @@ from ui_components import (
 # ---------------------------------------------------------------------------
 st.set_page_config(
     page_title="Kinematic Screening Dashboard",
-    page_icon="🏋️",
+    page_icon=None,
     layout="wide",
     initial_sidebar_state="collapsed",
 )
@@ -147,9 +148,9 @@ if run_clicked and uploaded_file is not None:
         # ===================================================================
         st.divider()
 
-        tab_tech, tab_layman = st.tabs([
-            "🔬 Technical Screening Output (Clinicians & Examiners)",
-            "👤 Layman-Friendly Final Result Page (Athlete Summary)",
+        tab_tech, tab_report = st.tabs([
+            "Technical Screening Output",
+            "Final Report Summary (Public-Facing Interpretation)",
         ])
 
         # -------------------------------------------------------------------
@@ -216,10 +217,10 @@ if run_clicked and uploaded_file is not None:
                 )
 
         # -------------------------------------------------------------------
-        # 2. Layman-Friendly Final Result Page
+        # 2. Final Report Summary (Public-Facing Interpretation)
         # -------------------------------------------------------------------
-        with tab_layman:
-            render_layman_page(result.screening, result.biomarkers, exercise_type)
+        with tab_report:
+            render_final_report_summary(result.screening, result.biomarkers, exercise_type)
 
         # Cleanup temp file
         try:
