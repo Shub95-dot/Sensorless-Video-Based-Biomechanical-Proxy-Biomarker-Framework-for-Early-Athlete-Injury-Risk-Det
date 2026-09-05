@@ -39,6 +39,7 @@ desktop.ini
 *.tmp
 *.bak
 *.log
+~$*
 
 # --- Large model files (download separately) ---
 # Uncomment the line below if you also want to exclude model weights:
